@@ -6,8 +6,8 @@ include(GNUInstallDirs)
 
 add_library(
 	${PROJECT_NAME}
-    "src/a.c"
- "include/ae2f/Bmp/Dot.h")
+    "src/__test/a.c"
+ "include/ae2f/Bmp/Dot.h" "src/__test/xa.cxx")
 
 include(FetchContent)
 find_package(Core)
@@ -18,7 +18,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.0.3"
+        GIT_TAG "Rel-v1.0.4"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
 
