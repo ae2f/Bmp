@@ -7,7 +7,7 @@ include(GNUInstallDirs)
 add_library(
 	${PROJECT_NAME}
     "src/a.c"
-)
+ "include/ae2f/Bmp/Dot.h")
 
 include(FetchContent)
 find_package(Core)
@@ -18,14 +18,14 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.0.2"
+        GIT_TAG "Rel-v1.0.3"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
 
     FetchContent_MakeAvailable(Core)
 
     install(DIRECTORY include/ae2f/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ae2f
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ae2f
     )
 
     install(EXPORT CoreTargets
@@ -33,6 +33,10 @@ if(NOT Core_FOUND)
         NAMESPACE ae2f::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ae2f
     )
+
+    include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core/include)
+else()
+    target_link_libraries(Bmp ae2f::Core)
 endif()
 
 
