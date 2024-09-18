@@ -29,7 +29,7 @@ struct ae2f_Bmp_Head_rBI {
     uint32_t biCompression;
     uint32_t biSizeImage;     // unit: Byte
     int32_t  biXPelsPerMeter;
-    int32_t  biYPelsPerMeter; 
+    int32_t  biYPelsPerMeter;
     uint32_t biClrUsed;
     uint32_t biClrImportant;  
 };

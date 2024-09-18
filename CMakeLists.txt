@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project("Bmp")
 
+option(ae2f_Bmp_Use_OpenCL OFF "Try the implementations using OpenCL.")
+
 # Namespace Package
 include(GNUInstallDirs)
 
@@ -11,18 +13,20 @@ add_library(
 
     "include/ae2f/Bmp/Dot.h" 
     "include/ae2f/Bmp/Head.h"
- "include/ae2f/Bmp/Idxer.h")
+    "include/ae2f/Bmp/Idxer.h"
+    "include/ae2f/Bmp/Src.h"
+    "src/Src/Default.c"
+)
 
 include(FetchContent)
 find_package(Core)
-
 if(NOT Core_FOUND)
     message("ae2f::Core not found")
 
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.0.4"
+        GIT_TAG "Rel-v1.0.5"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
 
@@ -41,6 +45,27 @@ if(NOT Core_FOUND)
     include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core/include)
 else()
     target_link_libraries(Bmp ae2f::Core)
+endif()
+
+if(${ae2f_Bmp_Use_OpenCL})
+find_package(OpenCL)
+if(NOT OpenCL_FOUND)
+    message("OpenCL::OpenCL not found")
+
+    FetchContent_Declare(
+        OpenCL
+        GIT_REPOSITORY https://github.com/KhronosGroup/OpenCL-SDK.git
+        GIT_TAG "v2024.05.08"
+        SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/OpenCL/OpenCL
+    )
+
+    FetchContent_MakeAvailable(OpenCL)
+    
+
+    # include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core/include)
+else()
+    target_link_libraries(Bmp OpenCL::OpenCL)
+endif()
 endif()
 
 
