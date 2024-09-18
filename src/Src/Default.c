@@ -8,8 +8,10 @@ typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSu
 ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
-	const ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t* srcprm
+	const struct ae2f_Bmp_cSrc_Copy_Global* _srcprm
 ) {
+#define srcprm ae2f_static_cast(const ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t*, _srcprm)
+
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
 		return ae2f_errGlobal_PTR_IS_NULL;
 	}
@@ -25,18 +27,18 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	}
 
 	uint32_t
-		dotW = ae2f_Bmp_Idx_XLeft(src->rIdxer) / srcprm->global.NWidth,
-		dotH = ae2f_Bmp_Idx_YLeft(src->rIdxer) / srcprm->global.NHeight;
+		dotW = ae2f_Bmp_Idx_XLeft(src->rIdxer) / srcprm->global.WidthAsResized,
+		dotH = ae2f_Bmp_Idx_YLeft(src->rIdxer) / srcprm->global.HeightAsResized;
 
 	dotW || (dotW++);
 	dotH || (dotH++);
 
-	for (uint32_t y = 0; y < srcprm->global.NHeight; y++) 
-		for (uint32_t x = 0; x < srcprm->global.NWidth; x++)
+	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++) 
+		for (uint32_t x = 0; x < srcprm->global.WidthAsResized; x++)
 		{
 			// is it able to be pasted in this dir
 			if (
-				(ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.NX, y + srcprm->global.NY)) 
+				(ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest))
 				== 
 				ae2f_static_cast(uint32_t, -1)
 				) break;
@@ -113,7 +115,7 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			tmpColour_B /= tmpColour_Count;
 			(src->ElSize == ae2f_Bmp_Idxer_eBC_RGBA) && (tmpColour_A /= tmpColour_Count);
 
-			for (uint8_t* addr = src->Addr + (src->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.NX, y + srcprm->global.NY), i = 0; i < src->ElSize >> 3; i++) {
+			for (uint8_t* addr = src->Addr + (src->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest), i = 0; i < src->ElSize >> 3; i++) {
 				uint8_t addr_a = src->ElSize == ae2f_Bmp_Idxer_eBC_RGB ? 255 : addr[3];
 
 				switch (i) {

@@ -6,6 +6,7 @@
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Macro/Cast.h>
 
+// Enum about Bit Count
 enum ae2f_Bmp_Idxer_eBC {
 	ae2f_Bmp_Idxer_eBC_BIT = 1,
 	ae2f_Bmp_Idxer_eBC_HALF = 4,
@@ -18,11 +19,21 @@ enum ae2f_Bmp_Idxer_eBC {
 
 typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
 
-struct ae2f_Bmp_rIdxer {
-	// as element count
-	uint32_t Width, Count, CurrX, IdxXJump;
-};
 
+// Suggest array as matrix.
+// as element count
+// IMPORTANT: DO NOT THINK THAT THEY ARE CONSIDERED AS BYTE
+struct ae2f_Bmp_rIdxer {
+	uint32_t 
+		// Actually considered width
+		Width, 
+		// the actual element count
+		Count, 
+		// Describe the current position as X where an address points.
+		CurrX,
+		// Suggested width
+		IdxXJump;
+};
 
 // Also actual Width of the [rIdxer].
 #define ae2f_Bmp_Idx_XLeft(rIdxer) ((rIdxer).IdxXJump - (rIdxer).CurrX)
@@ -37,8 +48,6 @@ struct ae2f_Bmp_rIdxer {
 // Check the element index is valid.
 // could returns -1 when not good.
 #define ae2f_Bmp_Idx_Drive(rIdxer, dx, dy) ae2f_static_cast(uint32_t, __ae2f_Bmp_Idx_DriveX(rIdxer, dx) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveY(rIdxer, dy) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveX(rIdxer, dx) + __ae2f_Bmp_Idx_DriveY(rIdxer, dy) * (rIdxer).Width)
-
-
 
 #endif // !defined(ae2f_Bmp_Idxer_h)
 
