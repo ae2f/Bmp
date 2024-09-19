@@ -8,8 +8,6 @@ include(GNUInstallDirs)
 
 add_library(
 	${PROJECT_NAME}
-    "src/__test/a.c"
-    "src/__test/xa.cxx" 
 
     "include/ae2f/Bmp/Dot.h" 
     "include/ae2f/Bmp/Head.h"
