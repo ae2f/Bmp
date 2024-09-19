@@ -10,3 +10,4 @@ Optional
 - [OpenCL::OpenCL v2024.05.08](https://github.com/KhronosGroup/OpenCL-SDK/releases/tag/v2024.05.08)
 	> Used for copying function parallelly.  
 	> Not implemented yet.
+	- ae2f_Bmp_Use_OpenCL
