@@ -3,7 +3,7 @@
 
 # depends on
 Critical
-- [ae2f::Core Rel-v1.0.6](https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.0.6)
+- [ae2f::Core Rel-v1.1.1](https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.1.1)
 	> Macros will be used for power.
 
 Optional
