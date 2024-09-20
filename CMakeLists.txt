@@ -8,7 +8,6 @@ include(GNUInstallDirs)
 
 add_library(
 	${PROJECT_NAME}
-
     "include/ae2f/Bmp/Dot.h" 
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
@@ -27,20 +26,9 @@ if(NOT Core_FOUND)
         GIT_TAG "Rel-v1.0.6"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
-
+    
     FetchContent_MakeAvailable(Core)
-
-    install(DIRECTORY include/ae2f/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ae2f
-    )
-
-    install(EXPORT CoreTargets
-        FILE CoreTargets.cmake
-        NAMESPACE ae2f::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ae2f
-    )
-
-    include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core/include)
+    target_link_libraries(${PROJECT_NAME} Core)
 else()
     target_link_libraries(Bmp ae2f::Core)
 endif()
@@ -58,9 +46,7 @@ if(NOT OpenCL_FOUND)
     )
 
     FetchContent_MakeAvailable(OpenCL)
-    
-
-    # include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core/include)
+    target_link_libraries(Bmp OpenCL)
 else()
     target_link_libraries(Bmp OpenCL::OpenCL)
 endif()
