@@ -23,7 +23,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.1.1"
+        GIT_TAG "Rel-v1.1.2"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
@@ -62,7 +62,7 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-# ¼³Ä¡ ¼³Á¤
+# ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 install(TARGETS ${PROJECT_NAME}
     EXPORT ${PROJECT_NAME}Targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -72,14 +72,14 @@ install(DIRECTORY include/ae2f/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ae2f
 )
 
-# ÆÐÅ°Áö ¼³Á¤
+# ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 install(EXPORT ${PROJECT_NAME}Targets
     FILE ${PROJECT_NAME}Targets.cmake
     NAMESPACE ae2f::
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ae2f
 )
 
-# ÆÐÅ°Áö ±¸¼º ÆÄÀÏ »ý¼º
+# ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"

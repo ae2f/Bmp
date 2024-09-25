@@ -1,3 +1,9 @@
 installdir/*
 out/*
 .vs/*
+_deps/*
+CMakeFiles/*
+*.cmake
+external/*
+*.a
+Makefile

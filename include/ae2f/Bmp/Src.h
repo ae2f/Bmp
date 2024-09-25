@@ -34,7 +34,7 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 #define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlobal_LMT
 ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const uint8_t* byte,
+	uint8_t* byte,
 	size_t byteLength
 );
 

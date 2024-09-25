@@ -137,7 +137,7 @@ ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 
 ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const uint8_t* byte,
+	uint8_t* byte,
 	size_t byteLength
 ) {
 	if (byteLength < sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI)) 
