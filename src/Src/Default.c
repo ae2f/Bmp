@@ -2,10 +2,12 @@
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Bmp/Dot.h>
 #include <ae2f/Macro/BitVector.h>
+#include <ae2f/Bmp/Head.h>
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
-ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
+
+ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const struct ae2f_Bmp_cSrc_Copy_Global* _srcprm
@@ -130,5 +132,22 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 #undef Done
 #undef addr_tar
 		}
+	return ae2f_errGlobal_OK;
+}
+
+ae2f_errint_t ae2f_Bmp_cSrc_Read(
+	ae2f_struct ae2f_Bmp_cSrc* dest,
+	const uint8_t* byte,
+	size_t byteLength
+) {
+	if (byteLength < sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI)) 
+		return ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT;
+
+	dest->ElSize = ((struct ae2f_Bmp_rHead*)byte)->rBI.biBitCount;
+	dest->rIdxer.Width = dest->rIdxer.IdxXJump = ((struct ae2f_Bmp_rHead*)byte)->rBI.biWidth;
+	dest->rIdxer.CurrX = 0;
+	dest->rIdxer.Count = ((struct ae2f_Bmp_rHead*)byte)->rBI.biWidth * ((struct ae2f_Bmp_rHead*)byte)->rBI.biHeight;
+
+	dest->Addr = byte + sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI);
 	return ae2f_errGlobal_OK;
 }

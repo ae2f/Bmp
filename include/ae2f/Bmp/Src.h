@@ -26,10 +26,19 @@ struct ae2f_Bmp_cSrc {
 };
 
 ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
-	ae2f_struct ae2f_Bmp_cSrc* dest, 
+	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm
 );
+
+#define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlobal_LMT
+ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Read(
+	ae2f_struct ae2f_Bmp_cSrc* dest,
+	const uint8_t* byte,
+	size_t byteLength
+);
+
+#define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #endif // !defined(ae2f_Bmp_Src_h)
 

@@ -13,7 +13,7 @@ add_library(
     "include/ae2f/Bmp/Idxer.h"
     "include/ae2f/Bmp/Src.h"
     "src/Src/Default.c"
-)
+ "src/Src/a.cpp")
 
 include(FetchContent)
 find_package(Core)
