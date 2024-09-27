@@ -8,12 +8,14 @@ include(GNUInstallDirs)
 
 add_library(
 	${PROJECT_NAME}
-    "include/ae2f/Bmp/Dot.h" 
+    "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
     "include/ae2f/Bmp/Src.h"
     "src/Src/Default.c"
- "src/Src/a.cpp")
+    "src/Src/a.cpp"
+)
+
 
 include(FetchContent)
 find_package(Core)

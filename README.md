@@ -1,6 +1,8 @@
 # ae2f_Bmp
  Bmp FIle Handler
 
+> It is a experiment of installing and linking the package which are static libraries written in C/C++.
+
 # depends on
 Critical
 - [ae2f::Core Rel-v1.1.2](https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.1.2)
