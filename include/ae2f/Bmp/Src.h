@@ -25,13 +25,35 @@ struct ae2f_Bmp_cSrc {
 	uint8_t* Addr;
 };
 
+/// @brief 
+/// Copies the data of `src` to `dest`.
+/// @param dest 
+/// Destination where the `src` would be copied.
+/// 
+/// Allocating will not be automatically done.
+/// @param src 
+/// Source which has the actual data.
+/// @param srcprm 
+/// Additional operator attribute for `src`.
 ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm
 );
 
+/// @brief 
+/// `byte` is not long enough to parse.
 #define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlobal_LMT
+
+/// @brief 
+/// # After this operation `dest` will still not own the memory, but `byte` will.
+/// @param dest 
+/// Destination where the `byte` 
+/// @param byte 
+/// The data of bmp structure with header.
+/// @param byteLength 
+/// size of the `byte`.
+/// @return 
 ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint8_t* byte,
@@ -41,110 +63,3 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Read(
 #define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #endif // !defined(ae2f_Bmp_Src_h)
-
-#if defined(__cplusplus) && !defined(ae2f_Bmp_Src_hpp)
-#define ae2f_Bmp_Src_hpp 
-
-#include <ae2f/DataStructure/Allocator.h>
-
-namespace ae2f {
-	namespace Bmp {
-		namespace BuildPrm {
-			using Global = ae2f_Bmp_cSrc_Copy_Global;
-
-			struct Indexed : private DataStructure::Allocator::cOwner {
-				inline Indexed(uint8_t len, ae2f_errint_t* err = 0) noexcept 
-					: cOwner(
-						len + sizeof(Global), 
-						&ae2f_ds_Alloc_vOwner_cLinear, 
-						&ae2f_ds_Alloc_vRefer_cLinear, 
-						err
-					) {}
-
-				constexpr		Global* GlobalBuff() noexcept {
-					return this->data ? static_cast<Global*>(static_cast<void*>(this->data + sizeof(size_t))) : nullptr;
-				}
-				constexpr const Global* GlobalBuff() const noexcept {
-					return this->data ? static_cast<const Global*>(static_cast<const void*>(this->data + sizeof(size_t))) : nullptr;
-				}
-				constexpr		uint8_t len() const noexcept {
-					return this->data ? static_cast<const uint8_t*>(static_cast<const void*>(this->data))[0] : 0;
-				}
-
-				inline ~Indexed() noexcept {}
-			};
-		};
-
-		struct cSrc : public ae2f_Bmp_cSrc {
-			inline ae2f_errint_t Copy(
-				const cSrc& src,
-				const BuildPrm::Global& srcPrm
-			) {
-				switch (src.ElSize) {
-				case ae2f_Bmp_Idxer_eBC_RGB:
-				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
-				}
-				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
-			}
-
-			inline ae2f_errint_t Copy(
-				const cSrc&& src,
-				const BuildPrm::Global& srcPrm
-			) {
-				switch (src.ElSize) {
-				case ae2f_Bmp_Idxer_eBC_RGB:
-				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
-				}
-				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
-			}
-
-			inline ae2f_errint_t Copy(
-				const cSrc& src,
-				const BuildPrm::Global&& srcPrm
-			) {
-				switch (src.ElSize) {
-				case ae2f_Bmp_Idxer_eBC_RGB:
-				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
-				}
-				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
-			}
-
-			inline ae2f_errint_t Copy(
-				const cSrc&& src,
-				const BuildPrm::Global&& srcPrm
-			) {
-				switch (src.ElSize) {
-				case ae2f_Bmp_Idxer_eBC_RGB:
-				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
-				}
-				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
-			}
-
-			inline ae2f_errint_t Copy(
-				const cSrc& src,
-				const BuildPrm::Indexed& srcPrm
-			) {
-				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
-
-				return ae2f_Bmp_cSrc_Copy(this, &src, srcPrm.GlobalBuff());
-			}
-
-			inline ae2f_errint_t Copy(
-				const cSrc&& src,
-				const BuildPrm::Indexed& srcPrm
-			) {
-				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
-
-				return ae2f_Bmp_cSrc_Copy(this, &src, srcPrm.GlobalBuff());
-			}
-		};
-	}
-}
-
-#endif // !defined(__cplusplus)

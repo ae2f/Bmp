@@ -43,6 +43,7 @@ struct ae2f_Bmp_rIdxer {
 
 #define __ae2f_Bmp_Idx_DriveX(rIdxer, dx) ae2f_static_cast(uint32_t, (dx) < ae2f_Bmp_Idx_XLeft(rIdxer) ? (dx) : -1)
 #define __ae2f_Bmp_Idx_DriveY(rIdxer, dy) ae2f_static_cast(uint32_t, (dy) < ae2f_Bmp_Idx_YLeft(rIdxer) ? (dy) : -1)
+
 // uint32_t
 // Check the element index is valid.
 // could returns -1 when not good.
@@ -52,24 +53,3 @@ struct ae2f_Bmp_rIdxer {
 #define ae2f_Bmp_Idx_Cut(rIdxer, mX, MX, mY, MY) (((ae2f_Bmp_Idx_Drive(rIdxer, mX, mY) == -1 || ae2f_Bmp_Idx_Drive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, (rIdxer).Width, ae2f_Bmp_Idx_Drive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))
 
 #endif // !defined(ae2f_Bmp_Idxer_h)
-
-#if defined(__cplusplus) && !defined(ae2f_Bmp_Idxer_hpp)
-#define ae2f_Bmp_Idxer_hpp
-
-namespace ae2f {
-	namespace Bmp {
-		struct Idxer : public ae2f_Bmp_rIdxer {
-			constexpr Idxer(const Idxer& r, uint32_t minX, uint32_t maxX, uint32_t minY, uint32_t maxY)
-				noexcept : ae2f_Bmp_rIdxer(ae2f_Bmp_Idx_Cut(r, minX, maxX, minY, maxY)) {}
-
-			constexpr Idxer(uint32_t width, uint32_t count, uint32_t currentX) 
-				noexcept : ae2f_Bmp_rIdxer{width, count, currentX} {}
-
-			constexpr uint32_t Drive(uint32_t dx, uint32_t dy) const noexcept {
-				return ae2f_Bmp_Idx_Drive(this[0], dx, dy);
-			}
-		};
-	}
-}
-
-#endif // !defined(__cplusplus)
