@@ -33,7 +33,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.1"
+        GIT_TAG "Rel-v1.2.1.1"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
