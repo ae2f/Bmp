@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(Bmp)
 
-option(ae2f_Bmp_Use_OpenCL OFF "Try the implementations using OpenCL.")
+option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." OFF)
 option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
 
 if(ae2f_IS_SHARED)
@@ -9,7 +9,7 @@ if(ae2f_IS_SHARED)
     add_compile_definitions(-D_ae2f_IS_SHARED=1)
 else()
     set(ae2f_PREFIX_LIB )
-    add_compile_definitions(-D_ae2f_IS_SHARED=1)
+    add_compile_definitions(-D_ae2f_IS_SHARED=0)
 endif()
 
 # Namespace Package
