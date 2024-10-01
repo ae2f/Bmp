@@ -2,6 +2,7 @@
 #define ae2f_Bmp_Src_h
 
 #include "Idxer.h"
+#include <ae2f/Macro/Call.h>
 
 // Pre-made parameter for 
 struct ae2f_Bmp_cSrc_Copy_Global {
@@ -35,7 +36,7 @@ struct ae2f_Bmp_cSrc {
 /// Source which has the actual data.
 /// @param srcprm 
 /// Additional operator attribute for `src`.
-ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
+ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm
@@ -54,7 +55,7 @@ ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 /// @param byteLength 
 /// size of the `byte`.
 /// @return 
-ae2f_extern ae2f_errint_t ae2f_Bmp_cSrc_Read(
+ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint8_t* byte,
 	size_t byteLength

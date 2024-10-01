@@ -2,12 +2,22 @@ cmake_minimum_required(VERSION 3.10)
 project(Bmp)
 
 option(ae2f_Bmp_Use_OpenCL OFF "Try the implementations using OpenCL.")
+option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
+
+if(ae2f_IS_SHARED)
+    set(ae2f_PREFIX_LIB SHARED)
+    add_compile_definitions(-D_ae2f_IS_SHARED=1)
+else()
+    set(ae2f_PREFIX_LIB )
+    add_compile_definitions(-D_ae2f_IS_SHARED=1)
+endif()
 
 # Namespace Package
 include(GNUInstallDirs)
 
 add_library(
 	${PROJECT_NAME}
+    ${ae2f_PREFIX_LIB}
     "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
@@ -23,7 +33,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.0"
+        GIT_TAG "Rel-v1.2.1"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
