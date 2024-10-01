@@ -3,6 +3,8 @@ project(Bmp)
 
 option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." OFF)
 option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
+option(ae2f_IS_WIN "windows dll?" OFF)
+option(ae2f_IS_LINUX "linux?" OFF)
 
 if(ae2f_IS_SHARED)
     set(ae2f_PREFIX_LIB SHARED)
@@ -33,7 +35,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.1.3"
+        GIT_TAG "Rel-v1.2.2"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
