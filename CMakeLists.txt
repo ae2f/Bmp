@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(Bmp)
+enable_testing()
 
 option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." OFF)
 option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
@@ -24,6 +25,11 @@ add_library(
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
     "include/ae2f/Bmp/Src.h"
+
+    "include/ae2f/Bmp/Dot.hpp"
+    "include/ae2f/Bmp/Idxer.hpp"
+    "include/ae2f/Bmp/Src.hpp"
+    
     "src/Src/Default.c"
 )
 
@@ -35,7 +41,7 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.3"
+        GIT_TAG "Rel-v1.2.8"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
@@ -100,3 +106,5 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
 )
+
+add_subdirectory(test)

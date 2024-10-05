@@ -5,6 +5,8 @@
 #include <ae2f/Bmp/Head.h>
 #include <ae2f/Macro/Call.h>
 
+#include <stdio.h>
+
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
 
@@ -55,11 +57,11 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 #define tmpColour_B tmpColour[2]
 #define tmpColour_A tmpColour[3]
 
-
 			for (uint32_t doty = 0; doty < dotH; doty++) 
 				for(uint32_t dotx = 0; dotx < dotW; dotx++) {
 					// index for source as count
 					uint64_t srcDir = ae2f_Bmp_Idx_Drive(src->rIdxer, x * dotW + dotx, y * dotH + doty);
+
 					if (srcDir == -1) break;
 					switch (src->ElSize) {
 					case ae2f_Bmp_Idxer_eBC_RGBA:
@@ -89,7 +91,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 
 						tmpColour_Count += src->ElSize == ae2f_Bmp_Idxer_eBC_RGBA ? (src->Addr + (srcDir * (src->ElSize >> 3)))[3] : 1;
 					} break;
-												
+
 					default: { // 1 4 8
 						uint8_t ColourIdx 
 							= ae2f_Macro_BitVector_GetRanged(
@@ -113,17 +115,34 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 					}
 				}
 
+			if(!tmpColour_Count) continue;
 			tmpColour_R /= tmpColour_Count;
 			tmpColour_G /= tmpColour_Count;
 			tmpColour_B /= tmpColour_Count;
+
 			(src->ElSize == ae2f_Bmp_Idxer_eBC_RGBA) && (tmpColour_A /= tmpColour_Count);
 
-			for (uint8_t* addr = src->Addr + (src->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest), i = 0; i < src->ElSize >> 3; i++) {
+			for (
+				uint8_t* 
+				addr = dest->Addr + (dest->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest), 
+				i = 0; 
+				
+				i < (src->ElSize >> 3); 
+				
+				i++
+				
+				) {
 				uint8_t addr_a = src->ElSize == ae2f_Bmp_Idxer_eBC_RGB ? 255 : addr[3];
-
+				
 				switch (i) {
 				default: {
-					addr[i] = ae2f_Bmp_Dot_Blend_imp(tmpColour[i], addr[i], tmpColour_A / (ae2f_static_cast(double, tmpColour_A) + addr_a), uint8_t, );
+
+					addr[i] = ae2f_Bmp_Dot_Blend_imp(
+						tmpColour[i], 
+						addr[i], 
+						((ae2f_static_cast(double, tmpColour_A)) / ae2f_static_cast(double, addr_a + tmpColour_A)), 
+						uint8_t, 
+					);
 				} break;
 				case 3: {
 					addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + tmpColour[i]) >> 1;

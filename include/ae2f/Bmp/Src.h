@@ -4,14 +4,25 @@
 #include "Idxer.h"
 #include <ae2f/Macro/Call.h>
 
-// Pre-made parameter for 
+// Enum about Bit Count per Pixel
+enum ae2f_Bmp_Idxer_eBC {
+	ae2f_Bmp_Idxer_eBC_BIT = 1,
+	ae2f_Bmp_Idxer_eBC_HALF = 4, // 0 ~ 15
+	ae2f_Bmp_Idxer_eBC_BYTE = 8, // 0 ~ 255
+	ae2f_Bmp_Idxer_eBC_RGB = 24, // not indexing, rgb
+	ae2f_Bmp_Idxer_eBC_RGBA = 32, // not indexing, rgba
+	ae2f_Bmp_Idxer_eBC_REMINDER_OWNER = 64
+};
+
+typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
+
 struct ae2f_Bmp_cSrc_Copy_Global {
-	const uint8_t Alpha;
+	const uint8_t Alpha; // Global Fucking Alpha
 	const uint32_t 
-		WidthAsResized, 
-		HeightAsResized, 
-		AddrXForDest, 
-		AddrYForDest, 
+		WidthAsResized, 	// want to resize?
+		HeightAsResized, 	// want to resize?
+		AddrXForDest, 		// where to copy
+		AddrYForDest, 		// where to copy
 		DataToIgnore;
 };
 
@@ -19,10 +30,14 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 
 struct ae2f_Bmp_cSrc {
 	// Indexing suporter
+	// Abstraction
 	ae2f_struct ae2f_Bmp_rIdxer rIdxer;
 
-	// size of each element as bit
+	// size of each element[pixel] as bit
+	// bit cound [Element Size]
 	ae2f_Bmp_Idxer_eBC_t ElSize;
+
+	// Real element[pixel] vector [Global]
 	uint8_t* Addr;
 };
 

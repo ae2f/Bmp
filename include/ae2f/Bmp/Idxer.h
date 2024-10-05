@@ -6,32 +6,21 @@
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Macro/Cast.h>
 
-// Enum about Bit Count
-enum ae2f_Bmp_Idxer_eBC {
-	ae2f_Bmp_Idxer_eBC_BIT = 1,
-	ae2f_Bmp_Idxer_eBC_HALF = 4,
-	ae2f_Bmp_Idxer_eBC_BYTE = 8,
-	ae2f_Bmp_Idxer_eBC_RGB = 24,
-	ae2f_Bmp_Idxer_eBC_RGBA = 32,
-
-	ae2f_Bmp_Idxer_eBC_REMINDER_OWNER = 64
-};
-
-typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
-
-
 // Suggest array as matrix.
 // as element count
 // IMPORTANT: DO NOT THINK THAT THEY ARE CONSIDERED AS BYTE
 struct ae2f_Bmp_rIdxer {
 	uint32_t 
-		// Actually considered width
+		// Actually considered width [Global width]
 		Width, 
-		// the actual element count
-		Count, 
-		// Describe the current position as X where an address points.
+
+		// the actual element count [Local Count]
+		Count,
+
+		// Describe the current position as X where an address points. [Local X start]
 		CurrX,
-		// Suggested width
+
+		// Suggested width [Local Width]
 		IdxXJump;
 };
 

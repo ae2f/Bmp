@@ -23,12 +23,14 @@ typedef long double ae2f_Bmp_Dot_Blender_tl;
 /// float / double / long double
 /// 
 ///	ratio suggestion for [a] when mixed
+/// 
+/// Must be within 0 ~ 1
 ///	@param prefixForOperatee
 ///	f, l, or just nothing.
 /// 
 /// @returns
 ///	Blended value of [a] and [b] according to the [ratio_a].
-#define ae2f_Bmp_Dot_Blend_imp(a, b, ratio_a, rtn_t, prefixForOperatee) ae2f_static_cast(rtn_t, (((a) * (ratio_a) + (b) * (1.0##prefixForOperatee - (ratio_a))) / 2.0##prefixForOperatee))
+#define ae2f_Bmp_Dot_Blend_imp(a, b, ratio_a, rtn_t, prefixForOperatee) ae2f_static_cast(rtn_t, (((a) * (ratio_a) + (b) * (1.0##prefixForOperatee - (ratio_a)))))
 
 #define ae2f_Bmp_Dot_RGBA_GetR(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8))
 #define ae2f_Bmp_Dot_RGBA_GetG(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16))

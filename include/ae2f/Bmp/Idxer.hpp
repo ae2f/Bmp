@@ -1,4 +1,4 @@
-#include "./Idxer.h"
+#include <ae2f/Bmp/Idxer.h>
 
 #if defined(__cplusplus) && !defined(ae2f_Bmp_Idxer_hpp)
 #define ae2f_Bmp_Idxer_hpp
