@@ -99,6 +99,136 @@ namespace ae2f {
 
 				return ae2f_Bmp_cSrc_Copy(this, &src, srcPrm.GlobalBuff());
 			}
+
+#pragma region Extended_Partial
+			inline ae2f_errint_t Copy(
+				const cSrc& src,
+				const BuildPrm::Global& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				switch (src.ElSize) {
+				case ae2f_Bmp_Idxer_eBC_RGB:
+				case ae2f_Bmp_Idxer_eBC_RGBA: break;
+				default: return ae2f_errGlobal_WRONG_OPERATION;
+				}
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, &srcPrm,
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+
+			inline ae2f_errint_t Copy(
+				const cSrc&& src,
+				const BuildPrm::Global& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				switch (src.ElSize) {
+				case ae2f_Bmp_Idxer_eBC_RGB:
+				case ae2f_Bmp_Idxer_eBC_RGBA: break;
+				default: return ae2f_errGlobal_WRONG_OPERATION;
+				}
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, &srcPrm,
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+
+			inline ae2f_errint_t Copy(
+				const cSrc& src,
+				const BuildPrm::Global&& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				switch (src.ElSize) {
+				case ae2f_Bmp_Idxer_eBC_RGB:
+				case ae2f_Bmp_Idxer_eBC_RGBA: break;
+				default: return ae2f_errGlobal_WRONG_OPERATION;
+				}
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, &srcPrm,
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+
+			inline ae2f_errint_t Copy(
+				const cSrc&& src,
+				const BuildPrm::Global&& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				switch (src.ElSize) {
+				case ae2f_Bmp_Idxer_eBC_RGB:
+				case ae2f_Bmp_Idxer_eBC_RGBA: break;
+				default: return ae2f_errGlobal_WRONG_OPERATION;
+				}
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, &srcPrm,
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+
+			inline ae2f_errint_t Copy(
+				const cSrc& src,
+				const BuildPrm::Indexed& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				if (srcPrm.len() < (1 << src.ElSize))
+					return ae2f_errGlobal_WRONG_OPERATION;
+
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, srcPrm.GlobalBuff(),
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+
+			inline ae2f_errint_t Copy(
+				const cSrc&& src,
+				const BuildPrm::Indexed& srcPrm,
+				uint32_t partial_min_x,
+				uint32_t partial_min_y,
+				uint32_t partial_max_x,
+				uint32_t partial_max_y
+			) {
+				if (srcPrm.len() < (1 << src.ElSize))
+					return ae2f_errGlobal_WRONG_OPERATION;
+
+				return ae2f_Bmp_cSrc_Copy_Partial(
+					this, &src, srcPrm.GlobalBuff(),
+					partial_min_x,
+					partial_min_y,
+					partial_max_x,
+					partial_max_y
+				);
+			}
+#pragma endregion
 		};
 	}
 }
