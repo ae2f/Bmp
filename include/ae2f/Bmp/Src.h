@@ -17,8 +17,8 @@ enum ae2f_Bmp_Idxer_eBC {
 typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
 
 struct ae2f_Bmp_cSrc_Copy_Global {
-	const uint8_t Alpha; // Global Fucking Alpha
-	const uint32_t 
+	uint8_t Alpha; // Global Fucking Alpha
+	uint32_t 
 		WidthAsResized, 	// want to resize?
 		HeightAsResized, 	// want to resize?
 		AddrXForDest, 		// where to copy
