@@ -41,6 +41,11 @@ struct ae2f_Bmp_cSrc {
 	uint8_t* Addr;
 };
 
+ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
+	ae2f_struct ae2f_Bmp_cSrc* dest,
+	uint32_t colour
+);
+
 /// @brief 
 /// Copies the data of `src` to `dest`.
 /// @param dest 

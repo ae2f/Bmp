@@ -9,6 +9,24 @@
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
+ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
+	ae2f_struct ae2f_Bmp_cSrc* dest,
+	uint32_t colour
+) {
+	if(!(dest && dest->Addr))
+	return ae2f_errGlobal_PTR_IS_NULL;
+
+	switch (dest->ElSize) {
+	case ae2f_Bmp_Idxer_eBC_RGB:
+	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	}
+
+	for(size_t i = 0; i < ae2f_Bmp_Idx_XLeft(dest->rIdxer); i++)	
+	for(size_t j = 0; j < ae2f_Bmp_Idx_YLeft(dest->rIdxer); j++)
+	for(uint8_t c = 0; c < dest->ElSize; c+=8)
+	dest->Addr[ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j) + (c >> 3)] = ae2f_Macro_BitVector_GetRanged(colour, c, c+8);
+}
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
