@@ -229,6 +229,12 @@ namespace ae2f {
 				);
 			}
 #pragma endregion
+
+			inline ae2f_errint_t Fill(
+				uint32_t colour
+			) {
+				return ae2f_Bmp_cSrc_Fill(this, colour);
+			}
 		};
 	}
 }

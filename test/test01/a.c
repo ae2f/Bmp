@@ -41,10 +41,12 @@ int test0x0() {
 #pragma endregion
 
 #pragma region 'a' val init & print
+    ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFFFF);
+
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
+            // ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
             printf("%d ", ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)]);
         }
 
