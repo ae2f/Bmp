@@ -8,6 +8,7 @@
 int test0x0();
 int test0x1();
 int test0x2();
+int test0x3();
 
 // copy test: same size, same elsize [32 bit, rgba]
 int test0x0() {
@@ -293,6 +294,95 @@ __KILL_A:
 #pragma endregion
 }
 
+// copy test: Partial, same elsize, non-same width/height [24 bits, rgb]
+int test0x3() {
+    struct ae2f_Bmp_cSrc a, b;
+
+    int ax = 10, ay = 9, code = 0,
+        bx = 1920, by = 1080;
+
+#pragma region 'a' init
+    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+        .Count = ax * ay,
+        .CurrX = 0,
+        .IdxXJump = ax,
+        .Width = ax
+    };
+    a.ElSize = 24;
+    if(!(a.Addr = calloc(ax * ay, 3)))
+    return ae2f_errGlobal_ALLOC_FAILED;
+
+#pragma endregion
+
+#pragma region 'b' init
+    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+        .Count = bx * by,
+        .CurrX = 0,
+        .IdxXJump = bx,
+        .Width = bx
+    };
+    b.ElSize = 24;
+    if(!(b.Addr = calloc(bx * by, 3)))
+    goto __KILL_A;
+
+#pragma endregion
+
+#if 1
+#pragma region 'a' val init & print
+    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlobal_OK)
+    goto __KILL_ALL;
+#pragma endregion
+
+#pragma region 'b' val print
+    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlobal_OK)
+    goto __KILL_ALL;
+#pragma endregion
+#endif
+
+#pragma region Source Parameter Build
+    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+        .AddrXForDest = 0,
+        .AddrYForDest = 0,
+        .Alpha = 255,
+        .DataToIgnore = 0,
+        .HeightAsResized = ay,
+        .WidthAsResized = ax
+    };
+#pragma endregion
+
+#pragma region copying 'a' to 'b'
+    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlobal_OK) {
+        goto __KILL_ALL;
+    }
+#pragma endregion
+
+#pragma region 'a' cmp 'b'
+    for(int i = 0; i < bx; i++) {
+        for(int j = 0; j < by; j++) {
+            if(ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) != -1) {
+                printf("\n%d %d %d\n",
+                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 0],
+                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 1],
+                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 2]
+                );
+            }
+        }
+    }
+#pragma endregion
+
+#pragma region Freeing Memory
+
+
+__KILL_ALL:
+    free(b.Addr);
+
+__KILL_A:
+    free(a.Addr);
+    return code;
+#pragma endregion
+}
+
+
 
 int main() {
     int code;
@@ -300,6 +390,7 @@ int main() {
     TEST(test0x0, code);
     TEST(test0x1, code);
     TEST(test0x2, code);
+    TEST(test0x3, code);
 
     return 0;
 }

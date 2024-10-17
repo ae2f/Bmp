@@ -46,6 +46,15 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	uint32_t colour
 );
 
+ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
+	const ae2f_struct ae2f_Bmp_cSrc* src,
+	uint32_t* retColour,
+	double _min_x,
+	double _min_y,
+	double _max_x,
+	double _max_y
+);
+
 /// @brief 
 /// Copies the data of `src` to `dest`.
 /// @param dest 
