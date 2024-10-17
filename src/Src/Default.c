@@ -308,6 +308,11 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				uint32_t a;
 				uint8_t b[4];
 			} el;
+
+			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
+				el.b[3] = srcprm->global.Alpha;
+			}
+
 			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * x, doth * y, dotw * (x + 1), doth * (y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
