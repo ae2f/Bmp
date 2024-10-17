@@ -298,8 +298,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 
 	
 	double 
-		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / srcprm->global.WidthAsResized), 
-		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / srcprm->global.HeightAsResized);
+		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
+		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (double)srcprm->global.HeightAsResized);
 
 	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++)
 		for (uint32_t x = 0; x < srcprm->global.WidthAsResized; x++)
