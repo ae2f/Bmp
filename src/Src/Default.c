@@ -73,8 +73,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	Corner.maxy++;
 
 	#pragma region Centre
-	for(size_t i = Corner.minx; i < Corner.maxx; i++)
-	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
+	for(size_t i = Corner.minx; i < Corner.maxx && i < ae2f_Bmp_Idx_XLeft(src->rIdxer); i++)
+	for(size_t j = Corner.miny; j < Corner.maxy && j < ae2f_Bmp_Idx_YLeft(src->rIdxer); j++) {
 		const uint8_t* const __src = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, j) * (src->ElSize >> 3);
 
 		if(__src + 1 == src->Addr) continue;
@@ -287,7 +287,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
-			
+
 			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
 				el.b[3] = srcprm->global.Alpha;
 			}
