@@ -9,6 +9,8 @@
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
+#define SOMETHING_SMALL 1
+
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
@@ -17,9 +19,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	double _max_x,
 	double _max_y
 ) {
-	_max_x-=1;
-	_max_y-=1;
-
+	_max_x-=SOMETHING_SMALL;
+	_max_y-=SOMETHING_SMALL;
 
 	if(!(src && retColour && src->Addr))
 	return ae2f_errGlobal_PTR_IS_NULL;
@@ -40,13 +41,13 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	if(_max_x < 0) _max_x = 0;
 	if(_max_y < 0) _max_y = 0;
 
-	if(_min_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer)) 
+	if(_min_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer))
 	_min_x = ae2f_Bmp_Idx_XLeft(src->rIdxer);
 
-	if(_max_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer)) 
+	if(_max_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer))
 	_max_x = ae2f_Bmp_Idx_XLeft(src->rIdxer);
 
-	if(_min_y >= ae2f_Bmp_Idx_YLeft(src->rIdxer)) 
+	if(_min_y >= ae2f_Bmp_Idx_YLeft(src->rIdxer))
 	_min_y = ae2f_Bmp_Idx_YLeft(src->rIdxer);
 
 	if(_max_y >= ae2f_Bmp_Idx_YLeft(src->rIdxer)) 
@@ -156,7 +157,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 			const uint8_t* const __srcu = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, Corner.miny - 1) * (src->ElSize >> 3);
 			const uint8_t* const __srcd = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, Corner.maxy) * (src->ElSize >> 3);
 
-			double mHeight = Corner.miny - _min_y, MHeight = _max_y - Corner.maxy;
+			double mHeight = (double)Corner.miny - _min_y, MHeight = _max_y - (double)Corner.maxy;
 
 			switch(src->ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB: {
