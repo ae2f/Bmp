@@ -73,8 +73,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	Corner.maxy++;
 
 	#pragma region Centre
-	for(size_t i = Corner.minx; i < Corner.maxx && i < ae2f_Bmp_Idx_XLeft(src->rIdxer); i++)
-	for(size_t j = Corner.miny; j < Corner.maxy && j < ae2f_Bmp_Idx_YLeft(src->rIdxer); j++) {
+	for(size_t i = Corner.minx; i < Corner.maxx; i++)
+	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
 		const uint8_t* const __src = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, j) * (src->ElSize >> 3);
 
 		if(__src + 1 == src->Addr) continue;
@@ -204,9 +204,12 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
+			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest);
+			if(foridx == -1) break;
+
 			for (
 				uint8_t* 
-				addr = dest->Addr + (dest->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest), 
+				addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
 				i = 0; 
 				
 				i < (src->ElSize >> 3); 
@@ -292,9 +295,12 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
+			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest);
+			if(foridx == -1) break;
+
 			for (
 				uint8_t* 
-				addr = dest->Addr + (dest->ElSize >> 3) * ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest), 
+				addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
 				i = 0; 
 				
 				i < (src->ElSize >> 3); 
