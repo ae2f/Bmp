@@ -57,6 +57,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 
 /// @brief 
 /// Copies the data of `src` to `dest`.
+///
+/// `src` will be considered that is has only 3 channels in use, aka RGB.
 /// @param dest 
 /// Destination where the `src` would be copied.
 /// 
@@ -73,6 +75,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 
 /// @brief 
 /// Copies the data of `src` to `dest`.
+/// 
+/// `src` will be considered that is has only 3 channels in use, aka RGB.
 /// @param dest 
 /// Destination where the `src` would be copied.
 /// 

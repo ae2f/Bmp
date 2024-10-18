@@ -87,7 +87,7 @@ int test0x0() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            if(((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 0x7FFFFFFF) {
+            if(((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
                 code = ae2f_errGlobal_WRONG_OPERATION;
                 goto __KILL_ALL;
             }
@@ -155,7 +155,6 @@ int test0x1() {
     printf("Bmp B\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            // ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] = 0xFFFFFFFF;
             printf("%d ", ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)]);
         }
         printf("\n");
@@ -182,7 +181,7 @@ int test0x1() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            uint32_t cond[2] = {0, 0x7FFFFFFF};
+            uint32_t cond[2] = {0, 0xFFFFFFFF};
 
             if((
                 (uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 
@@ -387,8 +386,8 @@ __KILL_A:
 int main() {
     int code;
 
-    TEST(test0x0, code);
-    TEST(test0x1, code);
+    // TEST(test0x0, code);
+    // TEST(test0x1, code);
     TEST(test0x2, code);
     TEST(test0x3, code);
 

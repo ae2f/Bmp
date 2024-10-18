@@ -9,7 +9,7 @@
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
+ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
 	double _min_x,
@@ -213,7 +213,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				i++
 				
 				) {
-				uint8_t addr_a = src->ElSize == ae2f_Bmp_Idxer_eBC_RGB ? 255 : addr[3];
+				uint8_t addr_a = 255 - el.b[3];
 				
 				switch (i) {
 				default: {
@@ -301,7 +301,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				i++
 				
 				) {
-				uint8_t addr_a = src->ElSize == ae2f_Bmp_Idxer_eBC_RGB ? 255 : addr[3];
+				uint8_t addr_a = 255 - el.b[3];
 				
 				switch (i) {
 				default: {
