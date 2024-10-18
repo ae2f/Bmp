@@ -194,13 +194,14 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				uint8_t b[4];
 			} el;
 
-			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
-				el.b[3] = srcprm->global.Alpha;
-			}
 
 			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * x, doth * y, dotw * (x + 1), doth * (y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
+			}
+			
+			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
+				el.b[3] = srcprm->global.Alpha;
 			}
 
 			for (
@@ -213,14 +214,13 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				i++
 				
 				) {
-				uint8_t addr_a = 255 - el.b[3];
 				
 				switch (i) {
 				default: {
 					addr[i] = ae2f_Bmp_Dot_Blend_imp(
 						el.b[i], 
 						addr[i], 
-						((ae2f_static_cast(double, el.b[3])) / ae2f_static_cast(double, addr_a + el.b[3])), 
+						((ae2f_static_cast(double, el.b[3])) / 255.0), 
 						uint8_t, 
 					);
 				} break;
@@ -282,13 +282,14 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				uint8_t b[4];
 			} el;
 
-			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
-				el.b[3] = srcprm->global.Alpha;
-			}
 
 			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * x, doth * y, dotw * (x + 1), doth * (y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
+			}
+			
+			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
+				el.b[3] = srcprm->global.Alpha;
 			}
 
 			for (
