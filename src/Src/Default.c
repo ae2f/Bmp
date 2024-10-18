@@ -19,7 +19,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	double _max_x,
 	double _max_y
 ) {
-	retColour[0] = ae2f_Bmp_Dot_RGB_Make(_min_x, _min_y, _max_x);
+	retColour[0] = ae2f_Bmp_Dot_RGBA_Make(_min_x, _min_y, _max_x, 255);
 
 	return ae2f_errGlobal_OK;
 }
