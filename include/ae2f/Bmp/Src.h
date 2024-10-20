@@ -17,7 +17,9 @@ enum ae2f_Bmp_Idxer_eBC {
 typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
 
 struct ae2f_Bmp_cSrc_Copy_Global {
-	uint8_t Alpha; // Global Fucking Alpha
+	uint8_t 
+		Alpha, // Global Fucking Alpha
+		ReverseIdx; // Reverse Idx?
 	uint32_t 
 		WidthAsResized, 	// want to resize?
 		HeightAsResized, 	// want to resize?
@@ -25,6 +27,9 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		AddrYForDest, 		// where to copy
 		DataToIgnore;
 };
+
+#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX static_cast(uint8_t, 	0b01)
+#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY static_cast(uint8_t, 	0b10)
 
 #define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
 

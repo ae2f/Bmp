@@ -180,7 +180,6 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	case ae2f_Bmp_Idxer_eBC_RGBA: break;
 	default: return ae2f_errGlobal_IMP_NOT_FOUND;
 	}
-
 	
 	double 
 		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
@@ -194,11 +193,28 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				uint8_t b[4];
 			} el;
 
+			uint32_t _x, _y;
 
-			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * x, doth * y, dotw * (x + 1), doth * (y+1));
+			switch(srcprm->global.ReverseIdx) {
+				case 1: case 3:
+				_x = srcprm->global.WidthAsResized - x - 1;
+				if(srcprm->global.ReverseIdx == 1) goto ignore___lbl_y;
+
+				case 2:
+				_y = srcprm->global.HeightAsResized - y - 1;
+				ignore___lbl_y:
+
+				case 0:
+				_x = x; _y = y;
+				break;
+			}
+
+			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
+
+			if(el.a == srcprm->global.DataToIgnore) continue;
 			
 			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
 				el.b[3] = srcprm->global.Alpha;
@@ -285,11 +301,28 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				uint8_t b[4];
 			} el;
 
+			uint32_t _x, _y;
 
-			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * x, doth * y, dotw * (x + 1), doth * (y+1));
+			switch(srcprm->global.ReverseIdx) {
+				case 1: case 3:
+				_x = srcprm->global.WidthAsResized - x - 1;
+				if(srcprm->global.ReverseIdx == 1) goto ignore___lbl_y;
+
+				case 2:
+				_y = srcprm->global.HeightAsResized - y - 1;
+				ignore___lbl_y:
+
+				case 0:
+				_x = x; _y = y;
+				break;
+			}
+
+			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
+
+			if(el.a == srcprm->global.DataToIgnore) continue;
 
 			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
 				el.b[3] = srcprm->global.Alpha;
