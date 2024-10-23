@@ -100,8 +100,6 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	if(Corner.miny == Corner.maxy)
 	Corner.maxy++;
 
-	printf("x: %llu ~ %llu y: %llu ~ %llu\n", Corner.minx, Corner.maxx, Corner.miny, Corner.maxy);
-
 	#pragma region Centre
 	for(size_t i = Corner.minx; i < Corner.maxx; i++)
 	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
