@@ -31,7 +31,7 @@ struct ae2f_Bmp_Head_rBI {
     int32_t  biXPelsPerMeter;
     int32_t  biYPelsPerMeter;
     uint32_t biClrUsed;
-    uint32_t biClrImportant;  
+    uint32_t biClrImportant;
 };
 
 #pragma pack(pop)

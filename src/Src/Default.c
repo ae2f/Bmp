@@ -7,16 +7,20 @@
 
 #include <stdio.h>
 
-typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
-
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
 	double _min_x,
 	double _min_y,
 	double _max_x,
-	double _max_y
+	double _max_y,
+
+	uint8_t reverseIdx
 ) {
+	const uint32_t 
+	xleft = ae2f_Bmp_Idx_XLeft(src->rIdxer), 
+	yleft = ae2f_Bmp_Idx_YLeft(src->rIdxer);
+
 	if(!(src && retColour && src->Addr))
 	return ae2f_errGlobal_PTR_IS_NULL;
 
@@ -36,17 +40,17 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	if(_max_x < 0) _max_x = 0;
 	if(_max_y < 0) _max_y = 0;
 
-	if(_min_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer)) 
-	_min_x = ae2f_Bmp_Idx_XLeft(src->rIdxer);
+	if(_min_x >= xleft) 
+	_min_x = xleft;
 
-	if(_max_x >= ae2f_Bmp_Idx_XLeft(src->rIdxer))
-	_max_x = ae2f_Bmp_Idx_XLeft(src->rIdxer);
+	if(_max_x >= xleft)
+	_max_x = xleft;
 
-	if(_min_y >= ae2f_Bmp_Idx_YLeft(src->rIdxer)) 
-	_min_y = ae2f_Bmp_Idx_YLeft(src->rIdxer);
+	if(_min_y >= yleft) 
+	_min_y = yleft;
 
-	if(_max_y >= ae2f_Bmp_Idx_YLeft(src->rIdxer)) 
-	_max_y = ae2f_Bmp_Idx_YLeft(src->rIdxer);
+	if(_max_y >= yleft) 
+	_max_y = yleft;
 
 	if(_min_x >= _max_x || _min_y >= _max_y) {
 		retColour = 0;
@@ -66,11 +70,37 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	Corner.minx = (size_t)_min_x;
 	Corner.miny = (size_t)_min_y;
 
+	if(reverseIdx & ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX) {
+		Corner.minx = xleft - Corner.minx;
+		Corner.maxx = xleft - Corner.maxx;
+
+		if(Corner.minx) Corner.minx--;
+		if(Corner.maxx) Corner.maxx--;
+
+		Corner.maxx ^= Corner.minx; 
+		Corner.minx ^= Corner.maxx; 
+		Corner.maxx ^= Corner.minx; 
+	}
+
+	if(reverseIdx & ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY) {
+		Corner.miny = yleft - Corner.miny;
+		Corner.maxy = yleft - Corner.maxy;
+
+		if(Corner.miny) Corner.miny--;
+		if(Corner.maxy) Corner.maxy--;
+
+		Corner.maxy ^= Corner.miny;
+		Corner.miny ^= Corner.maxy;
+		Corner.maxy ^= Corner.miny;
+	}
+
 	if(Corner.minx == Corner.maxx)
 	Corner.maxx++;
 
 	if(Corner.miny == Corner.maxy)
 	Corner.maxy++;
+
+	printf("x: %llu ~ %llu y: %llu ~ %llu\n", Corner.minx, Corner.maxx, Corner.miny, Corner.maxy);
 
 	#pragma region Centre
 	for(size_t i = Corner.minx; i < Corner.maxx; i++)
@@ -121,6 +151,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	return ae2f_errGlobal_OK;
 }
 
+
+
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint8_t* byte,
@@ -159,6 +191,9 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	return ae2f_errGlobal_OK;
 }
 
+
+typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
+
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
@@ -194,22 +229,17 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			} el;
 
 			uint32_t _x, _y;
+			_x = x; _y = y;
 
-			switch(srcprm->global.ReverseIdx) {
-				case 1: case 3:
-				_x = srcprm->global.WidthAsResized - x - 1;
-				if(srcprm->global.ReverseIdx == 1) goto ignore___lbl_y;
+			code = ae2f_Bmp_cSrc_gDot(
+				src, &el.a, 
+				dotw * _x, 
+				doth * _y, 
+				dotw * (_x + 1), 
+				doth * (_y+1),
+				srcprm->global.ReverseIdx
+			);
 
-				case 2:
-				_y = srcprm->global.HeightAsResized - y - 1;
-				ignore___lbl_y:
-
-				case 0:
-				_x = x; _y = y;
-				break;
-			}
-
-			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1));
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
@@ -301,23 +331,13 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				uint8_t b[4];
 			} el;
 
-			uint32_t _x, _y;
+			uint32_t _x = x, _y = y;
 
-			switch(srcprm->global.ReverseIdx) {
-				case 1: case 3:
-				_x = srcprm->global.WidthAsResized - x - 1;
-				if(srcprm->global.ReverseIdx == 1) goto ignore___lbl_y;
-
-				case 2:
-				_y = srcprm->global.HeightAsResized - y - 1;
-				ignore___lbl_y:
-
-				case 0:
-				_x = x; _y = y;
-				break;
-			}
-
-			code = ae2f_Bmp_cSrc_gDot(src, &el.a, dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1));
+			code = ae2f_Bmp_cSrc_gDot(
+				src, &el.a, 
+				dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1),
+				srcprm->global.ReverseIdx
+			);
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}

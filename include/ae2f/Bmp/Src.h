@@ -28,8 +28,8 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		DataToIgnore;
 };
 
-#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX static_cast(uint8_t, 	0b01)
-#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY static_cast(uint8_t, 	0b10)
+#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX ae2f_static_cast(uint8_t, 	0b01)
+#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY ae2f_static_cast(uint8_t, 	0b10)
 
 #define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
 
@@ -57,7 +57,9 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	double _min_x,
 	double _min_y,
 	double _max_x,
-	double _max_y
+	double _max_y,
+
+	uint8_t reverseIdx
 );
 
 /// @brief 
