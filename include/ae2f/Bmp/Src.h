@@ -1,3 +1,5 @@
+#include <float.h>
+
 #if !defined(ae2f_Bmp_Src_h)
 #define ae2f_Bmp_Src_h
 
@@ -26,6 +28,8 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		AddrXForDest, 		// where to copy
 		AddrYForDest, 		// where to copy
 		DataToIgnore;
+
+	double RotateXYClockWise;
 };
 
 #define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX ae2f_static_cast(uint8_t, 	0b01)

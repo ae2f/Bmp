@@ -5,6 +5,7 @@
 #include <ae2f/Bmp/Head.h>
 #include <ae2f/Macro/Call.h>
 
+#include <math.h>
 #include <stdio.h>
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
@@ -105,6 +106,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
 		const uint8_t* const __src = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, j) * (src->ElSize >> 3);
 
+		// invalid index check
+		// index validation
 		if(__src + 1 == src->Addr) continue;
 
 		switch(src->ElSize) {
@@ -248,7 +251,11 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
-			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest);
+			double 
+			rotatedX = _x * cos(srcprm->global.RotateXYClockWise) + _y * sin(srcprm->global.RotateXYClockWise),
+			rotatedY = _y * cos(srcprm->global.RotateXYClockWise) - _x * sin(srcprm->global.RotateXYClockWise);
+
+			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, (uint32_t)rotatedX + srcprm->global.AddrXForDest, (uint32_t)rotatedY + srcprm->global.AddrYForDest);
 			if(foridx == -1) break;
 
 			for (
@@ -346,7 +353,13 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
-			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, x + srcprm->global.AddrXForDest, y + srcprm->global.AddrYForDest);
+			double 
+			rotatedX = (_x * cos(srcprm->global.RotateXYClockWise)) + (_y * sin(srcprm->global.RotateXYClockWise)),
+			rotatedY = (_y * cos(srcprm->global.RotateXYClockWise)) - (_x * sin(srcprm->global.RotateXYClockWise));
+
+			// printf("x: %llu ~ %f, y: %llu ~ %f (%f)\n", _x, rotatedX, _y, rotatedY, srcprm->global.RotateXYClockWise);
+
+			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, (uint32_t)rotatedX + srcprm->global.AddrXForDest, (uint32_t)rotatedY + srcprm->global.AddrYForDest);
 			if(foridx == -1) break;
 
 			for (
