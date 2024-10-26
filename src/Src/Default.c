@@ -252,8 +252,10 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			}
 
 			double 
-			rotatedX = _x * cos(srcprm->global.RotateXYClockWise) + _y * sin(srcprm->global.RotateXYClockWise),
-			rotatedY = _y * cos(srcprm->global.RotateXYClockWise) - _x * sin(srcprm->global.RotateXYClockWise);
+			_transx = (double)_x - srcprm->global.AxisX, 
+			_transy = (double)_y - srcprm->global.AxisY,
+			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
+			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
 
 			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, (uint32_t)rotatedX + srcprm->global.AddrXForDest, (uint32_t)rotatedY + srcprm->global.AddrYForDest);
 			if(foridx == -1) break;
@@ -354,8 +356,10 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			}
 
 			double 
-			rotatedX = (_x * cos(srcprm->global.RotateXYClockWise)) + (_y * sin(srcprm->global.RotateXYClockWise)),
-			rotatedY = (_y * cos(srcprm->global.RotateXYClockWise)) - (_x * sin(srcprm->global.RotateXYClockWise));
+			_transx = (double)_x - srcprm->global.AxisX, 
+			_transy = (double)_y - srcprm->global.AxisY,
+			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
+			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
 
 			// printf("x: %llu ~ %f, y: %llu ~ %f (%f)\n", _x, rotatedX, _y, rotatedY, srcprm->global.RotateXYClockWise);
 

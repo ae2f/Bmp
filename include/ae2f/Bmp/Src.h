@@ -30,6 +30,9 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		DataToIgnore;
 
 	double RotateXYClockWise;
+
+	int32_t 
+		AxisX, AxisY;
 };
 
 #define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX ae2f_static_cast(uint8_t, 	0b01)
