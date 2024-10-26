@@ -265,7 +265,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
 			for(int32_t i = 0; !i || i < rotatedW; i++) 
-			for(int32_t j = 0; !i || j < rotatedH; j++) {
+			for(int32_t j = 0; !j || j < rotatedH; j++) {
 				#pragma region single dot
 				uint32_t foridx = 
 				ae2f_Bmp_Idx_Drive(
@@ -394,7 +394,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
 			for(int32_t i = 0; !i || i < rotatedW; i++) 
-			for(int32_t j = 0; !i || j < rotatedH; j++) {
+			for(int32_t j = 0; !j || j < rotatedH; j++) {
 				#pragma region single dot
 				uint32_t foridx = 
 				ae2f_Bmp_Idx_Drive(
