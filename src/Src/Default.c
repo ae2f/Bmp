@@ -242,8 +242,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			);
 
 			double 
-			rotatedW = dotw * cos(srcprm->global.RotateXYClockWise) + doth * sin(srcprm->global.RotateXYClockWise),
-			rotatedH = doth * cos(srcprm->global.RotateXYClockWise) - dotw * sin(srcprm->global.RotateXYClockWise);
+			rotatedW = dotw * cos(srcprm->global.RotateXYCounterClockWise) + doth * sin(srcprm->global.RotateXYCounterClockWise),
+			rotatedH = doth * cos(srcprm->global.RotateXYCounterClockWise) - dotw * sin(srcprm->global.RotateXYCounterClockWise);
 
 			if(rotatedW < 0) rotatedW = -rotatedW;
 			if(rotatedH < 0) rotatedH = -rotatedH;
@@ -261,8 +261,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			double 
 			_transx = (double)_x - srcprm->global.AxisX, 
 			_transy = (double)_y - srcprm->global.AxisY,
-			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
-			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
+			rotatedX = _transx * cos(srcprm->global.RotateXYCounterClockWise) + _transy * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisX,
+			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
 			for(int32_t i = 0; !i || i < rotatedW; i++) 
 			for(int32_t j = 0; !i || j < rotatedH; j++) {
@@ -371,8 +371,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			);
 
 			double 
-			rotatedW = dotw * cos(srcprm->global.RotateXYClockWise) + doth * sin(srcprm->global.RotateXYClockWise),
-			rotatedH = doth * cos(srcprm->global.RotateXYClockWise) - dotw * sin(srcprm->global.RotateXYClockWise);
+			rotatedW = dotw * cos(srcprm->global.RotateXYCounterClockWise) + doth * sin(srcprm->global.RotateXYCounterClockWise),
+			rotatedH = doth * cos(srcprm->global.RotateXYCounterClockWise) - dotw * sin(srcprm->global.RotateXYCounterClockWise);
 
 			if(rotatedW < 0) rotatedW = -rotatedW;
 			if(rotatedH < 0) rotatedH = -rotatedH;
@@ -390,8 +390,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			double 
 			_transx = (double)_x - srcprm->global.AxisX, 
 			_transy = (double)_y - srcprm->global.AxisY,
-			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
-			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
+			rotatedX = _transx * cos(srcprm->global.RotateXYCounterClockWise) + _transy * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisX,
+			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
 			for(int32_t i = 0; !i || i < rotatedW; i++) 
 			for(int32_t j = 0; !i || j < rotatedH; j++) {

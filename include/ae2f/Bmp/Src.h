@@ -29,7 +29,7 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		AddrYForDest, 		// where to copy
 		DataToIgnore;
 
-	double RotateXYClockWise;
+	double RotateXYCounterClockWise;
 
 	int32_t 
 		AxisX, AxisY;
