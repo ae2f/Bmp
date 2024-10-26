@@ -58,10 +58,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	uint32_t colour
 );
 
-ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
+ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour,
-	
+
 	uint32_t partial_min_x,
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
