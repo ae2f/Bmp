@@ -192,6 +192,34 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	return ae2f_errGlobal_OK;
 }
 
+ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
+	ae2f_struct ae2f_Bmp_cSrc* dest,
+	uint32_t colour,
+
+	uint32_t partial_min_x,
+	uint32_t partial_min_y,
+	uint32_t partial_max_x,
+	uint32_t partial_max_y
+) {
+	if(!(dest && dest->Addr))
+	return ae2f_errGlobal_PTR_IS_NULL;
+
+	switch (dest->ElSize) {
+	case ae2f_Bmp_Idxer_eBC_RGB:
+	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	}
+
+	uint32_t width = ae2f_Bmp_Idx_XLeft(dest->rIdxer), height = ae2f_Bmp_Idx_YLeft(dest->rIdxer);
+
+	for(size_t i = partial_min_x; i < width && i < partial_max_x; i++)	
+	for(size_t j = partial_min_y; j < height && j < partial_max_y; j++)
+	for(uint8_t c = 0; c < dest->ElSize; c+=8)
+		dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_Macro_BitVector_GetRanged(colour, c, c+8);
+
+	return ae2f_errGlobal_OK;
+}
+
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
