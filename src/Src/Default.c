@@ -221,7 +221,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
 		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (double)srcprm->global.HeightAsResized);
 
-	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++)
+	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++) {
 		for (uint32_t x = 0; x < srcprm->global.WidthAsResized; x++)
 		{
 			union {
@@ -241,6 +241,13 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 				srcprm->global.ReverseIdx
 			);
 
+			double 
+			rotatedW = dotw * cos(srcprm->global.RotateXYClockWise) + doth * sin(srcprm->global.RotateXYClockWise),
+			rotatedH = doth * cos(srcprm->global.RotateXYClockWise) - dotw * sin(srcprm->global.RotateXYClockWise);
+
+			if(rotatedW < 0) rotatedW = -rotatedW;
+			if(rotatedH < 0) rotatedH = -rotatedH;
+
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
@@ -257,35 +264,48 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
 			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
 
-			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, (uint32_t)rotatedX + srcprm->global.AddrXForDest, (uint32_t)rotatedY + srcprm->global.AddrYForDest);
-			if(foridx == -1) break;
+			for(int32_t i = 0; !i || i < rotatedW; i++) 
+			for(int32_t j = 0; !i || j < rotatedH; j++) {
+				#pragma region single dot
+				uint32_t foridx = 
+				ae2f_Bmp_Idx_Drive(
+					dest->rIdxer, (uint32_t)rotatedX + i + srcprm->global.AddrXForDest, (uint32_t)rotatedY + j + srcprm->global.AddrYForDest);
+				
+				if(foridx == -1) goto __breakloopforx;
 
-			for (
-				uint8_t* 
-				addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
-				i = 0; 
-				
-				i < (src->ElSize >> 3); 
-				
-				i++
-				
-				) {
-				
-				switch (i) {
-				default: {
-					addr[i] = ae2f_Bmp_Dot_Blend_imp(
-						el.b[i], 
-						addr[i], 
-						((ae2f_static_cast(double, el.b[3])) / 255.0), 
-						uint8_t, 
-					);
-				} break;
-				case 3: {
-					addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
+				for (
+					uint8_t* 
+					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
+					i = 0; 
+					
+					i < (src->ElSize >> 3); 
+					
+					i++
+					
+					) {
+					
+					switch (i) {
+					default: {
+						addr[i] = ae2f_Bmp_Dot_Blend_imp(
+							el.b[i], 
+							addr[i], 
+							((ae2f_static_cast(double, el.b[3])) / 255.0), 
+							uint8_t, 
+						);
+					} break;
+					case 3: {
+						addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
+					}
+					}
 				}
-				}
+
+				#pragma endregion
 			}
 		}
+
+		__breakloopforx:
+	}
+
 	return ae2f_errGlobal_OK;
 }
 
@@ -330,27 +350,39 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
 		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (double)srcprm->global.HeightAsResized);
 
-	for (uint32_t y = partial_min_y; y < partial_max_y && y < srcprm->global.HeightAsResized; y++)
-		for (uint32_t x = partial_min_x; x < partial_max_x && x < srcprm->global.WidthAsResized; x++)
+	for (uint32_t y = partial_min_y; y < srcprm->global.HeightAsResized && y < partial_max_y; y++) {
+		for (uint32_t x = partial_min_x; x < srcprm->global.WidthAsResized && x < partial_max_x; x++)
 		{
 			union {
 				uint32_t a;
 				uint8_t b[4];
 			} el;
 
-			uint32_t _x = x, _y = y;
+			uint32_t _x, _y;
+			_x = x; _y = y;
 
 			code = ae2f_Bmp_cSrc_gDot(
 				src, &el.a, 
-				dotw * _x, doth * _y, dotw * (_x + 1), doth * (_y+1),
+				dotw * _x, 
+				doth * _y, 
+				dotw * (_x + 1), 
+				doth * (_y+1),
 				srcprm->global.ReverseIdx
 			);
+
+			double 
+			rotatedW = dotw * cos(srcprm->global.RotateXYClockWise) + doth * sin(srcprm->global.RotateXYClockWise),
+			rotatedH = doth * cos(srcprm->global.RotateXYClockWise) - dotw * sin(srcprm->global.RotateXYClockWise);
+
+			if(rotatedW < 0) rotatedW = -rotatedW;
+			if(rotatedH < 0) rotatedH = -rotatedH;
+
 			if(code != ae2f_errGlobal_OK) {
 				return code;
 			}
 
 			if(el.a == srcprm->global.DataToIgnore) continue;
-
+			
 			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
 				el.b[3] = srcprm->global.Alpha;
 			}
@@ -361,37 +393,46 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			rotatedX = _transx * cos(srcprm->global.RotateXYClockWise) + _transy * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisX,
 			rotatedY = _transy * cos(srcprm->global.RotateXYClockWise) - _transx * sin(srcprm->global.RotateXYClockWise) + srcprm->global.AxisY;
 
-			// printf("x: %llu ~ %f, y: %llu ~ %f (%f)\n", _x, rotatedX, _y, rotatedY, srcprm->global.RotateXYClockWise);
+			for(int32_t i = 0; !i || i < rotatedW; i++) 
+			for(int32_t j = 0; !i || j < rotatedH; j++) {
+				#pragma region single dot
+				uint32_t foridx = 
+				ae2f_Bmp_Idx_Drive(
+					dest->rIdxer, (uint32_t)rotatedX + i + srcprm->global.AddrXForDest, (uint32_t)rotatedY + j + srcprm->global.AddrYForDest);
+				
+				if(foridx == -1) goto __breakloopforx;
 
-			uint32_t foridx = ae2f_Bmp_Idx_Drive(dest->rIdxer, (uint32_t)rotatedX + srcprm->global.AddrXForDest, (uint32_t)rotatedY + srcprm->global.AddrYForDest);
-			if(foridx == -1) break;
+				for (
+					uint8_t* 
+					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
+					i = 0; 
+					
+					i < (src->ElSize >> 3); 
+					
+					i++
+					
+					) {
+					
+					switch (i) {
+					default: {
+						addr[i] = ae2f_Bmp_Dot_Blend_imp(
+							el.b[i], 
+							addr[i], 
+							((ae2f_static_cast(double, el.b[3])) / 255.0), 
+							uint8_t, 
+						);
+					} break;
+					case 3: {
+						addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
+					}
+					}
+				}
 
-			for (
-				uint8_t* 
-				addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
-				i = 0; 
-				
-				i < (src->ElSize >> 3); 
-				
-				i++
-				
-				) {
-				uint8_t addr_a = 255 - el.b[3];
-				
-				switch (i) {
-				default: {
-					addr[i] = ae2f_Bmp_Dot_Blend_imp(
-						el.b[i], 
-						addr[i], 
-						((ae2f_static_cast(double, el.b[3])) / ae2f_static_cast(double, addr_a + el.b[3])), 
-						uint8_t, 
-					);
-				} break;
-				case 3: {
-					addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
-				}
-				}
+				#pragma endregion
 			}
 		}
+
+		__breakloopforx:
+	}
 	return ae2f_errGlobal_OK;
 }
