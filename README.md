@@ -5,8 +5,11 @@
 
 # depends on
 Critical
-- [ae2f::Core Rel-v1.2.8.1](https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.2.8.1)
+- [ae2f::Core Rel-v1.2.9.1](https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.2.9.1)
 	> Macros will be used for power.
+
+- [m]
+	> Built-in math library
 
 Optional
 - [OpenCL::OpenCL v2024.05.08](https://github.com/KhronosGroup/OpenCL-SDK/releases/tag/v2024.05.08)

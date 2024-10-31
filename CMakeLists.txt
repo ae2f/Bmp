@@ -4,8 +4,6 @@ enable_testing()
 
 option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." OFF)
 option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
-option(ae2f_IS_WIN "windows dll?" OFF)
-option(ae2f_IS_LINUX "linux?" OFF)
 
 if(ae2f_IS_SHARED)
     set(ae2f_PREFIX_LIB SHARED)
@@ -33,6 +31,8 @@ add_library(
     "src/Src/Default.c"
 )
 
+target_link_libraries(${PROJECT_NAME} m) # library 'math'
+
 include(FetchContent)
 find_package(Core)
 if(NOT Core_FOUND)
@@ -41,14 +41,14 @@ if(NOT Core_FOUND)
     FetchContent_Declare(
         Core
         GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.8.1"
+        GIT_TAG "Rel-v1.2.9.1"
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
     )
     
     FetchContent_MakeAvailable(Core)
     target_link_libraries(${PROJECT_NAME} Core)
 else()
-    target_link_libraries(Bmp ae2f::Core)
+    target_link_libraries(${PROJECT_NAME} ae2f::Core)
 endif()
 
 if(${ae2f_Bmp_Use_OpenCL})

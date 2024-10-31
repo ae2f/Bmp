@@ -25,7 +25,7 @@ int test0x0() {
     };
     a.ElSize = 32;
     if(!(a.Addr = calloc(ax * ay, 4)))
-    return ae2f_errGlobal_ALLOC_FAILED;
+    return ae2f_errGlob_ALLOC_FAILED;
 
 #pragma endregion
 
@@ -79,7 +79,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlobal_OK) {
+    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -88,7 +88,7 @@ int test0x0() {
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
             if(((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
-                code = ae2f_errGlobal_WRONG_OPERATION;
+                code = ae2f_errGlob_WRONG_OPERATION;
                 goto __KILL_ALL;
             }
         }
@@ -122,7 +122,7 @@ int test0x1() {
     };
     a.ElSize = 32;
     if(!(a.Addr = calloc(ax * ay, 4)))
-    return ae2f_errGlobal_ALLOC_FAILED;
+    return ae2f_errGlob_ALLOC_FAILED;
 
 #pragma endregion
 
@@ -173,7 +173,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy_Partial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlobal_OK) {
+    if((code = ae2f_Bmp_cSrc_Copy_Partial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -187,7 +187,7 @@ int test0x1() {
                 (uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 
                 cond[i < 6 && i >= 3 && j >= 4 && j < 5]
             ) {
-                code = ae2f_errGlobal_WRONG_OPERATION;
+                code = ae2f_errGlob_WRONG_OPERATION;
                 goto __KILL_ALL;
             }
         }
@@ -221,7 +221,7 @@ int test0x2() {
     };
     a.ElSize = 24;
     if(!(a.Addr = calloc(ax * ay, 3)))
-    return ae2f_errGlobal_ALLOC_FAILED;
+    return ae2f_errGlob_ALLOC_FAILED;
 
 #pragma endregion
 
@@ -240,12 +240,12 @@ int test0x2() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlobal_OK)
+    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlobal_OK)
+    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
@@ -262,7 +262,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlobal_OK) {
+    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -309,7 +309,7 @@ int test0x3() {
     };
     a.ElSize = 24;
     if(!(a.Addr = calloc(ax * ay, 3)))
-    return ae2f_errGlobal_ALLOC_FAILED;
+    return ae2f_errGlob_ALLOC_FAILED;
 
 #pragma endregion
 
@@ -328,12 +328,12 @@ int test0x3() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlobal_OK)
+    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlobal_OK)
+    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
@@ -350,7 +350,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlobal_OK) {
+    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion

@@ -121,7 +121,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 
 /// @brief 
 /// `byte` is not long enough to parse.
-#define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlobal_LMT
+#define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlob_WRONG_OPERATION
 
 /// @brief 
 /// # After this operation `dest` will still not own the memory, but `byte` will.

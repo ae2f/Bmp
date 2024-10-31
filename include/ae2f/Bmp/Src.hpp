@@ -4,18 +4,21 @@
 #if defined(__cplusplus) && !defined(ae2f_Bmp_Src_hpp)
 #define ae2f_Bmp_Src_hpp 
 
-#include <ae2f/DataStructure/Allocator.hpp>
+#include <ae2f/Ds/Alloc.hpp>
 
 namespace ae2f {
 	namespace Bmp {
 		namespace BuildPrm {
 			using Global = ae2f_Bmp_cSrc_Copy_Global;
 
-			struct Indexed : private DataStructure::Allocator::cOwner::Linear_t {
+			struct Indexed : private Ds::Alloc::cOwner::Linear_t {
 				inline Indexed(uint8_t len, ae2f_errint_t* err = 0) noexcept 
-					: DataStructure::Allocator::cOwner::Linear_t(
-						len + sizeof(Global), 0, 0, err
-					) {}
+					: Ds::Alloc::cOwner::Linear_t(
+						err
+					) {
+						if(!err) err = &ae2f_errGlob_LastErr;
+						err[0] = this->Resize(len + sizeof(Global));
+					}
 
 				constexpr		Global* GlobalBuff() noexcept {
 					return this->data ? static_cast<Global*>(static_cast<void*>(this->data + sizeof(size_t))) : nullptr;
@@ -39,7 +42,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
 			}
@@ -51,7 +54,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
 			}
@@ -63,7 +66,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
 			}
@@ -75,7 +78,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy(this, &src, &srcPrm);
 			}
@@ -85,7 +88,7 @@ namespace ae2f {
 				const BuildPrm::Indexed& srcPrm
 			) {
 				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
+					return ae2f_errGlob_WRONG_OPERATION;
 
 				return ae2f_Bmp_cSrc_Copy(this, &src, srcPrm.GlobalBuff());
 			}
@@ -95,7 +98,7 @@ namespace ae2f {
 				const BuildPrm::Indexed& srcPrm
 			) {
 				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
+					return ae2f_errGlob_WRONG_OPERATION;
 
 				return ae2f_Bmp_cSrc_Copy(this, &src, srcPrm.GlobalBuff());
 			}
@@ -112,7 +115,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, &srcPrm,
@@ -134,7 +137,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, &srcPrm,
@@ -156,7 +159,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, &srcPrm,
@@ -178,7 +181,7 @@ namespace ae2f {
 				switch (src.ElSize) {
 				case ae2f_Bmp_Idxer_eBC_RGB:
 				case ae2f_Bmp_Idxer_eBC_RGBA: break;
-				default: return ae2f_errGlobal_WRONG_OPERATION;
+				default: return ae2f_errGlob_IMP_NOT_FOUND;
 				}
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, &srcPrm,
@@ -198,7 +201,7 @@ namespace ae2f {
 				uint32_t partial_max_y
 			) {
 				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
+					return ae2f_errGlob_IMP_NOT_FOUND;
 
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, srcPrm.GlobalBuff(),
@@ -218,7 +221,7 @@ namespace ae2f {
 				uint32_t partial_max_y
 			) {
 				if (srcPrm.len() < (1 << src.ElSize))
-					return ae2f_errGlobal_WRONG_OPERATION;
+					return ae2f_errGlob_IMP_NOT_FOUND;
 
 				return ae2f_Bmp_cSrc_Copy_Partial(
 					this, &src, srcPrm.GlobalBuff(),

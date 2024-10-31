@@ -2,7 +2,7 @@
 #define ae2f_Bmp_Dot_h
 
 #include <ae2f/Macro/Cast.h>
-#include <ae2f/Macro/BitVector.h>
+#include <ae2f/Macro/BitVec.h>
 #include <stdint.h>
 
 typedef uint32_t ae2f_Bmp_Dot_rgba_t;
@@ -32,15 +32,15 @@ typedef long double ae2f_Bmp_Dot_Blender_tl;
 ///	Blended value of [a] and [b] according to the [ratio_a].
 #define ae2f_Bmp_Dot_Blend_imp(a, b, ratio_a, rtn_t, prefixForOperatee) ae2f_static_cast(rtn_t, (((a) * (ratio_a) + (b) * (1.0##prefixForOperatee - (ratio_a)))))
 
-#define ae2f_Bmp_Dot_RGBA_GetR(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8))
-#define ae2f_Bmp_Dot_RGBA_GetG(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16))
-#define ae2f_Bmp_Dot_RGBA_GetB(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24))
-#define ae2f_Bmp_Dot_RGBA_GetA(rgba) ae2f_static_cast(uint8_t, ae2f_Macro_BitVector_GetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32))
+#define ae2f_Bmp_Dot_RGBA_GetR(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8))
+#define ae2f_Bmp_Dot_RGBA_GetG(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16))
+#define ae2f_Bmp_Dot_RGBA_GetB(rgb) ae2f_static_cast(uint8_t, ae2f_Macro_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24))
+#define ae2f_Bmp_Dot_RGBA_GetA(rgba) ae2f_static_cast(uint8_t, ae2f_Macro_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32))
 
-#define ae2f_Bmp_Dot_RGBA_SetR(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVector_SetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8, val))
-#define ae2f_Bmp_Dot_RGBA_SetG(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVector_SetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16, val))
-#define ae2f_Bmp_Dot_RGBA_SetB(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVector_SetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24, val))
-#define ae2f_Bmp_Dot_RGBA_SetA(rgba, val) ae2f_static_cast(uint32_t, ae2f_Macro_BitVector_SetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32, val))
+#define ae2f_Bmp_Dot_RGBA_SetR(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8, val))
+#define ae2f_Bmp_Dot_RGBA_SetG(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16, val))
+#define ae2f_Bmp_Dot_RGBA_SetB(rgb, val)  ae2f_static_cast(uint32_t, ae2f_Macro_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24, val))
+#define ae2f_Bmp_Dot_RGBA_SetA(rgba, val) ae2f_static_cast(uint32_t, ae2f_Macro_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32, val))
 
 #define ae2f_Bmp_Dot_RGB_Make(r, g, b) ae2f_static_cast(uint32_t, ae2f_static_cast(uint8_t, r) | (ae2f_static_cast(uint16_t, g) << 8) | (ae2f_static_cast(uint32_t, b) << 16))
 #define ae2f_Bmp_Dot_RGBA_Make(r, g, b, a) ae2f_static_cast(uint32_t, ae2f_static_cast(uint8_t, r) | (ae2f_static_cast(uint16_t, g) << 8) | (ae2f_static_cast(uint32_t, b) << 16) | (ae2f_static_cast(uint32_t, a) << 24))

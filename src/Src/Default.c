@@ -1,7 +1,7 @@
 #include <ae2f/Bmp/Src.h>
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Bmp/Dot.h>
-#include <ae2f/Macro/BitVector.h>
+#include <ae2f/Macro/BitVec.h>
 #include <ae2f/Bmp/Head.h>
 #include <ae2f/Macro/Call.h>
 
@@ -23,7 +23,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	yleft = ae2f_Bmp_Idx_YLeft(src->rIdxer);
 
 	if(!(src && retColour && src->Addr))
-	return ae2f_errGlobal_PTR_IS_NULL;
+	return ae2f_errGlob_PTR_IS_NULL;
 
 	struct {
 		double R, G, B, A, Count;
@@ -33,7 +33,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 		case ae2f_Bmp_Idxer_eBC_RGB:
 		case ae2f_Bmp_Idxer_eBC_RGBA:
 		break;
-		default: return ae2f_errGlobal_IMP_NOT_FOUND;
+		default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
 	if(_min_x < 0) _min_x = 0;
@@ -55,7 +55,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 
 	if(_min_x >= _max_x || _min_y >= _max_y) {
 		retColour = 0;
-		return ae2f_errGlobal_OK;
+		return ae2f_errGlob_OK;
 	}
 
 	struct {
@@ -149,7 +149,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 			);
 		} break;
 	}
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }
 
 
@@ -168,7 +168,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	dest->rIdxer.Count = ((struct ae2f_Bmp_rHead*)byte)->rBI.biWidth * ((struct ae2f_Bmp_rHead*)byte)->rBI.biHeight;
 
 	dest->Addr = byte + sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI);
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
@@ -176,20 +176,20 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	uint32_t colour
 ) {
 	if(!(dest && dest->Addr))
-	return ae2f_errGlobal_PTR_IS_NULL;
+	return ae2f_errGlob_PTR_IS_NULL;
 
 	switch (dest->ElSize) {
 	case ae2f_Bmp_Idxer_eBC_RGB:
 	case ae2f_Bmp_Idxer_eBC_RGBA: break;
-	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
 	for(size_t i = 0; i < ae2f_Bmp_Idx_XLeft(dest->rIdxer); i++)	
 	for(size_t j = 0; j < ae2f_Bmp_Idx_YLeft(dest->rIdxer); j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-	dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_Macro_BitVector_GetRanged(colour, c, c+8);
+	dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_Macro_BitVec_GetRanged(colour, c, c+8);
 
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
@@ -202,12 +202,12 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 	uint32_t partial_max_y
 ) {
 	if(!(dest && dest->Addr))
-	return ae2f_errGlobal_PTR_IS_NULL;
+	return ae2f_errGlob_PTR_IS_NULL;
 
 	switch (dest->ElSize) {
 	case ae2f_Bmp_Idxer_eBC_RGB:
 	case ae2f_Bmp_Idxer_eBC_RGBA: break;
-	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
 	uint32_t width = ae2f_Bmp_Idx_XLeft(dest->rIdxer), height = ae2f_Bmp_Idx_YLeft(dest->rIdxer);
@@ -215,9 +215,9 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 	for(size_t i = partial_min_x; i < width && i < partial_max_x; i++)	
 	for(size_t j = partial_min_y; j < height && j < partial_max_y; j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-		dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_Macro_BitVector_GetRanged(colour, c, c+8);
+		dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_Macro_BitVec_GetRanged(colour, c, c+8);
 
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }
 
 
@@ -232,17 +232,17 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_errint_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
-		return ae2f_errGlobal_PTR_IS_NULL;
+		return ae2f_errGlob_PTR_IS_NULL;
 	}
 
 	// check if all alpha is zero
 	if (!srcprm->global.Alpha && src->ElSize != ae2f_Bmp_Idxer_eBC_RGBA)
-		return ae2f_errGlobal_OK;
+		return ae2f_errGlob_OK;
 
 	switch (dest->ElSize) {
 	case ae2f_Bmp_Idxer_eBC_RGB:
 	case ae2f_Bmp_Idxer_eBC_RGBA: break;
-	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 	
 	double 
@@ -276,7 +276,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			if(rotatedW < 0) rotatedW = -rotatedW;
 			if(rotatedH < 0) rotatedH = -rotatedH;
 
-			if(code != ae2f_errGlobal_OK) {
+			if(code != ae2f_errGlob_OK) {
 				return code;
 			}
 
@@ -334,7 +334,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 		__breakloopforx:
 	}
 
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }
 
 /// @brief 
@@ -360,17 +360,17 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 	ae2f_errint_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
-		return ae2f_errGlobal_PTR_IS_NULL;
+		return ae2f_errGlob_PTR_IS_NULL;
 	}
 
 	// check if all alpha is zero
 	if (!srcprm->global.Alpha && src->ElSize != ae2f_Bmp_Idxer_eBC_RGBA)
-		return ae2f_errGlobal_OK;
+		return ae2f_errGlob_OK;
 
 	switch (dest->ElSize) {
 	case ae2f_Bmp_Idxer_eBC_RGB:
 	case ae2f_Bmp_Idxer_eBC_RGBA: break;
-	default: return ae2f_errGlobal_IMP_NOT_FOUND;
+	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
 	
@@ -405,7 +405,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			if(rotatedW < 0) rotatedW = -rotatedW;
 			if(rotatedH < 0) rotatedH = -rotatedH;
 
-			if(code != ae2f_errGlobal_OK) {
+			if(code != ae2f_errGlob_OK) {
 				return code;
 			}
 
@@ -462,5 +462,5 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 
 		__breakloopforx:
 	}
-	return ae2f_errGlobal_OK;
+	return ae2f_errGlob_OK;
 }

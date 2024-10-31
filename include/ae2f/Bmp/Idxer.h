@@ -2,7 +2,7 @@
 #define ae2f_Bmp_Idxer_h
 
 #include <stdint.h>
-#include <ae2f/Macro/errGlobal.h>
+#include <ae2f/Macro/errGlob.h>
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Macro/Cast.h>
 
