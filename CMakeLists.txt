@@ -52,7 +52,7 @@ else()
 endif()
 
 
-configure_file(${CMAKE_SOURCE_DIR}/hin/ae2f/Bmp/CL/config.h.in ${CMAKE_SOURCE_DIR}/include/ae2f/Bmp/CL/config.h)
+configure_file(${PROJECT_SOURCE_DIR}/hin/ae2f/Bmp/CL/config.h.in ${PROJECT_SOURCE_DIR}/include/ae2f/Bmp/CL/config.h)
 if(${ae2f_Bmp_Use_OpenCL})
     find_package(OpenCL)
     if(NOT OpenCL_FOUND)
