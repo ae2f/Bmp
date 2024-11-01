@@ -23,12 +23,12 @@ add_library(
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
     "include/ae2f/Bmp/Src.h"
-
     "include/ae2f/Bmp/Dot.hpp"
     "include/ae2f/Bmp/Idxer.hpp"
     "include/ae2f/Bmp/Src.hpp"
-    
     "src/Src/Default.c"
+
+    "include/ae2f/Bmp/CL/config.h"
 )
 
 target_link_libraries(${PROJECT_NAME} m) # library 'math'
@@ -51,23 +51,25 @@ else()
     target_link_libraries(${PROJECT_NAME} ae2f::Core)
 endif()
 
+
+configure_file(${CMAKE_SOURCE_DIR}/hin/ae2f/Bmp/CL/config.h.in ${CMAKE_SOURCE_DIR}/include/ae2f/Bmp/CL/config.h)
 if(${ae2f_Bmp_Use_OpenCL})
-find_package(OpenCL)
-if(NOT OpenCL_FOUND)
-    message("OpenCL::OpenCL not found")
+    find_package(OpenCL)
+    if(NOT OpenCL_FOUND)
+        message("OpenCL::OpenCL not found")
 
-    FetchContent_Declare(
-        OpenCL
-        GIT_REPOSITORY https://github.com/KhronosGroup/OpenCL-SDK.git
-        GIT_TAG "v2024.05.08"
-        SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/OpenCL/OpenCL
-    )
+        FetchContent_Declare(
+            OpenCL
+            GIT_REPOSITORY https://github.com/KhronosGroup/OpenCL-SDK.git
+            GIT_TAG "v2024.05.08"
+            SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/OpenCL/OpenCL
+        )
 
-    FetchContent_MakeAvailable(OpenCL)
-    target_link_libraries(Bmp OpenCL)
-else()
-    target_link_libraries(Bmp OpenCL::OpenCL)
-endif()
+        FetchContent_MakeAvailable(OpenCL)
+        target_link_libraries(${PROJECT_NAME} OpenCL)
+    else()
+        target_link_libraries(${PROJECT_NAME} OpenCL::OpenCL)
+    endif()
 endif()
 
 
