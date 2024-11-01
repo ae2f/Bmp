@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(Bmp)
 enable_testing()
 
-option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." OFF)
+option(ae2f_Bmp_Use_OpenCL "Try the implementations using OpenCL." ON)
 option(ae2f_IS_SHARED "Is a shared library or static one." OFF)
 
 if(ae2f_IS_SHARED)
@@ -22,13 +22,17 @@ add_library(
     "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
-    "include/ae2f/Bmp/Src.h"
+    
     "include/ae2f/Bmp/Dot.hpp"
     "include/ae2f/Bmp/Idxer.hpp"
-    "include/ae2f/Bmp/Src.hpp"
-    "src/Src/Default.c"
-
+    
     "include/ae2f/Bmp/CL/config.h"
+    "include/ae2f/Bmp/CL.h"
+    "src/xCL.cpp"
+    
+    "include/ae2f/Bmp/Src.hpp"
+    "include/ae2f/Bmp/Src.h"
+    "src/Src/Double.c"
 )
 
 target_link_libraries(${PROJECT_NAME} m) # library 'math'

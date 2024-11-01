@@ -37,11 +37,9 @@ struct ae2f_Bmp_Head_rBI {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-
 struct ae2f_Bmp_rHead {
     ae2f_struct ae2f_Bmp_Head_rBF rBF;
     ae2f_struct ae2f_Bmp_Head_rBI rBI;
 };
-
 #pragma pack(pop)
 #endif
