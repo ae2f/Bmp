@@ -386,6 +386,7 @@ __KILL_A:
 int main() {
     int code;
 
+    printf("Hello World!\n");
     // TEST(test0x0, code);
     // TEST(test0x1, code);
     TEST(test0x2, code);
