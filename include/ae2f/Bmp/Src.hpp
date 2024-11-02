@@ -1,7 +1,7 @@
 #include "./Src.h"
 
 
-#if defined(__cplusplus) && !defined(ae2f_Bmp_Src_hpp)
+#if !defined(ae2f_Bmp_Src_hpp)
 #define ae2f_Bmp_Src_hpp 
 
 #include <ae2f/Ds/Alloc.hpp>
