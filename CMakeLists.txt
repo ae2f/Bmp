@@ -30,7 +30,7 @@ add_library(
     "src/Src/Double.c"
 )
 
-target_link_libraries(${PROJECT_NAME} m) # library 'math'
+# target_link_libraries(${PROJECT_NAME} m) # library 'math'
 
 include(FetchContent)
 find_package(Core)

@@ -332,7 +332,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 			}
 		}
 
-		__breakloopforx:
+	__breakloopforx:;
 	}
 
 	return ae2f_errGlob_OK;
@@ -463,7 +463,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 			}
 		}
 
-		__breakloopforx:
+	__breakloopforx:;
 	}
 	return ae2f_errGlob_OK;
 }
