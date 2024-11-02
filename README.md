@@ -1,5 +1,9 @@
 # ae2f_Bmp
- Bmp FIle Handler
+> The Library is not stable. Keep your expectations low.
+
+> Is the functions for handling Bmp FIle, within a library.
+
+> Copies the images on wanted size, position, or even angle.
 
 > It is a experiment of installing and linking the package which are static libraries written in C/C++.
 
@@ -10,9 +14,3 @@ Critical
 
 - m
 	> Built-in math library
-
-Optional
-- [OpenCL::OpenCL v2024.05.08](https://github.com/KhronosGroup/OpenCL-SDK/releases/tag/v2024.05.08)
-	> Used for copying function parallelly.  
-	> Not implemented yet.
-	- ae2f_Bmp_Use_OpenCL

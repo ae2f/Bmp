@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <ae2f/Bmp/Dot.h>
+#include <ae2f/Bmp/Idxer.h>
 
 int main() {
-    #if _ae2f_Bmp_Use_OpenCL
     return 
-    (printf(ae2f_Bmp_Dot_h) - 2810);
-    #else
-    return 0;
-    #endif
+    (snprintf(0, 0, ae2f_Bmp_Dot_h) ^ 2810) ||
+    (snprintf(0, 0, ae2f_Bmp_Idxer_h) ^ 1086);
 }

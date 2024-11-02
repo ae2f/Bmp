@@ -170,7 +170,6 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	dest->Addr = byte + sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI);
 	return ae2f_errGlob_OK;
 }
-
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour
@@ -222,6 +221,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 
 
 typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
+#pragma region buffall
+
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
@@ -336,6 +337,8 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 
 	return ae2f_errGlob_OK;
 }
+#pragma endregion
+
 
 /// @brief 
 /// Copies the data of `src` to `dest`.

@@ -1,11 +1,17 @@
 #if !defined(ae2f_Bmp_Idxer_h)
+
+#pragma region Header_def
+
 #define ae2f_Bmp_Idxer_h
+
+#pragma endregion
 
 #include <stdint.h>
 #include <ae2f/Macro/errGlob.h>
 #include <ae2f/Macro/Compare.h>
 #include <ae2f/Macro/Cast.h>
 
+#pragma pack(push, 1)
 // Suggest array as matrix.
 // as element count
 // IMPORTANT: DO NOT THINK THAT THEY ARE CONSIDERED AS BYTE
@@ -23,6 +29,7 @@ struct ae2f_Bmp_rIdxer {
 		// Suggested width [Local Width]
 		IdxXJump;
 };
+#pragma pack(pop)
 
 // Also actual Width of the [rIdxer].
 #define ae2f_Bmp_Idx_XLeft(rIdxer) ((rIdxer).IdxXJump - (rIdxer).CurrX)
@@ -41,4 +48,4 @@ struct ae2f_Bmp_rIdxer {
 // ae2f_Bmp_rIdxer
 #define ae2f_Bmp_Idx_Cut(rIdxer, mX, MX, mY, MY) (((ae2f_Bmp_Idx_Drive(rIdxer, mX, mY) == -1 || ae2f_Bmp_Idx_Drive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, (rIdxer).Width, ae2f_Bmp_Idx_Drive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))
 
-#endif // !defined(ae2f_Bmp_Idxer_h)
+#endif

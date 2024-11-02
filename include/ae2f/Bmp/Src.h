@@ -40,6 +40,7 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 
 #define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
 
+#pragma pack(push, 1)
 struct ae2f_Bmp_cSrc {
 	// Indexing suporter
 	// Abstraction
@@ -52,6 +53,7 @@ struct ae2f_Bmp_cSrc {
 	// Real element[pixel] vector [Global]
 	uint8_t* Addr;
 };
+#pragma pack(pop)
 
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
@@ -140,4 +142,4 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Read(
 
 #define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
-#endif // !defined(ae2f_Bmp_Src_h)
+#endif

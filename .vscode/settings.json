@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "cl.h": "c"
+        "cl.h": "c",
+        "cl2.hpp": "c",
+        "opencl.hpp": "c",
+        "errglob.h": "c"
     }
 }
