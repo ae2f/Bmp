@@ -6,6 +6,4 @@ CMakeFiles/*
 *.cmake
 external/*
 *.a
-
 out/*
-Doxyfile
