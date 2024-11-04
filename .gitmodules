@@ -1,4 +1,4 @@
 [submodule "submodules/Core"]
 	path = submodules/Core
-	url = https://github.com/yuisanae2f/ae2f_Core/releases/tag/Rel-v1.2.10.3
+	url = https://github.com/yuisanae2f/ae2f_Core
 	
