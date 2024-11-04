@@ -1,5 +1,5 @@
 #include <ae2f/Bmp/Src.h>
-#include <ae2f/Macro/Compare.h>
+#include <ae2f/Macro/Cmp.h>
 #include <ae2f/Bmp/Dot.h>
 #include <ae2f/Macro/BitVec.h>
 #include <ae2f/Bmp/Head.h>
@@ -7,6 +7,8 @@
 
 #include <math.h>
 #include <stdio.h>
+
+typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
 
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
@@ -220,7 +222,7 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 }
 
 
-typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
+
 #pragma region buffall
 
 
