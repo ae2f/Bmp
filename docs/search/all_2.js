@@ -15,8 +15,8 @@ var searchData=
   ['biplanes_12',['biPlanes',['../structae2f__Bmp__Head__rBI.html#aaed1a9617863127dc08398b2e2951759',1,'ae2f_Bmp_Head_rBI']]],
   ['bisize_13',['biSize',['../structae2f__Bmp__Head__rBI.html#a931712b66b6f633be33c79bd20c89309',1,'ae2f_Bmp_Head_rBI']]],
   ['bisizeimage_14',['biSizeImage',['../structae2f__Bmp__Head__rBI.html#ac6ba10cac4ba94b762b7b2d7ec72e228',1,'ae2f_Bmp_Head_rBI']]],
-  ['bitvec_2eh_15',['BitVec.h',['../build_2external_2ae2f_2Core_2include_2ae2f_2Macro_2BitVec_8h.html',1,'(Global Namespace)'],['../submodules_2Core_2include_2ae2f_2Macro_2BitVec_8h.html',1,'(Global Namespace)']]],
-  ['bitvec_2ehpp_16',['BitVec.hpp',['../build_2external_2ae2f_2Core_2include_2ae2f_2Macro_2BitVec_8hpp.html',1,'(Global Namespace)'],['../submodules_2Core_2include_2ae2f_2Macro_2BitVec_8hpp.html',1,'(Global Namespace)']]],
+  ['bitvec_2eh_15',['BitVec.h',['../BitVec_8h.html',1,'']]],
+  ['bitvec_2ehpp_16',['BitVec.hpp',['../BitVec_8hpp.html',1,'']]],
   ['biwidth_17',['biWidth',['../structae2f__Bmp__Head__rBI.html#a986fb72b8d8f112c6f1bc02eb04ab2d3',1,'ae2f_Bmp_Head_rBI']]],
   ['bixpelspermeter_18',['biXPelsPerMeter',['../structae2f__Bmp__Head__rBI.html#a83a5cd8c6d86df630dbc90cac6025e8b',1,'ae2f_Bmp_Head_rBI']]],
   ['biypelspermeter_19',['biYPelsPerMeter',['../structae2f__Bmp__Head__rBI.html#a1ad55de504530b92ca8b67d981afcbed',1,'ae2f_Bmp_Head_rBI']]],
@@ -24,6 +24,6 @@ var searchData=
   ['blend_3c_20eblendpostfix_3a_3ad_20_3e_21',['Blend&lt; eBlendPostFix::D &gt;',['../namespaceae2f_1_1Bmp_1_1Dot.html#a2fbb416fe38083206d6ca379dae914be',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::D &gt;(const rRGB background, const rRGBA colour_to_blend) noexcept'],['../namespaceae2f_1_1Bmp_1_1Dot.html#a80fda435e7240f9b43f70fc5e5722028',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::D &gt;(const rRGBA __colour_A, const rRGBA __colour_B) noexcept']]],
   ['blend_3c_20eblendpostfix_3a_3af_20_3e_22',['Blend&lt; eBlendPostFix::F &gt;',['../namespaceae2f_1_1Bmp_1_1Dot.html#a0f93d6cf234d96086f5dde0f9540bce7',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::F &gt;(const rRGB background, const rRGBA colour_to_blend) noexcept'],['../namespaceae2f_1_1Bmp_1_1Dot.html#ad1a29cc6c5002a080e9932ef21e569e8',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::F &gt;(const rRGBA __colour_A, const rRGBA __colour_B) noexcept']]],
   ['blend_3c_20eblendpostfix_3a_3al_20_3e_23',['Blend&lt; eBlendPostFix::L &gt;',['../namespaceae2f_1_1Bmp_1_1Dot.html#a539b413c2bf3e80f99d9910613aa1a36',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::L &gt;(const rRGB background, const rRGBA colour_to_blend) noexcept'],['../namespaceae2f_1_1Bmp_1_1Dot.html#ac1097fb9b5a370a3dfd2ce1e775a78a2',1,'ae2f::Bmp::Dot::Blend&lt; eBlendPostFix::L &gt;(const rRGBA __colour_A, const rRGBA __colour_B) noexcept']]],
-  ['but_20tt_20byte_20tt_20will_24',['After this operation &lt;tt&gt;dest&lt;/tt&gt; will still not own the memory, but &lt;tt&gt;byte&lt;/tt&gt; will.',['../Src_8h.html#autotoc_md22',1,'']]],
-  ['byte_20tt_20will_25',['After this operation &lt;tt&gt;dest&lt;/tt&gt; will still not own the memory, but &lt;tt&gt;byte&lt;/tt&gt; will.',['../Src_8h.html#autotoc_md22',1,'']]]
+  ['but_20tt_20byte_20tt_20will_24',['After this operation &lt;tt&gt;dest&lt;/tt&gt; will still not own the memory, but &lt;tt&gt;byte&lt;/tt&gt; will.',['../Src_8h.html#autotoc_md0',1,'']]],
+  ['byte_20tt_20will_25',['After this operation &lt;tt&gt;dest&lt;/tt&gt; will still not own the memory, but &lt;tt&gt;byte&lt;/tt&gt; will.',['../Src_8h.html#autotoc_md0',1,'']]]
 ];

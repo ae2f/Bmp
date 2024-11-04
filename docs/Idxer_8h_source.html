@@ -108,9 +108,9 @@ $(function(){initNavTree('Idxer_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma endregion</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;ae2f/Macro/errGlob.h&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;ae2f/Macro/Cmp.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;ae2f/Macro/Cast.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="errGlob_8h.html">ae2f/Macro/errGlob.h</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="Cmp_8h.html">ae2f/Macro/Cmp.h</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="Cast_8h.html">ae2f/Macro/Cast.h</a>&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma pack(push, 1)</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// Suggest array as matrix.</span></div>
@@ -152,6 +152,9 @@ $(function(){initNavTree('Idxer_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a8377c035d06b8ee930ee45afe972daf6">   49</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Cut(rIdxer, mX, MX, mY, MY) (((ae2f_Bmp_Idx_Drive(rIdxer, mX, mY) == -1 || ae2f_Bmp_Idx_Drive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, (rIdxer).Width, ae2f_Bmp_Idx_Drive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aCast_8h_html"><div class="ttname"><a href="Cast_8h.html">Cast.h</a></div></div>
+<div class="ttc" id="aCmp_8h_html"><div class="ttname"><a href="Cmp_8h.html">Cmp.h</a></div></div>
+<div class="ttc" id="aerrGlob_8h_html"><div class="ttname"><a href="errGlob_8h.html">errGlob.h</a></div></div>
 <div class="ttc" id="astructae2f__Bmp__rIdxer_html"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html">ae2f_Bmp_rIdxer</a></div><div class="ttdef"><b>Definition</b> Idxer.h:18</div></div>
 <div class="ttc" id="astructae2f__Bmp__rIdxer_html_a1c81d436be7447294fa189e20492001c"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">ae2f_Bmp_rIdxer::IdxXJump</a></div><div class="ttdeci">uint32_t IdxXJump</div><div class="ttdef"><b>Definition</b> Idxer.h:30</div></div>
 <div class="ttc" id="astructae2f__Bmp__rIdxer_html_a34fea620a5d6e3ca060edbe582e841b1"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">ae2f_Bmp_rIdxer::Width</a></div><div class="ttdeci">uint32_t Width</div><div class="ttdef"><b>Definition</b> Idxer.h:21</div></div>
