@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['bfoffbits_0',['bfOffBits',['../structae2f__Bmp__Head__rBF.html#a9da5e6fdd896642b7b551f04fe56e562',1,'ae2f_Bmp_Head_rBF']]],
+  ['bfreserved1_1',['bfReserved1',['../structae2f__Bmp__Head__rBF.html#aae9546bfa50e53ed07cc626a238e2158',1,'ae2f_Bmp_Head_rBF']]],
+  ['bfreserved2_2',['bfReserved2',['../structae2f__Bmp__Head__rBF.html#a9b0972730ff510e5526a1177a4ae79df',1,'ae2f_Bmp_Head_rBF']]],
+  ['bfsize_3',['bfSize',['../structae2f__Bmp__Head__rBF.html#abad01ae09c2a149fbf27ab5556fc20c8',1,'ae2f_Bmp_Head_rBF']]],
+  ['bftype_4',['bfType',['../structae2f__Bmp__Head__rBF.html#a44f31d533eccf49c8830bfc3102759f8',1,'ae2f_Bmp_Head_rBF']]],
+  ['bibitcount_5',['biBitCount',['../structae2f__Bmp__Head__rBI.html#a0bcd8d702601e703c7a7d48918c2836d',1,'ae2f_Bmp_Head_rBI']]],
+  ['biclrimportant_6',['biClrImportant',['../structae2f__Bmp__Head__rBI.html#a9b4d896a6bd15a81f2aac7a835f63a26',1,'ae2f_Bmp_Head_rBI']]],
+  ['biclrused_7',['biClrUsed',['../structae2f__Bmp__Head__rBI.html#ac37136ff524f5a11c862e861212bece3',1,'ae2f_Bmp_Head_rBI']]],
+  ['bicompression_8',['biCompression',['../structae2f__Bmp__Head__rBI.html#a4ae04f7f4521a40fc11e4afbb92382b8',1,'ae2f_Bmp_Head_rBI']]],
+  ['biheight_9',['biHeight',['../structae2f__Bmp__Head__rBI.html#a8de45eee6147d33b048bd57ae831ce11',1,'ae2f_Bmp_Head_rBI']]],
+  ['biplanes_10',['biPlanes',['../structae2f__Bmp__Head__rBI.html#aaed1a9617863127dc08398b2e2951759',1,'ae2f_Bmp_Head_rBI']]],
+  ['bisize_11',['biSize',['../structae2f__Bmp__Head__rBI.html#a931712b66b6f633be33c79bd20c89309',1,'ae2f_Bmp_Head_rBI']]],
+  ['bisizeimage_12',['biSizeImage',['../structae2f__Bmp__Head__rBI.html#ac6ba10cac4ba94b762b7b2d7ec72e228',1,'ae2f_Bmp_Head_rBI']]],
+  ['biwidth_13',['biWidth',['../structae2f__Bmp__Head__rBI.html#a986fb72b8d8f112c6f1bc02eb04ab2d3',1,'ae2f_Bmp_Head_rBI']]],
+  ['bixpelspermeter_14',['biXPelsPerMeter',['../structae2f__Bmp__Head__rBI.html#a83a5cd8c6d86df630dbc90cac6025e8b',1,'ae2f_Bmp_Head_rBI']]],
+  ['biypelspermeter_15',['biYPelsPerMeter',['../structae2f__Bmp__Head__rBI.html#a1ad55de504530b92ca8b67d981afcbed',1,'ae2f_Bmp_Head_rBI']]]
+];

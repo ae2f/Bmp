@@ -39,15 +39,16 @@ include(FetchContent)
 find_package(Core)
 if(NOT Core_FOUND)
     message("ae2f::Core not found")
+    add_subdirectory(submodules/Core)
 
-    FetchContent_Declare(
-        Core
-        GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
-        GIT_TAG "Rel-v1.2.9.2"
-        SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
-    )
-    
-    FetchContent_MakeAvailable(Core)
+    # FetchContent_Declare(
+    #     Core
+    #     GIT_REPOSITORY https://github.com/yuisanae2f/ae2f_Core.git
+    #     GIT_TAG "Rel-v1.2.10.3"
+    #     SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/ae2f/Core
+    # )
+    # 
+    # FetchContent_MakeAvailable(Core)
     target_link_libraries(${PROJECT_NAME} Core)
 else()
     target_link_libraries(${PROJECT_NAME} ae2f::Core)

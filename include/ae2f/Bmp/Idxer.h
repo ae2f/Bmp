@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 #include <ae2f/Macro/errGlob.h>
-#include <ae2f/Macro/Compare.h>
+#include <ae2f/Macro/Cmp.h>
 #include <ae2f/Macro/Cast.h>
 
 #pragma pack(push, 1)

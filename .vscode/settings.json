@@ -4,5 +4,6 @@
         "cl2.hpp": "c",
         "opencl.hpp": "c",
         "errglob.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
