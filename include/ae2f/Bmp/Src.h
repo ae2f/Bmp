@@ -6,7 +6,8 @@
 #include "Idxer.h"
 #include <ae2f/Macro/Call.h>
 
-// Enum about Bit Count per Pixel
+/// @brief
+/// Enum about Bit Count per Pixel
 enum ae2f_Bmp_Idxer_eBC {
 	ae2f_Bmp_Idxer_eBC_BIT = 1,
 	ae2f_Bmp_Idxer_eBC_HALF = 4, // 0 ~ 15
@@ -18,10 +19,16 @@ enum ae2f_Bmp_Idxer_eBC {
 
 typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
 
+/// @brief 
+/// A global parameter for @ref ae2f_Bmp_cSrc_Copy.
 struct ae2f_Bmp_cSrc_Copy_Global {
 	uint8_t 
-		Alpha, // Global Fucking Alpha
-		ReverseIdx; // Reverse Idx?
+		/// @brief
+		/// Global Alpha for RGB architect.
+		Alpha,
+		/// @brief
+		/// For reversed copy.
+		ReverseIdx;
 	uint32_t 
 		WidthAsResized, 	// want to resize?
 		HeightAsResized, 	// want to resize?
@@ -29,11 +36,19 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 		AddrYForDest, 		// where to copy
 		DataToIgnore;
 
+	
+	/// @brief Rotation in a unit of radian
 	double RotateXYCounterClockWise;
 
 	int32_t 
-		AxisX, AxisY;
+		/// @brief
+		/// The position of rotation Axis [X]
+		AxisX, 
+		/// @brief
+		/// The position of rotation Axis [Y]
+		AxisY;
 };
+
 
 #define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX ae2f_static_cast(uint8_t, 	0b01)
 #define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY ae2f_static_cast(uint8_t, 	0b10)
@@ -41,16 +56,22 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 #define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
 
 #pragma pack(push, 1)
+
+/// @brief 
+/// 
 struct ae2f_Bmp_cSrc {
-	// Indexing suporter
-	// Abstraction
+	/// @brief
+	/// Indexing suporter
+	/// Abstraction
 	ae2f_struct ae2f_Bmp_rIdxer rIdxer;
 
-	// size of each element[pixel] as bit
-	// bit cound [Element Size]
+	/// @brief
+	/// size of each element[pixel] as bit
+	/// bit cound [Element Size]
 	ae2f_Bmp_Idxer_eBC_t ElSize;
 
-	// Real element[pixel] vector [Global]
+	/// @brief
+	/// Real element[pixel] vector [Global]
 	uint8_t* Addr;
 };
 #pragma pack(pop)

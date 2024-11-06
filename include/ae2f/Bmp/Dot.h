@@ -16,9 +16,20 @@ typedef uint8_t uchar;
 typedef uint16_t ushort;
 typedef uint32_t uint;
 
+/// @brief 
+/// 32 - byte which means has four channels of [r, g, b, a].
 typedef uint ae2f_Bmp_Dot_rgba_t;
+
+/// @brief 
+/// For blending(float point) as float
 typedef float ae2f_Bmp_Dot_Blender_tf;
+
+/// @brief 
+/// For blending(float point) as double
 typedef double ae2f_Bmp_Dot_Blender_t;
+
+/// @brief 
+/// For blending(float point) as long double
 typedef long double ae2f_Bmp_Dot_Blender_tl;
 
 
