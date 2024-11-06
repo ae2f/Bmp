@@ -32,9 +32,14 @@ struct ae2f_Bmp_Head_rBI {
     int32_t  biWidth;
 
     /// @brief
-    /// 
-    int32_t  biHeight;        // unit: px
+    /// Height as pixel count
+    int32_t  biHeight;
+
+    
     uint16_t biPlanes;        // unless 1 would be fucked up
+
+    /// @brief
+    /// The size of each elements.
     uint16_t biBitCount;      // among { 1, 4, 8, 24, 32 }
     uint32_t biCompression;
     uint32_t biSizeImage;     // unit: Byte
@@ -47,9 +52,15 @@ struct ae2f_Bmp_Head_rBI {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
+
+/// @brief 
+/// 
 struct ae2f_Bmp_rHead {
     ae2f_struct ae2f_Bmp_Head_rBF rBF;
     ae2f_struct ae2f_Bmp_Head_rBI rBI;
 };
+
+
 #pragma pack(pop)
 #endif
