@@ -1,7 +1,6 @@
 var Dot_8h =
 [
     [ "ae2f_Bmp_Dot_Blend_imp", "Dot_8h.html#a36f4ee086d15d91d61473f0fe5fe985f", null ],
-    [ "ae2f_Bmp_Dot_h", "Dot_8h.html#abe80b374232084a057b755e558409c2e", null ],
     [ "ae2f_Bmp_Dot_RGB_Make", "Dot_8h.html#ae990fb84d80fcbb987b384a26c1e31a6", null ],
     [ "ae2f_Bmp_Dot_RGBA_FromRGB", "Dot_8h.html#a2a9fc9d40f7e4987e960957b409bdeb5", null ],
     [ "ae2f_Bmp_Dot_RGBA_GetA", "Dot_8h.html#a5dc0db607a0b4db573bd9c21e74b025d", null ],

@@ -107,59 +107,50 @@ $(function(){initNavTree('Idxer_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma endregion</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="errGlob_8h.html">ae2f/Macro/errGlob.h</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="Cmp_8h.html">ae2f/Macro/Cmp.h</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="Cast_8h.html">ae2f/Macro/Cast.h</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma pack(push, 1)</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// Suggest array as matrix.</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// as element count</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// IMPORTANT: DO NOT THINK THAT THEY ARE CONSIDERED AS BYTE</span></div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structae2f__Bmp__rIdxer.html">ae2f_Bmp_rIdxer</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint32_t </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// Actually considered width [Global width]</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">   21</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">Width</a>, </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// the actual element count [Local Count]</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">   24</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">Count</a>,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// Describe the current position as X where an address points. [Local X start]</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">   27</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">CurrX</a>,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="comment">// Suggested width [Local Width]</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">   30</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">IdxXJump</a>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="errGlob_8h.html">ae2f/Macro/errGlob.h</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="Cmp_8h.html">ae2f/Macro/Cmp.h</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="Cast_8h.html">ae2f/Macro/Cast.h</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#pragma pack(push, 1)</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structae2f__Bmp__rIdxer.html">ae2f_Bmp_rIdxer</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    uint32_t </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">   22</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">Width</a>, </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">   25</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">Count</a>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">   28</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">CurrX</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">   31</a></span>        <a class="code hl_variable" href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">IdxXJump</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#pragma pack(pop)</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// Also actual Width of the [rIdxer].</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a1b1487d36dac109e9f656485ffb3d5a3">   35</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_XLeft(rIdxer) ((rIdxer).IdxXJump - (rIdxer).CurrX)</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// Also actual Height of the [rIdxer].</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="Idxer_8h.html#ace3335a2ac4a01e0190263a95d0a8258">   38</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_YLeft(rIdxer) ((rIdxer).Count / (rIdxer).Width)</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a596d7fd235456ca520d219d2f3dcc152">   40</a></span><span class="preprocessor">#define __ae2f_Bmp_Idx_DriveX(rIdxer, dx) ae2f_static_cast(uint32_t, (dx) &lt; ae2f_Bmp_Idx_XLeft(rIdxer) ? (dx) : -1)</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a8519f000b33fa09e7106afd8ef2296d4">   41</a></span><span class="preprocessor">#define __ae2f_Bmp_Idx_DriveY(rIdxer, dy) ae2f_static_cast(uint32_t, (dy) &lt; ae2f_Bmp_Idx_YLeft(rIdxer) ? (dy) : -1)</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// uint32_t</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Check the element index is valid.</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// could returns -1 when not good.</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="Idxer_8h.html#aaf297397fd968b44371380833761c2a0">   46</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Drive(rIdxer, dx, dy) ae2f_static_cast(uint32_t, __ae2f_Bmp_Idx_DriveX(rIdxer, dx) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveY(rIdxer, dy) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveX(rIdxer, dx) + __ae2f_Bmp_Idx_DriveY(rIdxer, dy) * (rIdxer).Width)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// ae2f_Bmp_rIdxer</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a8377c035d06b8ee930ee45afe972daf6">   49</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Cut(rIdxer, mX, MX, mY, MY) (((ae2f_Bmp_Idx_Drive(rIdxer, mX, mY) == -1 || ae2f_Bmp_Idx_Drive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, (rIdxer).Width, ae2f_Bmp_Idx_Drive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#pragma pack(pop)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a1b1487d36dac109e9f656485ffb3d5a3">   37</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_XLeft(rIdxer) ((rIdxer).IdxXJump - (rIdxer).CurrX)</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="Idxer_8h.html#ace3335a2ac4a01e0190263a95d0a8258">   40</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_YLeft(rIdxer) ((rIdxer).Count / (rIdxer).Width)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a596d7fd235456ca520d219d2f3dcc152">   45</a></span><span class="preprocessor">#define __ae2f_Bmp_Idx_DriveX(rIdxer, dx) ae2f_static_cast(uint32_t, (dx) &lt; ae2f_Bmp_Idx_XLeft(rIdxer) ? (dx) : -1)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a8519f000b33fa09e7106afd8ef2296d4">   50</a></span><span class="preprocessor">#define __ae2f_Bmp_Idx_DriveY(rIdxer, dy) ae2f_static_cast(uint32_t, (dy) &lt; ae2f_Bmp_Idx_YLeft(rIdxer) ? (dy) : -1)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="Idxer_8h.html#ab34134ed6fec896f341f4285bf603b8d">   55</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Drive_BAD_IDX ae2f_static_cast(uint32_t, -1)</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="Idxer_8h.html#aaf297397fd968b44371380833761c2a0">   66</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Drive(rIdxer, dx, dy) ae2f_static_cast(uint32_t, __ae2f_Bmp_Idx_DriveX(rIdxer, dx) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveY(rIdxer, dy) == ae2f_static_cast(uint32_t, -1) ? -1 : __ae2f_Bmp_Idx_DriveX(rIdxer, dx) + __ae2f_Bmp_Idx_DriveY(rIdxer, dy) * (rIdxer).Width)</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="Idxer_8h.html#a8377c035d06b8ee930ee45afe972daf6">   75</a></span><span class="preprocessor">#define ae2f_Bmp_Idx_Cut(rIdxer, mX, MX, mY, MY) (((ae2f_Bmp_Idx_Drive(rIdxer, mX, mY) == -1 || ae2f_Bmp_Idx_Drive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_Bmp_rIdxer, (rIdxer).Width, ae2f_Bmp_Idx_Drive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aCast_8h_html"><div class="ttname"><a href="Cast_8h.html">Cast.h</a></div></div>
 <div class="ttc" id="aCmp_8h_html"><div class="ttname"><a href="Cmp_8h.html">Cmp.h</a></div></div>
 <div class="ttc" id="aerrGlob_8h_html"><div class="ttname"><a href="errGlob_8h.html">errGlob.h</a></div></div>
-<div class="ttc" id="astructae2f__Bmp__rIdxer_html"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html">ae2f_Bmp_rIdxer</a></div><div class="ttdef"><b>Definition</b> Idxer.h:18</div></div>
-<div class="ttc" id="astructae2f__Bmp__rIdxer_html_a1c81d436be7447294fa189e20492001c"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">ae2f_Bmp_rIdxer::IdxXJump</a></div><div class="ttdeci">uint32_t IdxXJump</div><div class="ttdef"><b>Definition</b> Idxer.h:30</div></div>
-<div class="ttc" id="astructae2f__Bmp__rIdxer_html_a34fea620a5d6e3ca060edbe582e841b1"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">ae2f_Bmp_rIdxer::Width</a></div><div class="ttdeci">uint32_t Width</div><div class="ttdef"><b>Definition</b> Idxer.h:21</div></div>
-<div class="ttc" id="astructae2f__Bmp__rIdxer_html_ac807c58547f245db9652fe0f387c45ce"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">ae2f_Bmp_rIdxer::CurrX</a></div><div class="ttdeci">uint32_t CurrX</div><div class="ttdef"><b>Definition</b> Idxer.h:27</div></div>
-<div class="ttc" id="astructae2f__Bmp__rIdxer_html_ae8013bbfe9a5c725c0a5bac779527c51"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">ae2f_Bmp_rIdxer::Count</a></div><div class="ttdeci">uint32_t Count</div><div class="ttdef"><b>Definition</b> Idxer.h:24</div></div>
+<div class="ttc" id="astructae2f__Bmp__rIdxer_html"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html">ae2f_Bmp_rIdxer</a></div><div class="ttdoc">Suggest array as matrix.</div><div class="ttdef"><b>Definition</b> Idxer.h:19</div></div>
+<div class="ttc" id="astructae2f__Bmp__rIdxer_html_a1c81d436be7447294fa189e20492001c"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a1c81d436be7447294fa189e20492001c">ae2f_Bmp_rIdxer::IdxXJump</a></div><div class="ttdeci">uint32_t IdxXJump</div><div class="ttdoc">Suggested width [Local Width].</div><div class="ttdef"><b>Definition</b> Idxer.h:31</div></div>
+<div class="ttc" id="astructae2f__Bmp__rIdxer_html_a34fea620a5d6e3ca060edbe582e841b1"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#a34fea620a5d6e3ca060edbe582e841b1">ae2f_Bmp_rIdxer::Width</a></div><div class="ttdeci">uint32_t Width</div><div class="ttdoc">Actually considered width [Global width].</div><div class="ttdef"><b>Definition</b> Idxer.h:22</div></div>
+<div class="ttc" id="astructae2f__Bmp__rIdxer_html_ac807c58547f245db9652fe0f387c45ce"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#ac807c58547f245db9652fe0f387c45ce">ae2f_Bmp_rIdxer::CurrX</a></div><div class="ttdeci">uint32_t CurrX</div><div class="ttdoc">Describe the current position as X where an address points. [Local X start].</div><div class="ttdef"><b>Definition</b> Idxer.h:28</div></div>
+<div class="ttc" id="astructae2f__Bmp__rIdxer_html_ae8013bbfe9a5c725c0a5bac779527c51"><div class="ttname"><a href="structae2f__Bmp__rIdxer.html#ae8013bbfe9a5c725c0a5bac779527c51">ae2f_Bmp_rIdxer::Count</a></div><div class="ttdeci">uint32_t Count</div><div class="ttdoc">The actual element count [Local Count].</div><div class="ttdef"><b>Definition</b> Idxer.h:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
