@@ -342,16 +342,6 @@ ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 #pragma endregion
 
 
-/// @brief 
-/// Copies the data of `src` to `dest`.
-/// @param dest 
-/// Destination where the `src` would be copied.
-/// 
-/// Allocating will not be automatically done.
-/// @param src 
-/// Source which has the actual data.
-/// @param srcprm 
-/// Additional operator attribute for `src`.
 ae2f_SHAREDEXPORT ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,

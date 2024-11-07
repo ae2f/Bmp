@@ -6,7 +6,8 @@
 
 #pragma pack(push, 1) 
 
-// Bitmap File Header
+/// @brief
+/// Pre-defined [B]itmap [F]ile header [BF]
 struct ae2f_Bmp_Head_rBF {
     uint16_t bfType;
     uint32_t bfSize;
@@ -19,12 +20,26 @@ struct ae2f_Bmp_Head_rBF {
 
 #pragma pack(push, 1)
 
-// Bitmap Info Header
+/// @brief
+/// [B]itmap [I]nfo Header [BI]
 struct ae2f_Bmp_Head_rBI {
+    /// @brief
+    /// Actual size
     uint32_t biSize;
-    int32_t  biWidth;         // unit: px
-    int32_t  biHeight;        // unit: px
+
+    /// @brief
+    /// Unit as pixel count
+    int32_t  biWidth;
+
+    /// @brief
+    /// Height as pixel count
+    int32_t  biHeight;
+
+    
     uint16_t biPlanes;        // unless 1 would be fucked up
+
+    /// @brief
+    /// The size of each elements.
     uint16_t biBitCount;      // among { 1, 4, 8, 24, 32 }
     uint32_t biCompression;
     uint32_t biSizeImage;     // unit: Byte
@@ -37,9 +52,15 @@ struct ae2f_Bmp_Head_rBI {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
+
+/// @brief 
+/// Bitmap header suggested.
 struct ae2f_Bmp_rHead {
     ae2f_struct ae2f_Bmp_Head_rBF rBF;
     ae2f_struct ae2f_Bmp_Head_rBI rBI;
 };
+
+
 #pragma pack(pop)
 #endif

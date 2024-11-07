@@ -55,39 +55,39 @@ namespace ae2f {
 			};
 
 			template<eBlendPostFix::_ = eBlendPostFix::F>
-			const rRGB Blend(const rRGB background, const rRGBA colour_to_blend) noexcept;
+			constexpr rRGB Blend(const rRGB background, const rRGBA colour_to_blend) noexcept;
 
 			template<eBlendPostFix::_ = eBlendPostFix::F>
-			const rRGB Blend(const rRGBA __colour_A, const rRGBA __colour_B) noexcept;
+			constexpr rRGB Blend(const rRGBA __colour_A, const rRGBA __colour_B) noexcept;
 
 			template<>
-			const rRGB Blend<eBlendPostFix::F>(const rRGB background, const rRGBA colour_to_blend) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::F>(const rRGB background, const rRGBA colour_to_blend) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGB(background.inst, colour_to_blend.inst, f);
 			}
 
 			template<>
-			const rRGB Blend<eBlendPostFix::F>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::F>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGBA(__colour_A.inst, __colour_B.inst, f);
 			}
 
 			
 			template<>
-			const rRGB Blend<eBlendPostFix::D>(const rRGB background, const rRGBA colour_to_blend) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::D>(const rRGB background, const rRGBA colour_to_blend) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGB(background.inst, colour_to_blend.inst, );
 			}
 
 			template<>
-			const rRGB Blend<eBlendPostFix::D>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::D>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGBA(__colour_A.inst, __colour_B.inst, );
 			}
 
 			template<>
-			const rRGB Blend<eBlendPostFix::L>(const rRGB background, const rRGBA colour_to_blend) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::L>(const rRGB background, const rRGBA colour_to_blend) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGB(background.inst, colour_to_blend.inst, l);
 			}
 
 			template<>
-			const rRGB Blend<eBlendPostFix::L>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
+			constexpr rRGB Blend<eBlendPostFix::L>(const rRGBA __colour_A, const rRGBA __colour_B) noexcept {
 				return ae2f_Bmp_Dot_rRGBA_BlendRGBA(__colour_A.inst, __colour_B.inst, l);
 			}
 		}
