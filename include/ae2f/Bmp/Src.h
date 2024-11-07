@@ -81,7 +81,8 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 #pragma pack(push, 1)
 
 /// @brief 
-/// 
+/// Represents the source of the bitmap. \n 
+/// This structure has no responsibility for a memory.
 struct ae2f_Bmp_cSrc {
 	/// @brief
 	/// Indexing suporter
@@ -99,11 +100,40 @@ struct ae2f_Bmp_cSrc {
 };
 #pragma pack(pop)
 
+/// @brief 
+/// Fills the colour for whole range in [dest].
+/// @param dest 
+/// The target memory.
+/// @param colour
+/// The colour value to fill. 
+/// @return 
+/// @ref ae2f_errGlob_OK
+/// @exception \ 
+/// @ref ae2f_errGlob_PTR_IS_NULL \n 
+/// @ref ae2f_errGlob_IMP_NOT_FOUND
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour
 );
 
+/// @brief 
+/// Fills the colour for whole range in [dest].
+/// @param dest 
+/// The target memory.
+/// @param colour
+/// The colour value to fill. 
+/// @param partial_min_x 
+/// for Rect
+/// @param partial_min_y 
+/// for Rect
+/// @param partial_max_x 
+/// for Rect
+/// @param partial_max_y
+/// for Rect 
+/// @return @ref ae2f_errGlob_OK
+/// @exception \
+/// @ref ae2f_errGlob_PTR_IS_NULL \n
+/// @ref ae2f_errGlob_IMP_NOT_FOUND
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour,
@@ -114,6 +144,28 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 	uint32_t partial_max_y
 );
 
+/// @brief 
+/// Gets the 3-channel or 4-channel value for given rect.
+/// @param src 
+/// @param retColour
+/// Address where the value stored. 
+/// @param _min_x 
+/// for Rect
+/// @param _min_y
+/// for Rect
+/// @param _max_x
+/// for Rect
+/// @param _max_y
+/// for Rect
+/// @param reverseIdx
+/// To consider reversing index when iterating.
+/// @return 
+/// @ref ae2f_errGlob_OK
+/// @exception \ 
+/// @ref ae2f_errGlob_IMP_NOT_FOUND \n
+/// @ref ae2f_errGlob_PTR_IS_NULL
+/// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX
+/// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
@@ -135,6 +187,11 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 /// Source which has the actual data.
 /// @param srcprm 
 /// Additional operator attribute for [src].
+/// @return
+/// @ref ae2f_errGlob_OK
+/// @exception \
+/// @ref ae2f_errGlob_PTR_IS_NULL \n 
+/// @ref ae2f_errGlob_IMP_NOT_FOUND 
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
@@ -151,6 +208,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 /// Source which has the actual data.
 /// @param srcprm 
 /// Additional operator attribute for [src].
+/// @return @ref ae2f_errGlob_OK
+/// @exception \
+/// @ref ae2f_errGlob_PTR_IS_NULL \n 
+/// @ref ae2f_errGlob_IMP_NOT_FOUND
 ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
@@ -164,6 +225,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 /// @brief 
 /// `byte` is not long enough to parse.
 #define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlob_WRONG_OPERATION
+
+
 
 /// @brief 
 /// # After this operation [dest] will still not own the memory, but [byte] will.
@@ -180,6 +243,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Read(
 	size_t byteLength
 );
 
+/// @warning
+/// Certain Macro is not certified.
 #define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #endif
