@@ -18,6 +18,11 @@ add_library(
     "src/Src/Double.c"
 )
 
+if(LINUX)
+find_library(M_LIB m)
+target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
+endif()
+
 include_directories(include)
 
 # Header
@@ -56,3 +61,5 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
 )
+
+add_subdirectory(test)
