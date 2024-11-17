@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
+
+add_subdirectory(mod/ae2f/Core)
+link_libraries(Core)
+
 project(Bmp)
 enable_testing()
 
@@ -21,11 +25,6 @@ add_library(
     "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
     "include/ae2f/Bmp/Idxer.h"
-    
-    "include/ae2f/Bmp/Dot.hpp"
-    "include/ae2f/Bmp/Idxer.hpp"
-
-    "include/ae2f/Bmp/Src.hpp"
     "include/ae2f/Bmp/Src.h"
     "src/Src/Double.c"
 )
@@ -34,17 +33,6 @@ if(LINUX)
 find_library(M_LIB m)
 target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
 endif()
-
-include(FetchContent)
-find_package(Core)
-if(NOT Core_FOUND)
-    message("ae2f::Core not found")
-    add_subdirectory(submodules/Core)
-    target_link_libraries(${PROJECT_NAME} Core)
-else()
-    target_link_libraries(${PROJECT_NAME} ae2f::Core)
-endif()
-
 
 include_directories(include)
 

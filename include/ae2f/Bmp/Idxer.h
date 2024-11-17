@@ -6,9 +6,9 @@
 
 #pragma endregion
 
-#include <ae2f/Macro/errGlob.h>
-#include <ae2f/Macro/Cmp.h>
-#include <ae2f/Macro/Cast.h>
+#include <ae2f/errGlob.h>
+#include <ae2f/Cmp.h>
+#include <ae2f/Cast.h>
 
 #pragma pack(push, 1)
 

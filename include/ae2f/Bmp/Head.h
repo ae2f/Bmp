@@ -2,7 +2,7 @@
 #define ae2f_Bmp_Head_h
 
 #include <stdint.h>
-#include <ae2f/Macro/Cast.h>
+#include <ae2f/Cast.h>
 
 #pragma pack(push, 1) 
 

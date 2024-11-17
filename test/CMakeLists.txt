@@ -1,3 +1,6 @@
 link_libraries(Bmp)
 
-add_subdirectory("test0")
+project(BmpTest)
+
+add_executable(${PROJECT_NAME} "a.c")
+add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})

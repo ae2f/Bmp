@@ -3,7 +3,9 @@
         "cl.h": "c",
         "cl2.hpp": "c",
         "opencl.hpp": "c",
-        "errglob.h": "c"
+        "errglob.h": "c",
+        "src.h": "c",
+        "idxer.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

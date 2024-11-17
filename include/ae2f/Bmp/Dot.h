@@ -5,8 +5,8 @@
 
 #pragma endregion
 
-#include <ae2f/Macro/Cast.h>
-#include <ae2f/Macro/BitVec.h>
+#include <ae2f/Cast.h>
+#include <ae2f/BitVec.h>
 
 typedef uint8_t uchar;
 typedef uint16_t ushort;
