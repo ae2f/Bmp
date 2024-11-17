@@ -6,6 +6,8 @@
 #include "Idxer.h"
 #include <ae2f/Call.h>
 
+#include <ae2f/Pack/Beg.h>
+
 /// @brief
 /// Enum about Bit Count per Pixel
 enum ae2f_Bmp_Idxer_eBC {
@@ -78,8 +80,6 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 /// @see ae2f_Bmp_cSrc_Copy_Global
 #define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
 
-#pragma pack(push, 1)
-
 /// @brief 
 /// Represents the source of the bitmap. \n 
 /// This structure has no responsibility for a memory.
@@ -98,7 +98,6 @@ struct ae2f_Bmp_cSrc {
 	/// Real element[pixel] vector [Global]
 	uint8_t* Addr;
 };
-#pragma pack(pop)
 
 /// @brief 
 /// Fills the colour for whole range in [dest].
@@ -111,7 +110,7 @@ struct ae2f_Bmp_cSrc {
 /// @exception \ 
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour
 );
@@ -134,7 +133,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint32_t colour,
 
@@ -166,7 +165,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Fill_Partial(
 /// @ref ae2f_errGlob_PTR_IS_NULL
 /// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX
 /// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
 	double _min_x,
@@ -192,7 +191,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_gDot(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND 
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm
@@ -212,7 +211,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm,
@@ -237,7 +236,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Copy_Partial(
 /// @param byteLength 
 /// size of the [byte].
 /// @return 
-ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Read(
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Read(
 	ae2f_struct ae2f_Bmp_cSrc* dest,
 	uint8_t* byte,
 	size_t byteLength
@@ -246,5 +245,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_errint_t ae2f_Bmp_cSrc_Read(
 /// @warning
 /// Certain Macro is not certified.
 #define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
+
+#include <ae2f/Pack/End.h>
 
 #endif

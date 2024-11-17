@@ -10,7 +10,7 @@
 #include <ae2f/Cmp.h>
 #include <ae2f/Cast.h>
 
-#pragma pack(push, 1)
+#include <ae2f/Pack/Beg.h>
 
 /// @brief
 /// Suggest array as matrix.
@@ -31,7 +31,7 @@ struct ae2f_Bmp_rIdxer {
 		IdxXJump;
 };
 
-#pragma pack(pop)
+#include <ae2f/Pack/End.h>
 
 /// @brief An actual Width of the @ref ae2f_Bmp_rIdxer.
 #define ae2f_Bmp_Idx_XLeft(rIdxer) ((rIdxer).IdxXJump - (rIdxer).CurrX)
