@@ -12,23 +12,26 @@ link_libraries(Core)
 # Namespace Package
 include(GNUInstallDirs)
 
-add_library(
-	${PROJECT_NAME}
-    ${ae2f_LIBPREFIX}
+if(NOT TARGET ${PROJECT_NAME})
+    add_library(
+        ${PROJECT_NAME}
+        ${ae2f_LIBPREFIX}
 
-    "include/ae2f/Bmp/Dot.h"
-    "include/ae2f/Bmp/Head.h"
-    "include/ae2f/Bmp/Idxer.h"
-    "include/ae2f/Bmp/Src.h"
-    "src/Src/Double.c"
-)
+        "include/ae2f/Bmp/Dot.h"
+        "include/ae2f/Bmp/Head.h"
+        "include/ae2f/Bmp/Idxer.h"
+        "include/ae2f/Bmp/Src.h"
+        "src/Src/Double.c"
+    )
 
-if(LINUX)
-find_library(M_LIB m)
-target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
+    if(LINUX)
+        find_library(M_LIB m)
+        target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
+    endif()
 endif()
 
 include_directories(include)
+add_subdirectory(test)
 
 # Header
 target_include_directories(${PROJECT_NAME}
@@ -67,5 +70,4 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
 )
 
-add_subdirectory(test)
 endif()
