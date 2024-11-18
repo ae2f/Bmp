@@ -1,33 +1,30 @@
 cmake_minimum_required(VERSION 3.20)
-
-if(NOT ae2f_Bmp_cmake)
-set(ae2f_Bmp_cmake TRUE)
-
 project(Bmp)
-
 enable_testing()
+
+if(NOT TARGET ${PROJECT_NAME})
+
 add_subdirectory(mod/ae2f/Core)
 link_libraries(Core)
 
 # Namespace Package
 include(GNUInstallDirs)
 
-if(NOT TARGET ${PROJECT_NAME})
-    add_library(
-        ${PROJECT_NAME}
-        ${ae2f_LIBPREFIX}
 
-        "include/ae2f/Bmp/Dot.h"
-        "include/ae2f/Bmp/Head.h"
-        "include/ae2f/Bmp/Idxer.h"
-        "include/ae2f/Bmp/Src.h"
-        "src/Src/Double.c"
-    )
+add_library(
+    ${PROJECT_NAME}
+    ${ae2f_LIBPREFIX}
 
-    if(LINUX)
-        find_library(M_LIB m)
-        target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
-    endif()
+    "include/ae2f/Bmp/Dot.h"
+    "include/ae2f/Bmp/Head.h"
+    "include/ae2f/Bmp/Idxer.h"
+    "include/ae2f/Bmp/Src.h"
+    "src/Src/Double.c"
+)
+
+if(LINUX)
+    find_library(M_LIB m)
+    target_link_libraries(${PROJECT_NAME} ${M_LIB}) # library 'math'
 endif()
 
 include_directories(include)
