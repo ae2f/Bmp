@@ -9,58 +9,54 @@
 #include <ae2f/BitVec.h>
 #include <ae2f/Float.h>
 
-typedef uint8_t uchar;
-typedef uint16_t ushort;
-typedef uint32_t uint;
-
 /// @brief 
 /// 32 - byte which means has four channels of [r, g, b, a].
-typedef uint ae2f_Bmp_Dot_rgba_t;
+typedef uint32_t ae2f_Bmp_Dot_rgba_t;
 
 /// @brief
 /// Gets the value of channel [R]
 /// @param rgb {uint32_t} 
 /// 3-channel colour integer.
-#define ae2f_Bmp_Dot_RGBA_GetR(rgb) ae2f_static_cast(uchar, ae2f_BitVec_GetRanged(ae2f_static_cast(uint, rgb), 0, 8))
+#define ae2f_Bmp_Dot_RGBA_GetR(rgb) ae2f_static_cast(uint8_t, ae2f_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8))
 
 /// @brief
 /// Gets the value of channel [G]
 /// @param rgb {uint32_t} 3-channel colour integer.
-#define ae2f_Bmp_Dot_RGBA_GetG(rgb) ae2f_static_cast(uchar, ae2f_BitVec_GetRanged(ae2f_static_cast(uint, rgb), 8, 16))
+#define ae2f_Bmp_Dot_RGBA_GetG(rgb) ae2f_static_cast(uint8_t, ae2f_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16))
 
 /// @brief
 /// Gets the value of channel [B]
 /// @param rgb {uint32_t} 3-channel colour integer.
-#define ae2f_Bmp_Dot_RGBA_GetB(rgb) ae2f_static_cast(uchar, ae2f_BitVec_GetRanged(ae2f_static_cast(uint, rgb), 16, 24))
+#define ae2f_Bmp_Dot_RGBA_GetB(rgb) ae2f_static_cast(uint8_t, ae2f_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24))
 
 /// @brief
 /// Gets the value of channel [A]
 /// @param rgba {uint32_t} 4-channel colour integer.
-#define ae2f_Bmp_Dot_RGBA_GetA(rgba) ae2f_static_cast(uchar, ae2f_BitVec_GetRanged(ae2f_static_cast(uint, rgba), 24, 32))
+#define ae2f_Bmp_Dot_RGBA_GetA(rgba) ae2f_static_cast(uint8_t, ae2f_BitVec_GetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32))
 
 /// @brief
 /// Sets the value of channel [R]
 /// @param rgb {uint32_t}
 /// @param val The value to set
-#define ae2f_Bmp_Dot_RGBA_SetR(rgb, val)  ae2f_static_cast(uint, ae2f_BitVec_SetRanged(ae2f_static_cast(uint, rgb), 0, 8, val))
+#define ae2f_Bmp_Dot_RGBA_SetR(rgb, val)  ae2f_static_cast(uint32_t, ae2f_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 0, 8, val))
 
 /// @brief
 /// Sets the value of channel [G]
 /// @param rgb {uint32_t}
 /// @param val The value to set
-#define ae2f_Bmp_Dot_RGBA_SetG(rgb, val)  ae2f_static_cast(uint, ae2f_BitVec_SetRanged(ae2f_static_cast(uint, rgb), 8, 16, val))
+#define ae2f_Bmp_Dot_RGBA_SetG(rgb, val)  ae2f_static_cast(uint32_t, ae2f_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 8, 16, val))
 
 /// @brief
 /// Sets the value of channel [B]
 /// @param rgb {uint32_t}
 /// @param val The value to set
-#define ae2f_Bmp_Dot_RGBA_SetB(rgb, val)  ae2f_static_cast(uint, ae2f_BitVec_SetRanged(ae2f_static_cast(uint, rgb), 16, 24, val))
+#define ae2f_Bmp_Dot_RGBA_SetB(rgb, val)  ae2f_static_cast(uint32_t, ae2f_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgb), 16, 24, val))
 
 /// @brief
 /// Sets the value of channel [A]
 /// @param rgba {uint32_t}
 /// @param val The value to set
-#define ae2f_Bmp_Dot_RGBA_SetA(rgba, val) ae2f_static_cast(uint, ae2f_BitVec_SetRanged(ae2f_static_cast(uint, rgba), 24, 32, val))
+#define ae2f_Bmp_Dot_RGBA_SetA(rgba, val) ae2f_static_cast(uint32_t, ae2f_BitVec_SetRanged(ae2f_static_cast(uint32_t, rgba), 24, 32, val))
 
 /// @brief
 /// Generates a new number with three channels configured(initialised).
@@ -71,7 +67,7 @@ typedef uint ae2f_Bmp_Dot_rgba_t;
 /// @param b 
 /// Initial Value for channel [B]
 /// @return {uint32_t} 3-channel colour integer.
-#define ae2f_Bmp_Dot_RGB_Make(r, g, b) ae2f_static_cast(uint, ae2f_static_cast(uchar, r) | (ae2f_static_cast(ushort, g) << 8) | (ae2f_static_cast(uint, b) << 16))
+#define ae2f_Bmp_Dot_RGB_Make(r, g, b) ae2f_static_cast(uint32_t, ae2f_static_cast(uint8_t, r) | (ae2f_static_cast(uint16_t, g) << 8) | (ae2f_static_cast(uint32_t, b) << 16))
 
 /// @brief
 /// Generates a new number with four channels configured(initialised).
@@ -84,7 +80,7 @@ typedef uint ae2f_Bmp_Dot_rgba_t;
 /// @param a
 /// Initial Value for channel [A]
 /// @return {uint32_t} 4-channel colour integer.
-#define ae2f_Bmp_Dot_RGBA_Make(r, g, b, a) ae2f_static_cast(uint, ae2f_static_cast(uchar, r) | (ae2f_static_cast(ushort, g) << 8) | (ae2f_static_cast(uint, b) << 16) | (ae2f_static_cast(uint, a) << 24))
+#define ae2f_Bmp_Dot_RGBA_Make(r, g, b, a) ae2f_static_cast(uint32_t, ae2f_static_cast(uint8_t, r) | (ae2f_static_cast(uint16_t, g) << 8) | (ae2f_static_cast(uint32_t, b) << 16) | (ae2f_static_cast(uint32_t, a) << 24))
 
 
 /// @brief
@@ -126,7 +122,7 @@ typedef uint ae2f_Bmp_Dot_rgba_t;
 /// @see @ref ae2f_Bmp_Dot_RGBA_GetG
 /// @see @ref ae2f_Bmp_Dot_RGBA_GetB
 /// @see @ref ae2f_Bmp_Dot_RGBA_GetA
-#define ae2f_Bmp_Dot_rRGBA_Blend_mRGB(rgba1, rgba2, iRGB) ae2f_Bmp_Dot_Blend_imp(ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba1), ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba2), ae2f_Bmp_Dot_RGBA_GetA(rgba1) / (ae2f_static_cast(ae2f_float_t, ae2f_Bmp_Dot_RGBA_GetA(rgba1)) + ae2f_Bmp_Dot_RGBA_GetA(rgba2)), uchar)
+#define ae2f_Bmp_Dot_rRGBA_Blend_mRGB(rgba1, rgba2, iRGB) ae2f_Bmp_Dot_Blend_imp(ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba1), ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba2), ae2f_Bmp_Dot_RGBA_GetA(rgba1) / (ae2f_static_cast(ae2f_float_t, ae2f_Bmp_Dot_RGBA_GetA(rgba1)) + ae2f_Bmp_Dot_RGBA_GetA(rgba2)), uint8_t)
 
 /// @brief
 /// Blends the Channel
@@ -137,7 +133,7 @@ typedef uint ae2f_Bmp_Dot_rgba_t;
 /// @param iRGB {R | G | B}
 /// Channel Name
 /// @return {uint8_t} Blended channel value
-#define ae2f_Bmp_Dot_rRGBA_Blend_mpRGB(rgb, rgba, iRGB) ae2f_Bmp_Dot_Blend_imp(ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba), ae2f_Bmp_Dot_RGBA_Get##iRGB(rgb), ae2f_Bmp_Dot_RGBA_GetA(rgba) / ae2f_static_cast(ae2f_float_t, 255), uchar)
+#define ae2f_Bmp_Dot_rRGBA_Blend_mpRGB(rgb, rgba, iRGB) ae2f_Bmp_Dot_Blend_imp(ae2f_Bmp_Dot_RGBA_Get##iRGB(rgba), ae2f_Bmp_Dot_RGBA_Get##iRGB(rgb), ae2f_Bmp_Dot_RGBA_GetA(rgba) / ae2f_static_cast(ae2f_float_t, 255), uint8_t)
 
 /// @brief
 /// Alpha channel blending

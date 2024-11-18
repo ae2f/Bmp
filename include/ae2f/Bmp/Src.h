@@ -1,5 +1,3 @@
-#include <float.h>
-
 #if !defined(ae2f_Bmp_Src_h)
 #define ae2f_Bmp_Src_h
 
