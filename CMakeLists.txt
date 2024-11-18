@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
+
+if(NOT ae2f_Bmp_cmake)
+set(ae2f_Bmp_cmake TRUE)
+
 project(Bmp)
+
 enable_testing()
 add_subdirectory(mod/ae2f/Core)
 link_libraries(Core)
@@ -63,3 +68,4 @@ install(FILES
 )
 
 add_subdirectory(test)
+endif()
