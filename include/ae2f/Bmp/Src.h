@@ -5,7 +5,7 @@
 
 #include "Idxer.h"
 #include <ae2f/Call.h>
-
+#include <ae2f/Float.h>
 #include <ae2f/Pack/Beg.h>
 
 /// @brief
@@ -56,7 +56,7 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 
 	
 	/// @brief Rotation in a unit of radian
-	double RotateXYCounterClockWise;
+	ae2f_float_t RotateXYCounterClockWise;
 
 	int32_t 
 		/// @brief
@@ -168,10 +168,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
-	double _min_x,
-	double _min_y,
-	double _max_x,
-	double _max_y,
+	ae2f_float_t _min_x,
+	ae2f_float_t _min_y,
+	ae2f_float_t _max_x,
+	ae2f_float_t _max_y,
 
 	uint8_t reverseIdx
 );

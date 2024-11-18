@@ -13,10 +13,10 @@ typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSu
 ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	const ae2f_struct ae2f_Bmp_cSrc* src,
 	uint32_t* retColour,
-	double _min_x,
-	double _min_y,
-	double _max_x,
-	double _max_y,
+	ae2f_float_t _min_x,
+	ae2f_float_t _min_y,
+	ae2f_float_t _max_x,
+	ae2f_float_t _max_y,
 
 	uint8_t reverseIdx
 ) {
@@ -28,7 +28,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	return ae2f_errGlob_PTR_IS_NULL;
 
 	struct {
-		double R, G, B, A, Count;
+		ae2f_float_t R, G, B, A, Count;
 	} Channel = {0, 0, 0, 0, 0};
 
 	switch(src->ElSize) {
@@ -248,9 +248,9 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 	
-	double 
-		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
-		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (double)srcprm->global.HeightAsResized);
+	ae2f_float_t 
+		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
+		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
 
 	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++) {
 		for (uint32_t x = 0; x < srcprm->global.WidthAsResized; x++)
@@ -272,7 +272,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 				srcprm->global.ReverseIdx
 			);
 
-			double 
+			ae2f_float_t 
 			rotatedW = dotw * cos(srcprm->global.RotateXYCounterClockWise) + doth * sin(srcprm->global.RotateXYCounterClockWise),
 			rotatedH = doth * cos(srcprm->global.RotateXYCounterClockWise) - dotw * sin(srcprm->global.RotateXYCounterClockWise);
 
@@ -289,9 +289,9 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
-			double 
-			_transx = (double)_x - srcprm->global.AxisX, 
-			_transy = (double)_y - srcprm->global.AxisY,
+			ae2f_float_t 
+			_transx = (ae2f_float_t)_x - srcprm->global.AxisX, 
+			_transy = (ae2f_float_t)_y - srcprm->global.AxisY,
 			rotatedX = _transx * cos(srcprm->global.RotateXYCounterClockWise) + _transy * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisX,
 			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
@@ -320,7 +320,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 						addr[i] = ae2f_Bmp_Dot_Blend_imp(
 							el.b[i], 
 							addr[i], 
-							((ae2f_static_cast(double, el.b[3])) / 255.0), 
+							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
 							uint8_t
 						);
 					} break;
@@ -369,9 +369,9 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 	}
 
 	
-	double 
-		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (double)srcprm->global.WidthAsResized), 
-		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (double)srcprm->global.HeightAsResized);
+	ae2f_float_t 
+		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
+		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
 
 	for (uint32_t y = partial_min_y; y < srcprm->global.HeightAsResized && y < partial_max_y; y++) {
 		for (uint32_t x = partial_min_x; x < srcprm->global.WidthAsResized && x < partial_max_x; x++)
@@ -393,7 +393,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 				srcprm->global.ReverseIdx
 			);
 
-			double 
+			ae2f_float_t 
 			rotatedW = dotw * cos(srcprm->global.RotateXYCounterClockWise) + doth * sin(srcprm->global.RotateXYCounterClockWise),
 			rotatedH = doth * cos(srcprm->global.RotateXYCounterClockWise) - dotw * sin(srcprm->global.RotateXYCounterClockWise);
 
@@ -410,9 +410,9 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
-			double 
-			_transx = (double)_x - srcprm->global.AxisX, 
-			_transy = (double)_y - srcprm->global.AxisY,
+			ae2f_float_t 
+			_transx = (ae2f_float_t)_x - srcprm->global.AxisX, 
+			_transy = (ae2f_float_t)_y - srcprm->global.AxisY,
 			rotatedX = _transx * cos(srcprm->global.RotateXYCounterClockWise) + _transy * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisX,
 			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.AxisY;
 
@@ -441,7 +441,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 						addr[i] = ae2f_Bmp_Dot_Blend_imp(
 							el.b[i], 
 							addr[i], 
-							((ae2f_static_cast(double, el.b[3])) / 255.0), 
+							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
 							uint8_t
 						);
 					} break;
