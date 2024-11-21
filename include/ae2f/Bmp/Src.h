@@ -1,35 +1,12 @@
 #if !defined(ae2f_Bmp_Src_h)
 #define ae2f_Bmp_Src_h
 
-#include "Idxer.h"
+#include "Idx.h"
 #include <ae2f/Call.h>
 #include <ae2f/Float.h>
 #include <ae2f/Pack/Beg.h>
 
-/// @brief
-/// Enum about Bit Count per Pixel
-enum ae2f_Bmp_Idxer_eBC {
-	/// @brief 0 | 1
-	ae2f_Bmp_Idxer_eBC_BIT = 1,
-
-	/// @brief 0 ~ 15
-	ae2f_Bmp_Idxer_eBC_HALF = 4,
-
-	/// @brief 0 ~ 255 
-	ae2f_Bmp_Idxer_eBC_BYTE = 8,
-
-	/// @brief not indexing, rgb
-	ae2f_Bmp_Idxer_eBC_RGB = 24, 
-
-	/// @brief not indexing, rgba
-	ae2f_Bmp_Idxer_eBC_RGBA = 32,
-
-	/// @brief Something is wrong
-	ae2f_Bmp_Idxer_eBC_REMINDER_OWNER = 64
-};
-
-/// @brief 
-typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
+#include "./BitCount.h"
 
 /// @brief 
 /// A global parameter for @ref ae2f_Bmp_cSrc_Copy.
@@ -90,7 +67,7 @@ struct ae2f_Bmp_cSrc {
 	/// @brief
 	/// size of each element[pixel] as bit
 	/// bit cound [Element Size]
-	ae2f_Bmp_Idxer_eBC_t ElSize;
+	ae2f_eBmpBitCount_t ElSize;
 
 	/// @brief
 	/// Real element[pixel] vector [Global]

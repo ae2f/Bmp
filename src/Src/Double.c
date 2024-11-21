@@ -33,8 +33,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	} Channel = {0, 0, 0, 0, 0};
 
 	switch(src->ElSize) {
-		case ae2f_Bmp_Idxer_eBC_RGB:
-		case ae2f_Bmp_Idxer_eBC_RGBA:
+		case ae2f_eBmpBitCount_RGB:
+		case ae2f_eBmpBitCount_RGBA:
 		break;
 		default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
@@ -114,14 +114,14 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 		if(__src + 1 == src->Addr) continue;
 
 		switch(src->ElSize) {
-			case ae2f_Bmp_Idxer_eBC_RGB: {
+			case ae2f_eBmpBitCount_RGB: {
 				Channel.R += __src[0];
 				Channel.G += __src[1];
 				Channel.B += __src[2];
 				Channel.Count += 1;
 			} break;
 
-			case ae2f_Bmp_Idxer_eBC_RGBA: {
+			case ae2f_eBmpBitCount_RGBA: {
 				Channel.R += __src[0] * __src[3];
 				Channel.G += __src[1] * __src[3];
 				Channel.B += __src[2] * __src[3];
@@ -133,7 +133,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	#pragma endregion
 
 	switch(src->ElSize) {
-		case ae2f_Bmp_Idxer_eBC_RGBA: {
+		case ae2f_eBmpBitCount_RGBA: {
 			retColour[0] = 
 			ae2f_BmpDotRGBAMk(
 				Channel.R / Channel.Count, 
@@ -142,7 +142,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 				Channel.A / Channel.Count
 			);
 		} break;
-		case ae2f_Bmp_Idxer_eBC_RGB: {
+		case ae2f_eBmpBitCount_RGB: {
 			retColour[0] = 
 			ae2f_BmpDotRGBAMk(
 				Channel.R / Channel.Count,
@@ -181,8 +181,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill(
 	return ae2f_errGlob_PTR_IS_NULL;
 
 	switch (dest->ElSize) {
-	case ae2f_Bmp_Idxer_eBC_RGB:
-	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	case ae2f_eBmpBitCount_RGB:
+	case ae2f_eBmpBitCount_RGBA: break;
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
@@ -207,8 +207,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 	return ae2f_errGlob_PTR_IS_NULL;
 
 	switch (dest->ElSize) {
-	case ae2f_Bmp_Idxer_eBC_RGB:
-	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	case ae2f_eBmpBitCount_RGB:
+	case ae2f_eBmpBitCount_RGBA: break;
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
@@ -240,12 +240,12 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 	}
 
 	// check if all alpha is zero
-	if (!srcprm->global.Alpha && src->ElSize != ae2f_Bmp_Idxer_eBC_RGBA)
+	if (!srcprm->global.Alpha && src->ElSize != ae2f_eBmpBitCount_RGBA)
 		return ae2f_errGlob_OK;
 
 	switch (dest->ElSize) {
-	case ae2f_Bmp_Idxer_eBC_RGB:
-	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	case ae2f_eBmpBitCount_RGB:
+	case ae2f_eBmpBitCount_RGBA: break;
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 	
@@ -286,7 +286,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 
 			if(el.a == srcprm->global.DataToIgnore) continue;
 			
-			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
+			if(src->ElSize == ae2f_eBmpBitCount_RGB) {
 				el.b[3] = srcprm->global.Alpha;
 			}
 
@@ -360,12 +360,12 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 	}
 
 	// check if all alpha is zero
-	if (!srcprm->global.Alpha && src->ElSize != ae2f_Bmp_Idxer_eBC_RGBA)
+	if (!srcprm->global.Alpha && src->ElSize != ae2f_eBmpBitCount_RGBA)
 		return ae2f_errGlob_OK;
 
 	switch (dest->ElSize) {
-	case ae2f_Bmp_Idxer_eBC_RGB:
-	case ae2f_Bmp_Idxer_eBC_RGBA: break;
+	case ae2f_eBmpBitCount_RGB:
+	case ae2f_eBmpBitCount_RGBA: break;
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
@@ -407,7 +407,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 
 			if(el.a == srcprm->global.DataToIgnore) continue;
 			
-			if(src->ElSize == ae2f_Bmp_Idxer_eBC_RGB) {
+			if(src->ElSize == ae2f_eBmpBitCount_RGB) {
 				el.b[3] = srcprm->global.Alpha;
 			}
 

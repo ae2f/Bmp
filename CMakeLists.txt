@@ -17,7 +17,9 @@ add_library(
 
     "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
-    "include/ae2f/Bmp/Idxer.h"
+    "include/ae2f/Bmp/Idx.h"
+    "include/ae2f/Bmp/Blend.h"
+    "include/ae2f/Bmp/BitCount.h"
     "include/ae2f/Bmp/Src.h"
     "src/Src/Double.c"
 )
