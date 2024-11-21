@@ -4,6 +4,7 @@
 #include <ae2f/BitVec.h>
 #include <ae2f/Bmp/Head.h>
 #include <ae2f/Call.h>
+#include <ae2f/Bmp/Blend.h>
 
 #include <math.h>
 #include <stdio.h>
@@ -134,7 +135,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	switch(src->ElSize) {
 		case ae2f_Bmp_Idxer_eBC_RGBA: {
 			retColour[0] = 
-			ae2f_BmpDotRGBAMake(
+			ae2f_BmpDotRGBAMk(
 				Channel.R / Channel.Count, 
 				Channel.G / Channel.Count,
 				Channel.B / Channel.Count,
@@ -143,7 +144,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 		} break;
 		case ae2f_Bmp_Idxer_eBC_RGB: {
 			retColour[0] = 
-			ae2f_BmpDotRGBAMake(
+			ae2f_BmpDotRGBAMk(
 				Channel.R / Channel.Count,
 				Channel.G / Channel.Count,
 				Channel.B / Channel.Count,
@@ -317,7 +318,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 					
 					switch (i) {
 					default: {
-						addr[i] = ae2f_Bmp_Dot_Blend_imp(
+						addr[i] = ae2f_BmpBlend_imp(
 							el.b[i], 
 							addr[i], 
 							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
@@ -438,7 +439,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 					
 					switch (i) {
 					default: {
-						addr[i] = ae2f_Bmp_Dot_Blend_imp(
+						addr[i] = ae2f_BmpBlend_imp(
 							el.b[i], 
 							addr[i], 
 							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
