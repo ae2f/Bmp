@@ -48,7 +48,7 @@
 
 /// @brief
 /// Alpha channel blending
-#define ae2f_Bmp_Dot_rRGBA_BlendA(rgba1, rgba2) ae2f_BmpBlend_imp(ae2f_BmpDotRGBAGetA(rgba1), ae2f_BmpDotRGBAGetA(rgba2), ae2f_static_cast(ae2f_float_t, 0.5))
+#define ae2f_BmpBlendA(rgba1, rgba2) ae2f_BmpBlend_imp(ae2f_BmpDotRGBAGetA(rgba1), ae2f_BmpDotRGBAGetA(rgba2), ae2f_static_cast(ae2f_float_t, 0.5))
 
 /// @brief
 /// Colour blending as three-to-four channel.
@@ -56,6 +56,6 @@
 
 /// @brief
 /// Colour blending as four-to-four channel.
-#define ae2f_BmpBlendRGBA(rgba1, rgba2) ae2f_BmpDotRGBAMk(ae2f_BmpBlendChannel44_imp(rgba1, rgba2, R), ae2f_BmpBlendChannel44_imp(rgba1, rgba2, G), ae2f_BmpBlendChannel44_imp(rgba1, rgba2, B), ae2f_Bmp_Dot_rRGBA_BlendA(rgba1, rgba2))
+#define ae2f_BmpBlendRGBA(rgba1, rgba2) ae2f_BmpDotRGBAMk(ae2f_BmpBlendChannel44_imp(rgba1, rgba2, R), ae2f_BmpBlendChannel44_imp(rgba1, rgba2, G), ae2f_BmpBlendChannel44_imp(rgba1, rgba2, B), ae2f_BmpBlendA(rgba1, rgba2))
 
 #endif 
