@@ -382,11 +382,13 @@ __KILL_A:
 }
 
 
-
+#include <ae2f/Bmp/Head.h>
 int main() {
     int code;
 
-    printf("Hello World!\n");
+    if(sizeof(ae2f_struct ae2f_rBmpHead) != 54)
+    return 1;
+    
     // TEST(test0x0, code);
     // TEST(test0x1, code);
     TEST(test0x2, code);

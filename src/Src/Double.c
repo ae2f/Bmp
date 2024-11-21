@@ -162,15 +162,15 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Read(
 	uint8_t* byte,
 	size_t byteLength
 ) {
-	if (byteLength < sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI)) 
+	if (byteLength < sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI)) 
 		return ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT;
 
-	dest->ElSize = ((struct ae2f_Bmp_rHead*)byte)->rBI.biBitCount;
-	dest->rIdxer.Width = dest->rIdxer.IdxXJump = ((struct ae2f_Bmp_rHead*)byte)->rBI.biWidth;
+	dest->ElSize = ((struct ae2f_rBmpHead*)byte)->rBI.biBitCount;
+	dest->rIdxer.Width = dest->rIdxer.IdxXJump = ((struct ae2f_rBmpHead*)byte)->rBI.biWidth;
 	dest->rIdxer.CurrX = 0;
-	dest->rIdxer.Count = ((struct ae2f_Bmp_rHead*)byte)->rBI.biWidth * ((struct ae2f_Bmp_rHead*)byte)->rBI.biHeight;
+	dest->rIdxer.Count = ((struct ae2f_rBmpHead*)byte)->rBI.biWidth * ((struct ae2f_rBmpHead*)byte)->rBI.biHeight;
 
-	dest->Addr = byte + sizeof(struct ae2f_Bmp_Head_rBF) + sizeof(struct ae2f_Bmp_Head_rBI);
+	dest->Addr = byte + sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI);
 	return ae2f_errGlob_OK;
 }
 ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill(
