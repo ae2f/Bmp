@@ -85,7 +85,7 @@ struct ae2f_Bmp_cSrc {
 	/// @brief
 	/// Indexing suporter
 	/// Abstraction
-	ae2f_struct ae2f_Bmp_rIdxer rIdxer;
+	ae2f_struct ae2f_rBmpIdx rIdxer;
 
 	/// @brief
 	/// size of each element[pixel] as bit
@@ -242,7 +242,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Read(
 
 /// @warning
 /// Certain Macro is not certified.
-#define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
+#define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_BmpIdxCut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_BmpIdxDrive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #include <ae2f/Pack/End.h>
 

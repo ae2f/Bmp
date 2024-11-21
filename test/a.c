@@ -17,7 +17,7 @@ int test0x0() {
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -30,7 +30,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -48,8 +48,8 @@ int test0x0() {
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            // ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)]);
+            // ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)]);
         }
 
         printf("\n");
@@ -60,8 +60,8 @@ int test0x0() {
     printf("Bmp B\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            // ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)]);
+            // ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)]);
         }
         printf("\n");
     }
@@ -87,7 +87,7 @@ int test0x0() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            if(((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
+            if(((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
                 code = ae2f_errGlob_WRONG_OPERATION;
                 goto __KILL_ALL;
             }
@@ -114,7 +114,7 @@ int test0x1() {
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -127,7 +127,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -143,8 +143,8 @@ int test0x1() {
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)]);
+            ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)]);
         }
 
         printf("\n");
@@ -155,7 +155,7 @@ int test0x1() {
     printf("Bmp B\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            printf("%d ", ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)]);
+            printf("%d ", ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)]);
         }
         printf("\n");
     }
@@ -184,7 +184,7 @@ int test0x1() {
             uint32_t cond[2] = {0, 0xFFFFFFFF};
 
             if((
-                (uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 
+                (uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] != 
                 cond[i < 6 && i >= 3 && j >= 4 && j < 5]
             ) {
                 code = ae2f_errGlob_WRONG_OPERATION;
@@ -213,7 +213,7 @@ int test0x2() {
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -226,7 +226,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -270,11 +270,11 @@ int test0x2() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            if(ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) != -1) {
+            if(ae2f_BmpIdxDrive(b.rIdxer, i, j) != -1) {
                 printf("\n%d %d %d\n",
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 0],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 1],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 2]
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 0],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 1],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 2]
                 );
             }
         }
@@ -301,7 +301,7 @@ int test0x3() {
         bx = 1920, by = 1080;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -314,7 +314,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = bx * by,
         .CurrX = 0,
         .IdxXJump = bx,
@@ -358,11 +358,11 @@ int test0x3() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < bx; i++) {
         for(int j = 0; j < by; j++) {
-            if(ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) != -1) {
+            if(ae2f_BmpIdxDrive(b.rIdxer, i, j) != -1) {
                 printf("\n%d %d %d\n",
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 0],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 1],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 2]
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 0],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 1],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 2]
                 );
             }
         }

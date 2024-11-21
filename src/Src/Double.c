@@ -22,8 +22,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	uint8_t reverseIdx
 ) {
 	const uint32_t 
-	xleft = ae2f_Bmp_Idx_XLeft(src->rIdxer), 
-	yleft = ae2f_Bmp_Idx_YLeft(src->rIdxer);
+	xleft = ae2f_BmpIdxW(src->rIdxer), 
+	yleft = ae2f_BmpIdxH(src->rIdxer);
 
 	if(!(src && retColour && src->Addr))
 	return ae2f_errGlob_PTR_IS_NULL;
@@ -107,7 +107,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	#pragma region Centre
 	for(size_t i = Corner.minx; i < Corner.maxx; i++)
 	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
-		const uint8_t* const __src = src->Addr + ae2f_Bmp_Idx_Drive(src->rIdxer, i, j) * (src->ElSize >> 3);
+		const uint8_t* const __src = src->Addr + ae2f_BmpIdxDrive(src->rIdxer, i, j) * (src->ElSize >> 3);
 
 		// invalid index check
 		// index validation
@@ -186,10 +186,10 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill(
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
-	for(size_t i = 0; i < ae2f_Bmp_Idx_XLeft(dest->rIdxer); i++)	
-	for(size_t j = 0; j < ae2f_Bmp_Idx_YLeft(dest->rIdxer); j++)
+	for(size_t i = 0; i < ae2f_BmpIdxW(dest->rIdxer); i++)	
+	for(size_t j = 0; j < ae2f_BmpIdxH(dest->rIdxer); j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-	dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
+	dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
 
 	return ae2f_errGlob_OK;
 }
@@ -212,12 +212,12 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
-	uint32_t width = ae2f_Bmp_Idx_XLeft(dest->rIdxer), height = ae2f_Bmp_Idx_YLeft(dest->rIdxer);
+	uint32_t width = ae2f_BmpIdxW(dest->rIdxer), height = ae2f_BmpIdxH(dest->rIdxer);
 
 	for(size_t i = partial_min_x; i < width && i < partial_max_x; i++)	
 	for(size_t j = partial_min_y; j < height && j < partial_max_y; j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-		dest->Addr[(ae2f_Bmp_Idx_Drive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
+		dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
 
 	return ae2f_errGlob_OK;
 }
@@ -250,8 +250,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 	}
 	
 	ae2f_float_t 
-		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
-		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
+		dotw = (ae2f_BmpIdxW(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
+		doth = (ae2f_BmpIdxH(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
 
 	for (uint32_t y = 0; y < srcprm->global.HeightAsResized; y++) {
 		for (uint32_t x = 0; x < srcprm->global.WidthAsResized; x++)
@@ -300,7 +300,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 			for(int32_t j = 0; !j || j < rotatedH; j++) {
 				#pragma region single dot
 				uint32_t foridx = 
-				ae2f_Bmp_Idx_Drive(
+				ae2f_BmpIdxDrive(
 					dest->rIdxer, (uint32_t)rotatedX + i + srcprm->global.AddrXForDest, (uint32_t)rotatedY + j + srcprm->global.AddrYForDest);
 				
 				if(foridx == -1) goto __breakloopforx;
@@ -371,8 +371,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 
 	
 	ae2f_float_t 
-		dotw = (ae2f_Bmp_Idx_XLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
-		doth = (ae2f_Bmp_Idx_YLeft(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
+		dotw = (ae2f_BmpIdxW(src->rIdxer) / (ae2f_float_t)srcprm->global.WidthAsResized), 
+		doth = (ae2f_BmpIdxH(src->rIdxer) / (ae2f_float_t)srcprm->global.HeightAsResized);
 
 	for (uint32_t y = partial_min_y; y < srcprm->global.HeightAsResized && y < partial_max_y; y++) {
 		for (uint32_t x = partial_min_x; x < srcprm->global.WidthAsResized && x < partial_max_x; x++)
@@ -421,7 +421,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 			for(int32_t j = 0; !j || j < rotatedH; j++) {
 				#pragma region single dot
 				uint32_t foridx = 
-				ae2f_Bmp_Idx_Drive(
+				ae2f_BmpIdxDrive(
 					dest->rIdxer, (uint32_t)rotatedX + i + srcprm->global.AddrXForDest, (uint32_t)rotatedY + j + srcprm->global.AddrYForDest);
 				
 				if(foridx == -1) goto __breakloopforx;
