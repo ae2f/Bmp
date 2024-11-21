@@ -12,7 +12,7 @@ int test0x3();
 
 // copy test: same size, same elsize [32 bit, rgba]
 int test0x0() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
@@ -43,7 +43,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region 'a' val init & print
-    ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFFFF);
+    ae2f_cBmpSrcFill(&a, 0xFFFFFFFF);
 
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
@@ -68,7 +68,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 0,
@@ -79,7 +79,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -109,7 +109,7 @@ __KILL_A:
 
 // copy test: Partial, same elsize [32 bits, rgba]
 int test0x1() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
@@ -162,7 +162,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 0,
@@ -173,7 +173,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy_Partial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpyPartial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -208,7 +208,7 @@ __KILL_A:
 
 // copy test: Partial, same elsize [24 bits, rgb]
 int test0x2() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
@@ -240,18 +240,18 @@ int test0x2() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 255,
@@ -262,7 +262,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -295,7 +295,7 @@ __KILL_A:
 
 // copy test: Partial, same elsize, non-same width/height [24 bits, rgb]
 int test0x3() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0,
         bx = 1920, by = 1080;
@@ -328,18 +328,18 @@ int test0x3() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 255,
@@ -350,7 +350,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion

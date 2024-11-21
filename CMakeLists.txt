@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp)
+project(Bmp VERSION 3.10.1)
 enable_testing()
 
 if(NOT TARGET ${PROJECT_NAME})

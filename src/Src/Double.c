@@ -9,10 +9,12 @@
 #include <math.h>
 #include <stdio.h>
 
-typedef ae2f_Bmp_cSrc_Copy_ColourIdx(1) ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t;
+ae2f_cBmpSrcCpyPrmDef(1);
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
-	const ae2f_struct ae2f_Bmp_cSrc* src,
+typedef ae2f_struct ae2f_cBmpSrcCpyPrmDef_i1 ae2f_cBmpSrcCpyPrmDef_i1;
+
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
+	const ae2f_struct ae2f_cBmpSrc* src,
 	uint32_t* retColour,
 	ae2f_float_t _min_x,
 	ae2f_float_t _min_y,
@@ -74,7 +76,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	Corner.minx = (size_t)_min_x;
 	Corner.miny = (size_t)_min_y;
 
-	if(reverseIdx & ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX) {
+	if(reverseIdx & ae2f_eBmpSrcCpyPrm_RVSE_I_X) {
 		Corner.minx = xleft - Corner.minx;
 		Corner.maxx = xleft - Corner.maxx;
 
@@ -86,7 +88,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 		Corner.maxx ^= Corner.minx; 
 	}
 
-	if(reverseIdx & ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY) {
+	if(reverseIdx & ae2f_eBmpSrcCpyPrm_RVSE_I_Y) {
 		Corner.miny = yleft - Corner.miny;
 		Corner.maxy = yleft - Corner.maxy;
 
@@ -157,13 +159,13 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 
 
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Read(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRef(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint8_t* byte,
 	size_t byteLength
 ) {
 	if (byteLength < sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI)) 
-		return ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT;
+		return ae2f_errBmpSrcRef_ARR_TOO_SHORT;
 
 	dest->ElSize = ((struct ae2f_rBmpHead*)byte)->rBI.biBitCount;
 	dest->rIdxer.Width = dest->rIdxer.IdxXJump = ((struct ae2f_rBmpHead*)byte)->rBI.biWidth;
@@ -173,8 +175,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Read(
 	dest->Addr = byte + sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI);
 	return ae2f_errGlob_OK;
 }
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFill(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour
 ) {
 	if(!(dest && dest->Addr))
@@ -194,8 +196,8 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill(
 	return ae2f_errGlob_OK;
 }
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFillPartial(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour,
 
 	uint32_t partial_min_x,
@@ -227,12 +229,12 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 #pragma region buffall
 
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const ae2f_struct ae2f_Bmp_cSrc* src,
-	const struct ae2f_Bmp_cSrc_Copy_Global* _srcprm
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
+	ae2f_struct ae2f_cBmpSrc* dest,
+	const ae2f_struct ae2f_cBmpSrc* src,
+	const struct ae2f_cBmpSrcCpyPrm* _srcprm
 ) {
-#define srcprm ae2f_static_cast(const ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t*, _srcprm)
+#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
 	ae2f_err_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
@@ -264,7 +266,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 			uint32_t _x, _y;
 			_x = x; _y = y;
 
-			code = ae2f_Bmp_cSrc_gDot(
+			code = ae2f_cBmpSrcGDot(
 				src, &el.a, 
 				dotw * _x, 
 				doth * _y, 
@@ -343,16 +345,16 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy(
 #pragma endregion
 
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const ae2f_struct ae2f_Bmp_cSrc* src,
-	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* _srcprm,
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
+	ae2f_struct ae2f_cBmpSrc* dest,
+	const ae2f_struct ae2f_cBmpSrc* src,
+	const ae2f_struct ae2f_cBmpSrcCpyPrm* _srcprm,
 	uint32_t partial_min_x,
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
 	uint32_t partial_max_y
 ) {
-	#define srcprm ae2f_static_cast(const ae2f_Bmp_cSrc_BuildPrm_ColourIdx_LeastSuggested_t*, _srcprm)
+	#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
 	ae2f_err_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
@@ -385,7 +387,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 			uint32_t _x, _y;
 			_x = x; _y = y;
 
-			code = ae2f_Bmp_cSrc_gDot(
+			code = ae2f_cBmpSrcGDot(
 				src, &el.a, 
 				dotw * _x, 
 				doth * _y, 
