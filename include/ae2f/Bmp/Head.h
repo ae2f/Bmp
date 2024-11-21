@@ -8,7 +8,7 @@
 
 /// @brief
 /// Pre-defined [B]itmap [F]ile header [BF]
-struct ae2f_Bmp_Head_rBF {
+struct ae2f_rBmpHeadBF {
     uint16_t bfType;
     uint32_t bfSize;
     uint16_t bfReserved1; // unless 0 would be fucked up
@@ -16,13 +16,9 @@ struct ae2f_Bmp_Head_rBF {
     uint32_t bfOffBits;
 };
 
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-
 /// @brief
 /// [B]itmap [I]nfo Header [BI]
-struct ae2f_Bmp_Head_rBI {
+struct ae2f_rBmpHeadBI {
     /// @brief
     /// Actual size
     uint32_t biSize;
@@ -49,16 +45,12 @@ struct ae2f_Bmp_Head_rBI {
     uint32_t biClrImportant;
 };
 
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-
 
 /// @brief 
 /// Bitmap header suggested.
-struct ae2f_Bmp_rHead {
-    ae2f_struct ae2f_Bmp_Head_rBF rBF;
-    ae2f_struct ae2f_Bmp_Head_rBI rBI;
+struct ae2f_rBmpHead {
+    ae2f_struct ae2f_rBmpHeadBF rBF;
+    ae2f_struct ae2f_rBmpHeadBI rBI;
 };
 
 

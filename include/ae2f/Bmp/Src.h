@@ -1,39 +1,16 @@
 #if !defined(ae2f_Bmp_Src_h)
 #define ae2f_Bmp_Src_h
 
-#include "Idxer.h"
+#include "Idx.h"
 #include <ae2f/Call.h>
 #include <ae2f/Float.h>
+#include "./BitCount.h"
 #include <ae2f/Pack/Beg.h>
 
-/// @brief
-/// Enum about Bit Count per Pixel
-enum ae2f_Bmp_Idxer_eBC {
-	/// @brief 0 | 1
-	ae2f_Bmp_Idxer_eBC_BIT = 1,
-
-	/// @brief 0 ~ 15
-	ae2f_Bmp_Idxer_eBC_HALF = 4,
-
-	/// @brief 0 ~ 255 
-	ae2f_Bmp_Idxer_eBC_BYTE = 8,
-
-	/// @brief not indexing, rgb
-	ae2f_Bmp_Idxer_eBC_RGB = 24, 
-
-	/// @brief not indexing, rgba
-	ae2f_Bmp_Idxer_eBC_RGBA = 32,
-
-	/// @brief Something is wrong
-	ae2f_Bmp_Idxer_eBC_REMINDER_OWNER = 64
-};
 
 /// @brief 
-typedef uint8_t ae2f_Bmp_Idxer_eBC_t;
-
-/// @brief 
-/// A global parameter for @ref ae2f_Bmp_cSrc_Copy.
-struct ae2f_Bmp_cSrc_Copy_Global {
+/// A global parameter for @ref ae2f_cBmpSrcCpy.
+struct ae2f_cBmpSrcCpyPrm {
 	uint8_t 
 		/// @brief
 		/// Global Alpha for RGB architect.
@@ -66,31 +43,32 @@ struct ae2f_Bmp_cSrc_Copy_Global {
 };
 
 /// @brief
-/// @ref ae2f_Bmp_cSrc_Copy_Global::ReverseIdx
-#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX ae2f_static_cast(uint8_t, 	0b01)
+/// @ref ae2f_cBmpSrcCpyPrm::ReverseIdx
+#define ae2f_eBmpSrcCpyPrm_RVSE_I_X ae2f_static_cast(uint8_t, 	0b01)
 
 /// @brief
-/// @ref ae2f_Bmp_cSrc_Copy_Global::ReverseIdx
-#define ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY ae2f_static_cast(uint8_t, 	0b10)
+/// @ref ae2f_cBmpSrcCpyPrm::ReverseIdx
+#define ae2f_eBmpSrcCpyPrm_RVSE_I_Y ae2f_static_cast(uint8_t, 	0b10)
 
 /// @brief
 /// Contains additional the colour values for indexed bmp.
-/// @see ae2f_Bmp_cSrc_Copy_Global
-#define ae2f_Bmp_cSrc_Copy_ColourIdx(len) struct { ae2f_struct ae2f_Bmp_cSrc_Copy_Global global; uint32_t ColourIdx[len]; }
+/// @param len Length of the colour index.
+/// @see ae2f_cBmpSrcCpyPrm
+#define ae2f_cBmpSrcCpyPrmDef(len) struct ae2f_cBmpSrcCpyPrmDef_i##len { ae2f_struct ae2f_cBmpSrcCpyPrm global; uint32_t ColourIdx[len]; }
 
 /// @brief 
 /// Represents the source of the bitmap. \n 
 /// This structure has no responsibility for a memory.
-struct ae2f_Bmp_cSrc {
+struct ae2f_cBmpSrc {
 	/// @brief
 	/// Indexing suporter
 	/// Abstraction
-	ae2f_struct ae2f_Bmp_rIdxer rIdxer;
+	ae2f_struct ae2f_rBmpIdx rIdxer;
 
 	/// @brief
 	/// size of each element[pixel] as bit
 	/// bit cound [Element Size]
-	ae2f_Bmp_Idxer_eBC_t ElSize;
+	ae2f_eBmpBitCount_t ElSize;
 
 	/// @brief
 	/// Real element[pixel] vector [Global]
@@ -108,8 +86,8 @@ struct ae2f_Bmp_cSrc {
 /// @exception \ 
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcFill(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour
 );
 
@@ -131,8 +109,8 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcFillPartial(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour,
 
 	uint32_t partial_min_x,
@@ -161,10 +139,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Fill_Partial(
 /// @exception \ 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND \n
 /// @ref ae2f_errGlob_PTR_IS_NULL
-/// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfX
-/// @see @ref ae2f_Bmp_cSrc_Copy_Global_Alpha_ReverseIdxOfY
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_gDot(
-	const ae2f_struct ae2f_Bmp_cSrc* src,
+/// @see @ref ae2f_eBmpSrcCpyPrm_RVSE_I_X
+/// @see @ref ae2f_eBmpSrcCpyPrm_RVSE_I_Y
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcGDot(
+	const ae2f_struct ae2f_cBmpSrc* src,
 	uint32_t* retColour,
 	ae2f_float_t _min_x,
 	ae2f_float_t _min_y,
@@ -189,10 +167,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_gDot(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND 
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const ae2f_struct ae2f_Bmp_cSrc* src,
-	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcCpy(
+	ae2f_struct ae2f_cBmpSrc* dest,
+	const ae2f_struct ae2f_cBmpSrc* src,
+	const ae2f_struct ae2f_cBmpSrcCpyPrm* srcprm
 );
 
 /// @brief 
@@ -209,10 +187,10 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy(
 /// @exception \
 /// @ref ae2f_errGlob_PTR_IS_NULL \n 
 /// @ref ae2f_errGlob_IMP_NOT_FOUND
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
-	const ae2f_struct ae2f_Bmp_cSrc* src,
-	const ae2f_struct ae2f_Bmp_cSrc_Copy_Global* srcprm,
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcCpyPartial(
+	ae2f_struct ae2f_cBmpSrc* dest,
+	const ae2f_struct ae2f_cBmpSrc* src,
+	const ae2f_struct ae2f_cBmpSrcCpyPrm* srcprm,
 	uint32_t partial_min_x,
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
@@ -221,9 +199,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 
 /// @brief 
 /// `byte` is not long enough to parse.
-#define ae2f_Bmp_cSrc_Read_BYTEARR_TOO_SHORT ae2f_errGlob_WRONG_OPERATION
-
-
+#define ae2f_errBmpSrcRef_ARR_TOO_SHORT ae2f_errGlob_WRONG_OPERATION
 
 /// @brief 
 /// # After this operation [dest] will still not own the memory, but [byte] will.
@@ -234,15 +210,15 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Copy_Partial(
 /// @param byteLength 
 /// size of the [byte].
 /// @return 
-ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_Bmp_cSrc_Read(
-	ae2f_struct ae2f_Bmp_cSrc* dest,
+ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRef(
+	ae2f_struct ae2f_cBmpSrc* dest,
 	uint8_t* byte,
 	size_t byteLength
 );
 
 /// @warning
 /// Certain Macro is not certified.
-#define ae2f_Bmp_Src_Cut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_Bmp_cSrc, ae2f_Bmp_Idx_Cut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_Bmp_Idx_Drive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
+#define ae2f_cBmpSrcCut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_cBmpSrc, ae2f_BmpIdxCut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_BmpIdxDrive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #include <ae2f/Pack/End.h>
 

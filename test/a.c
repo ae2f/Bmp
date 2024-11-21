@@ -12,12 +12,12 @@ int test0x3();
 
 // copy test: same size, same elsize [32 bit, rgba]
 int test0x0() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -30,7 +30,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -43,13 +43,13 @@ int test0x0() {
 #pragma endregion
 
 #pragma region 'a' val init & print
-    ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFFFF);
+    ae2f_cBmpSrcFill(&a, 0xFFFFFFFF);
 
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            // ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)]);
+            // ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)]);
         }
 
         printf("\n");
@@ -60,15 +60,15 @@ int test0x0() {
     printf("Bmp B\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            // ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)]);
+            // ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)]);
         }
         printf("\n");
     }
 #pragma endregion
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 0,
@@ -79,7 +79,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -87,7 +87,7 @@ int test0x0() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            if(((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
+            if(((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] != 0xFFFFFFFF) {
                 code = ae2f_errGlob_WRONG_OPERATION;
                 goto __KILL_ALL;
             }
@@ -109,12 +109,12 @@ __KILL_A:
 
 // copy test: Partial, same elsize [32 bits, rgba]
 int test0x1() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -127,7 +127,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -143,8 +143,8 @@ int test0x1() {
     printf("Bmp A\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)] = 0xFFFFFFFF;
-            printf("%d ", ((uint32_t*)a.Addr)[ae2f_Bmp_Idx_Drive(a.rIdxer, i, j)]);
+            ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)] = 0xFFFFFFFF;
+            printf("%d ", ((uint32_t*)a.Addr)[ae2f_BmpIdxDrive(a.rIdxer, i, j)]);
         }
 
         printf("\n");
@@ -155,14 +155,14 @@ int test0x1() {
     printf("Bmp B\n");
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            printf("%d ", ((uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)]);
+            printf("%d ", ((uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)]);
         }
         printf("\n");
     }
 #pragma endregion
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 0,
@@ -173,7 +173,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy_Partial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpyPartial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -184,7 +184,7 @@ int test0x1() {
             uint32_t cond[2] = {0, 0xFFFFFFFF};
 
             if((
-                (uint32_t*)b.Addr)[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j)] != 
+                (uint32_t*)b.Addr)[ae2f_BmpIdxDrive(b.rIdxer, i, j)] != 
                 cond[i < 6 && i >= 3 && j >= 4 && j < 5]
             ) {
                 code = ae2f_errGlob_WRONG_OPERATION;
@@ -208,12 +208,12 @@ __KILL_A:
 
 // copy test: Partial, same elsize [24 bits, rgb]
 int test0x2() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -226,7 +226,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -240,18 +240,18 @@ int test0x2() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 255,
@@ -262,7 +262,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -270,11 +270,11 @@ int test0x2() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < ax; i++) {
         for(int j = 0; j < ay; j++) {
-            if(ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) != -1) {
+            if(ae2f_BmpIdxDrive(b.rIdxer, i, j) != -1) {
                 printf("\n%d %d %d\n",
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 0],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 1],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 2]
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 0],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 1],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 2]
                 );
             }
         }
@@ -295,13 +295,13 @@ __KILL_A:
 
 // copy test: Partial, same elsize, non-same width/height [24 bits, rgb]
 int test0x3() {
-    struct ae2f_Bmp_cSrc a, b;
+    struct ae2f_cBmpSrc a, b;
 
     int ax = 10, ay = 9, code = 0,
         bx = 1920, by = 1080;
 
 #pragma region 'a' init
-    a.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    a.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = ax * ay,
         .CurrX = 0,
         .IdxXJump = ax,
@@ -314,7 +314,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region 'b' init
-    b.rIdxer = (struct ae2f_Bmp_rIdxer) {
+    b.rIdxer = (struct ae2f_rBmpIdx) {
         .Count = bx * by,
         .CurrX = 0,
         .IdxXJump = bx,
@@ -328,18 +328,18 @@ int test0x3() {
 
 #if 1
 #pragma region 'a' val init & print
-    if(ae2f_Bmp_cSrc_Fill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&a, 0xFFFFFF) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 
 #pragma region 'b' val print
-    if(ae2f_Bmp_cSrc_Fill(&b, 0) != ae2f_errGlob_OK)
+    if(ae2f_cBmpSrcFill(&b, 0) != ae2f_errGlob_OK)
     goto __KILL_ALL;
 #pragma endregion
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_Bmp_cSrc_Copy_Global Parameter = {
+    struct ae2f_cBmpSrcCpyPrm Parameter = {
         .AddrXForDest = 0,
         .AddrYForDest = 0,
         .Alpha = 255,
@@ -350,7 +350,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_Bmp_cSrc_Copy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -358,11 +358,11 @@ int test0x3() {
 #pragma region 'a' cmp 'b'
     for(int i = 0; i < bx; i++) {
         for(int j = 0; j < by; j++) {
-            if(ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) != -1) {
+            if(ae2f_BmpIdxDrive(b.rIdxer, i, j) != -1) {
                 printf("\n%d %d %d\n",
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 0],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 1],
-                    b.Addr[ae2f_Bmp_Idx_Drive(b.rIdxer, i, j) * 3 + 2]
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 0],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 1],
+                    b.Addr[ae2f_BmpIdxDrive(b.rIdxer, i, j) * 3 + 2]
                 );
             }
         }
@@ -382,11 +382,13 @@ __KILL_A:
 }
 
 
-
+#include <ae2f/Bmp/Head.h>
 int main() {
     int code;
 
-    printf("Hello World!\n");
+    if(sizeof(ae2f_struct ae2f_rBmpHead) != 54)
+    return 1;
+    
     // TEST(test0x0, code);
     // TEST(test0x1, code);
     TEST(test0x2, code);
