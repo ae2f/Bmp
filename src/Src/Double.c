@@ -134,7 +134,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 	switch(src->ElSize) {
 		case ae2f_Bmp_Idxer_eBC_RGBA: {
 			retColour[0] = 
-			ae2f_Bmp_Dot_RGBA_Make(
+			ae2f_BmpDotRGBAMake(
 				Channel.R / Channel.Count, 
 				Channel.G / Channel.Count,
 				Channel.B / Channel.Count,
@@ -143,7 +143,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_Bmp_cSrc_gDot(
 		} break;
 		case ae2f_Bmp_Idxer_eBC_RGB: {
 			retColour[0] = 
-			ae2f_Bmp_Dot_RGBA_Make(
+			ae2f_BmpDotRGBAMake(
 				Channel.R / Channel.Count,
 				Channel.G / Channel.Count,
 				Channel.B / Channel.Count,
