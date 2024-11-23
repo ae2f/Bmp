@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 3.10.1)
+project(Bmp VERSION 3.11.1)
 enable_testing()
 
 if(NOT TARGET ${PROJECT_NAME})
@@ -9,7 +9,6 @@ link_libraries(Core)
 
 # Namespace Package
 include(GNUInstallDirs)
-
 
 add_library(
     ${PROJECT_NAME}

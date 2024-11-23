@@ -44,17 +44,24 @@ struct ae2f_cBmpSrcCpyPrm {
 
 /// @brief
 /// @ref ae2f_cBmpSrcCpyPrm::ReverseIdx
-#define ae2f_eBmpSrcCpyPrm_RVSE_I_X ae2f_static_cast(uint8_t, 	0b01)
+#define ae2f_eBmpSrcCpyPrm_RVSE_I_X 0b01
 
 /// @brief
 /// @ref ae2f_cBmpSrcCpyPrm::ReverseIdx
-#define ae2f_eBmpSrcCpyPrm_RVSE_I_Y ae2f_static_cast(uint8_t, 	0b10)
+#define ae2f_eBmpSrcCpyPrm_RVSE_I_Y 0b10
 
 /// @brief
 /// Contains additional the colour values for indexed bmp.
 /// @param len Length of the colour index.
 /// @see ae2f_cBmpSrcCpyPrm
 #define ae2f_cBmpSrcCpyPrmDef(len) struct ae2f_cBmpSrcCpyPrmDef_i##len { ae2f_struct ae2f_cBmpSrcCpyPrm global; uint32_t ColourIdx[len]; }
+
+#ifndef ae2f_ptrBmpSrcUInt8
+/// @brief
+/// Pointer type of 8-bit integer type suggested. \n
+/// Default will be [uint8_t*].
+#define ae2f_ptrBmpSrcUInt8 uint8_t*
+#endif
 
 /// @brief 
 /// Represents the source of the bitmap. \n 
@@ -72,7 +79,7 @@ struct ae2f_cBmpSrc {
 
 	/// @brief
 	/// Real element[pixel] vector [Global]
-	uint8_t* Addr;
+	ae2f_ptrBmpSrcUInt8 Addr;
 };
 
 /// @brief 
