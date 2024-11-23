@@ -219,7 +219,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcCpyPartial(
 /// @return 
 ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_struct ae2f_cBmpSrc* dest,
-	uint8_t* byte,
+	ae2f_ptrBmpSrcUInt8 byte,
 	size_t byteLength
 );
 

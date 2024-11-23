@@ -161,7 +161,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 
 ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_struct ae2f_cBmpSrc* dest,
-	uint8_t* byte,
+	ae2f_ptrBmpSrcUInt8 byte,
 	size_t byteLength
 ) {
 	if (byteLength < sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI)) 
