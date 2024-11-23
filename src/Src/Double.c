@@ -191,7 +191,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFill(
 	for(size_t i = 0; i < ae2f_BmpIdxW(dest->rIdxer); i++)	
 	for(size_t j = 0; j < ae2f_BmpIdxH(dest->rIdxer); j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-	dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
+	dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVecGetRanged(colour, c, c+8);
 
 	return ae2f_errGlob_OK;
 }
@@ -219,7 +219,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFillPartial(
 	for(size_t i = partial_min_x; i < width && i < partial_max_x; i++)	
 	for(size_t j = partial_min_y; j < height && j < partial_max_y; j++)
 	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-		dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVec_GetRanged(colour, c, c+8);
+		dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVecGetRanged(colour, c, c+8);
 
 	return ae2f_errGlob_OK;
 }
