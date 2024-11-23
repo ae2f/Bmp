@@ -1,5 +1,5 @@
 # [ae2f::Bmp](https://github.com/ae2f/Bmp)
-- Rel-v3.11.2
+- Rel-v3.12.2
 > The Library is not stable. Keep your expectations low.
 
 > Is the functions for handling Bmp FIle, within a library.

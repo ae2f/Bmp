@@ -11,7 +11,7 @@
 
 /// @brief 
 /// 32 - byte which means has four channels of [r, g, b, a].
-typedef uint32_t ae2f_Bmp_Dot_rgba_t;
+typedef uint32_t ae2f_BmpDotRGBA_t;
 
 #pragma region RGBA get-set
 
