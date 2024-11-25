@@ -308,28 +308,26 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 				
 				if(foridx == -1) goto __breakloopforx;
 
+				int32_t k = 0;
 				for (
 					ae2f_ptrBmpSrcUInt8 
-					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
-					i = 0; 
-					
-					i < (src->ElSize >> 3); 
-					
-					i++
+					addr = dest->Addr + (dest->ElSize >> 3) * foridx; 
+					k < (src->ElSize >> 3); 
+					k++
 					
 					) {
 					
-					switch (i) {
+					switch (k) {
 					default: {
-						addr[i] = ae2f_BmpBlend_imp(
-							el.b[i], 
-							addr[i], 
+						addr[k] = ae2f_BmpBlend_imp(
+							el.b[k], 
+							addr[k], 
 							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
 							uint8_t
 						);
 					} break;
 					case 3: {
-						addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
+						addr[k] = (ae2f_static_cast(uint16_t, addr[k]) + el.b[k]) >> 1;
 					}
 					}
 				}
@@ -429,28 +427,26 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 				
 				if(foridx == -1) goto __breakloopforx;
 
+				int32_t k = 0;
 				for (
 					ae2f_ptrBmpSrcUInt8 
-					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
-					i = 0; 
-					
-					i < (src->ElSize >> 3); 
-					
-					i++
+					addr = dest->Addr + (dest->ElSize >> 3) * foridx;
+					k < (src->ElSize >> 3); 
+					k++
 					
 					) {
 					
-					switch (i) {
+					switch (k) {
 					default: {
-						addr[i] = ae2f_BmpBlend_imp(
-							el.b[i], 
-							addr[i], 
+						addr[k] = ae2f_BmpBlend_imp(
+							el.b[k], 
+							addr[k], 
 							((ae2f_static_cast(ae2f_float_t, el.b[3])) / 255.0), 
 							uint8_t
 						);
 					} break;
 					case 3: {
-						addr[i] = (ae2f_static_cast(uint16_t, addr[i]) + el.b[i]) >> 1;
+						addr[k] = (ae2f_static_cast(uint16_t, addr[k]) + el.b[k]) >> 1;
 					}
 					}
 				}
