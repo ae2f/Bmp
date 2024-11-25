@@ -109,7 +109,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 	#pragma region Centre
 	for(size_t i = Corner.minx; i < Corner.maxx; i++)
 	for(size_t j = Corner.miny; j < Corner.maxy; j++) {
-		const uint8_t* const __src = src->Addr + ae2f_BmpIdxDrive(src->rIdxer, i, j) * (src->ElSize >> 3);
+		const ae2f_ptrBmpSrcUInt8 const __src = src->Addr + ae2f_BmpIdxDrive(src->rIdxer, i, j) * (src->ElSize >> 3);
 
 		// invalid index check
 		// index validation
@@ -158,7 +158,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 }
 
 
-
+#ifndef ae2f_cBmpSrcRef
 ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	ae2f_ptrBmpSrcUInt8 byte,
@@ -175,6 +175,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRef(
 	dest->Addr = byte + sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI);
 	return ae2f_errGlob_OK;
 }
+#endif
 ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFill(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour
@@ -308,7 +309,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 				if(foridx == -1) goto __breakloopforx;
 
 				for (
-					uint8_t* 
+					ae2f_ptrBmpSrcUInt8 
 					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
 					i = 0; 
 					
@@ -429,7 +430,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 				if(foridx == -1) goto __breakloopforx;
 
 				for (
-					uint8_t* 
+					ae2f_ptrBmpSrcUInt8 
 					addr = dest->Addr + (dest->ElSize >> 3) * foridx, 
 					i = 0; 
 					
