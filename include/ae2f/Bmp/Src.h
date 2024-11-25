@@ -208,6 +208,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcCpyPartial(
 /// `byte` is not long enough to parse.
 #define ae2f_errBmpSrcRef_ARR_TOO_SHORT ae2f_errGlob_WRONG_OPERATION
 
+#ifndef ae2f_cBmpSrcRef
 /// @brief 
 /// # After this operation [dest] will still not own the memory, but [byte] will.
 /// @param dest 
@@ -222,6 +223,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_ptrBmpSrcUInt8 byte,
 	size_t byteLength
 );
+#endif
 
 /// @warning
 /// Certain Macro is not certified.
