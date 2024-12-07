@@ -230,8 +230,13 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFillPartial(
 ae2f_Mov2DotDef(uint32_t);
 #endif
 
-static ae2f_Mov2DotRotDef(uint32_t);
-static ae2f_Mov2DotRotDef(ae2f_float_t);
+#ifndef ae2f_Mov2DotDef_int32_t
+#define ae2f_Mov2DotDef_int32_t ae2f_Mov2DotDef_int32_t
+ae2f_Mov2DotDef(int32_t);
+#endif
+
+static ae2f_Mov2DotRotDef(uint32_t, ae2f_MovVec_t);
+static ae2f_Mov2DotRotDef(ae2f_float_t, int32_t);
 
 
 #pragma region buffall
@@ -287,7 +292,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 			ae2f_struct ae2f_Mov2DotDefName(ae2f_float_t) 
 			rotatedS = dot; // rotated: scalar
 
-			ae2f_Mov2DotRotDefName(ae2f_float_t)
+			ae2f_Mov2DotRotDefName(ae2f_float_t, int32_t)
 			(&rotatedS, 0, srcprm->global.RotateXYCounterClockWise);
 
 			if(rotatedS.x < 0) rotatedS.x = -rotatedS.x;
@@ -310,7 +315,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 				.y = _y - srcprm->global.Axis.y
 			};
 
-			ae2f_Mov2DotRotDefName(uint32_t)(
+			ae2f_Mov2DotRotDefName(uint32_t, ae2f_MovVec_t)(
 				&rotated, 
 				&srcprm->global.Axis, 
 				srcprm->global.RotateXYCounterClockWise
@@ -371,7 +376,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 	uint32_t partial_max_x,
 	uint32_t partial_max_y
 ) {
-	#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
+#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
 	ae2f_err_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
@@ -388,13 +393,13 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 	default: return ae2f_errGlob_IMP_NOT_FOUND;
 	}
 
-	
-	ae2f_float_t 
-		dotw = (ae2f_BmpIdxW(src->rIdxer) / (ae2f_float_t)srcprm->global.Resz.x), 
-		doth = (ae2f_BmpIdxH(src->rIdxer) / (ae2f_float_t)srcprm->global.Resz.y);
+	ae2f_struct ae2f_Mov2DotDefName(ae2f_float_t) dot = {
+		.x = (ae2f_BmpIdxW(src->rIdxer) / (ae2f_float_t)srcprm->global.Resz.x),
+		.y = (ae2f_BmpIdxH(src->rIdxer) / (ae2f_float_t)srcprm->global.Resz.y)
+	};
 
 	for (uint32_t y = partial_min_y; y < srcprm->global.Resz.y && y < partial_max_y; y++) {
-		for (uint32_t x = partial_min_x; x < srcprm->global.Resz.x && x < partial_max_x; x++)
+		for (uint32_t x = partial_max_y; x < srcprm->global.Resz.x && y < partial_max_y; x++)
 		{
 			union {
 				uint32_t a;
@@ -406,19 +411,21 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 
 			code = ae2f_cBmpSrcGDot(
 				src, &el.a, 
-				dotw * _x, 
-				doth * _y, 
-				dotw * (_x + 1), 
-				doth * (_y+1),
+				dot.x * _x, 
+				dot.y * _y, 
+				dot.x * (_x + 1), 
+				dot.y * (_y+1),
 				srcprm->global.ReverseIdx
 			);
 
-			ae2f_float_t 
-			rotatedW = dotw * cos(srcprm->global.RotateXYCounterClockWise) + doth * sin(srcprm->global.RotateXYCounterClockWise),
-			rotatedH = doth * cos(srcprm->global.RotateXYCounterClockWise) - dotw * sin(srcprm->global.RotateXYCounterClockWise);
+			ae2f_struct ae2f_Mov2DotDefName(ae2f_float_t) 
+			rotatedS = dot; // rotated: scalar
 
-			if(rotatedW < 0) rotatedW = -rotatedW;
-			if(rotatedH < 0) rotatedH = -rotatedH;
+			ae2f_Mov2DotRotDefName(ae2f_float_t, int32_t)
+			(&rotatedS, 0, srcprm->global.RotateXYCounterClockWise);
+
+			if(rotatedS.x < 0) rotatedS.x = -rotatedS.x;
+			if(rotatedS.y < 0) rotatedS.y = -rotatedS.y; // normalisation
 
 			if(code != ae2f_errGlob_OK) {
 				return code;
@@ -430,26 +437,33 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 				el.b[3] = srcprm->global.Alpha;
 			}
 
-			ae2f_float_t 
-			_transx = (ae2f_float_t)_x - srcprm->global.Axis.x, 
-			_transy = (ae2f_float_t)_y - srcprm->global.Axis.y,
-			rotatedX = _transx * cos(srcprm->global.RotateXYCounterClockWise) + _transy * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.Axis.x,
-			rotatedY = _transy * cos(srcprm->global.RotateXYCounterClockWise) - _transx * sin(srcprm->global.RotateXYCounterClockWise) + srcprm->global.Axis.y;
 
-			for(int32_t i = 0; !i || i < rotatedW; i++) 
-			for(int32_t j = 0; !j || j < rotatedH; j++) {
+			// rotated as vector
+			ae2f_struct ae2f_Mov2DotDefName(uint32_t) rotated = {
+				.x = _x - srcprm->global.Axis.x,
+				.y = _y - srcprm->global.Axis.y
+			};
+
+			ae2f_Mov2DotRotDefName(uint32_t, ae2f_MovVec_t)(
+				&rotated, 
+				&srcprm->global.Axis, 
+				srcprm->global.RotateXYCounterClockWise
+			);
+
+			for(int32_t i = 0; !i || i < rotatedS.x; i++) 
+			for(int32_t j = 0; !j || j < rotatedS.y; j++) {
 				#pragma region single dot
-				uint32_t foridx = 
 				
+				uint32_t foridx = 
 				ae2f_BmpIdxDrive(
-					dest->rIdxer, (uint32_t)rotatedX + i + srcprm->global.AddrDest.x, (uint32_t)rotatedY + j + srcprm->global.AddrDest.y);
+					dest->rIdxer, rotated.x + i + srcprm->global.AddrDest.x, rotated.y + j + srcprm->global.AddrDest.y);
 				
 				if(foridx == -1) goto __breakloopforx;
 
 				int32_t k = 0;
 				for (
 					uint8_t* 
-					addr = dest->Addr + (dest->ElSize >> 3) * foridx;
+					addr = dest->Addr + (dest->ElSize >> 3) * foridx; 
 					k < (src->ElSize >> 3); 
 					k++
 					
@@ -476,5 +490,6 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 
 	__breakloopforx:;
 	}
+
 	return ae2f_errGlob_OK;
 }
