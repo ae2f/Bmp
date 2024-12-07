@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.14.6)
+project(Bmp VERSION 6.14.7)
 enable_testing()
 
 if(NOT TARGET ${PROJECT_NAME})
@@ -21,6 +21,8 @@ add_library(
     "include/ae2f/Bmp/BitCount.h"
     "include/ae2f/Bmp/Src.h"
     "src/Src.c"
+
+    "include/ae2f/Bmp/Src/Rect.h"
     "src/Src/Rect.c"
 )
 
