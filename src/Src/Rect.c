@@ -1,19 +1,10 @@
-#include <ae2f/Bmp/Src.h>
-#include <ae2f/Cmp.h>
-#include <ae2f/Bmp/Dot.h>
-#include <ae2f/BitVec.h>
-#include <ae2f/Bmp/Head.h>
-#include <ae2f/Call.h>
+#include <ae2f/Bmp/Src/Rect.h>
 #include <ae2f/Bmp/Blend.h>
-
 #include <math.h>
-#include <stdio.h>
 
-ae2f_cBmpSrcCpyPrmDef(1);
-
-typedef ae2f_struct ae2f_cBmpSrcCpyPrmDef_i1 ae2f_cBmpSrcCpyPrmDef_i1;
-
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
+ae2f_cBmpSrcRectCpyPrmDef(1);
+typedef ae2f_struct ae2f_cBmpSrcRectCpyPrmDef_i1 ae2f_cBmpSrcRectCpyPrmDef_i1;
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRectGDot(
 	const ae2f_struct ae2f_cBmpSrc* src,
 	uint32_t* retColour,
 	ae2f_float_t _min_x,
@@ -76,7 +67,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 	Corner.minx = (size_t)_min_x;
 	Corner.miny = (size_t)_min_y;
 
-	if(reverseIdx & ae2f_eBmpSrcCpyPrm_RVSE_I_X) {
+	if(reverseIdx & ae2f_eBmpSrcRectCpyPrm_RVSE_I_X) {
 		Corner.minx = xleft - Corner.minx;
 		Corner.maxx = xleft - Corner.maxx;
 
@@ -88,7 +79,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 		Corner.maxx ^= Corner.minx; 
 	}
 
-	if(reverseIdx & ae2f_eBmpSrcCpyPrm_RVSE_I_Y) {
+	if(reverseIdx & ae2f_eBmpSrcRectCpyPrm_RVSE_I_Y) {
 		Corner.miny = yleft - Corner.miny;
 		Corner.maxy = yleft - Corner.maxy;
 
@@ -158,73 +149,6 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcGDot(
 }
 
 
-#ifndef ae2f_cBmpSrcRef
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRef(
-	ae2f_struct ae2f_cBmpSrc* dest,
-	uint8_t* byte,
-	size_t byteLength
-) {
-	if (byteLength < sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI)) 
-		return ae2f_errBmpSrcRef_ARR_TOO_SHORT;
-
-	dest->ElSize = ((struct ae2f_rBmpHead*)byte)->rBI.biBitCount;
-	dest->rIdxer.Width = dest->rIdxer.IdxXJump = ((struct ae2f_rBmpHead*)byte)->rBI.biWidth;
-	dest->rIdxer.CurrX = 0;
-	dest->rIdxer.Count = ((struct ae2f_rBmpHead*)byte)->rBI.biWidth * ((struct ae2f_rBmpHead*)byte)->rBI.biHeight;
-
-	dest->Addr = byte + sizeof(struct ae2f_rBmpHeadBF) + sizeof(struct ae2f_rBmpHeadBI);
-	return ae2f_errGlob_OK;
-}
-#endif
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFill(
-	ae2f_struct ae2f_cBmpSrc* dest,
-	uint32_t colour
-) {
-	if(!(dest && dest->Addr))
-	return ae2f_errGlob_PTR_IS_NULL;
-
-	switch (dest->ElSize) {
-	case ae2f_eBmpBitCount_RGB:
-	case ae2f_eBmpBitCount_RGBA: break;
-	default: return ae2f_errGlob_IMP_NOT_FOUND;
-	}
-
-	for(size_t i = 0; i < ae2f_BmpIdxW(dest->rIdxer); i++)	
-	for(size_t j = 0; j < ae2f_BmpIdxH(dest->rIdxer); j++)
-	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-	dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVecGetRanged(colour, c, c+8);
-
-	return ae2f_errGlob_OK;
-}
-
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcFillPartial(
-	ae2f_struct ae2f_cBmpSrc* dest,
-	uint32_t colour,
-
-	uint32_t partial_min_x,
-	uint32_t partial_min_y,
-	uint32_t partial_max_x,
-	uint32_t partial_max_y
-) {
-	if(!(dest && dest->Addr))
-	return ae2f_errGlob_PTR_IS_NULL;
-
-	switch (dest->ElSize) {
-	case ae2f_eBmpBitCount_RGB:
-	case ae2f_eBmpBitCount_RGBA: break;
-	default: return ae2f_errGlob_IMP_NOT_FOUND;
-	}
-
-	uint32_t width = ae2f_BmpIdxW(dest->rIdxer), height = ae2f_BmpIdxH(dest->rIdxer);
-
-	for(size_t i = partial_min_x; i < width && i < partial_max_x; i++)	
-	for(size_t j = partial_min_y; j < height && j < partial_max_y; j++)
-	for(uint8_t c = 0; c < dest->ElSize; c+=8)
-		dest->Addr[(ae2f_BmpIdxDrive(dest->rIdxer, i, j)) * (dest->ElSize >> 3) + (c >> 3)] = ae2f_BitVecGetRanged(colour, c, c+8);
-
-	return ae2f_errGlob_OK;
-}
-
 #ifndef ae2f_Mov2DotDef_uint32_t
 #define ae2f_Mov2DotDef_uint32_t ae2f_Mov2DotDef_uint32_t
 ae2f_Mov2DotDef(uint32_t);
@@ -242,12 +166,12 @@ static ae2f_Mov2DotRotDef(ae2f_float_t, int32_t);
 #pragma region buffall
 
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRectCpy(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	const ae2f_struct ae2f_cBmpSrc* src,
-	const struct ae2f_cBmpSrcCpyPrm* _srcprm
+	const struct ae2f_cBmpSrcRectCpyPrm* _srcprm
 ) {
-#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
+#define srcprm ae2f_static_cast(const ae2f_cBmpSrcRectCpyPrmDef_i1*, _srcprm)
 	ae2f_err_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
@@ -280,7 +204,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 			uint32_t _x, _y;
 			_x = x; _y = y;
 
-			code = ae2f_cBmpSrcGDot(
+			code = ae2f_cBmpSrcRectGDot(
 				src, &el.a, 
 				dot.x * _x, 
 				dot.y * _y, 
@@ -367,16 +291,16 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpy(
 #pragma endregion
 
 
-ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
+ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcRectCpyPartial(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	const ae2f_struct ae2f_cBmpSrc* src,
-	const ae2f_struct ae2f_cBmpSrcCpyPrm* _srcprm,
+	const ae2f_struct ae2f_cBmpSrcRectCpyPrm* _srcprm,
 	uint32_t partial_min_x,
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
 	uint32_t partial_max_y
 ) {
-#define srcprm ae2f_static_cast(const ae2f_cBmpSrcCpyPrmDef_i1*, _srcprm)
+#define srcprm ae2f_static_cast(const ae2f_cBmpSrcRectCpyPrmDef_i1*, _srcprm)
 	ae2f_err_t code;
 
 	if (!(src && dest && srcprm && src->Addr && dest->Addr)) {
@@ -409,7 +333,7 @@ ae2f_SHAREDEXPORT ae2f_err_t ae2f_cBmpSrcCpyPartial(
 			uint32_t _x, _y;
 			_x = x; _y = y;
 
-			code = ae2f_cBmpSrcGDot(
+			code = ae2f_cBmpSrcRectGDot(
 				src, &el.a, 
 				dot.x * _x, 
 				dot.y * _y, 

@@ -1,5 +1,6 @@
 
 #include <ae2f/Bmp/Src.h>
+#include <ae2f/Bmp/Src/Rect.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -70,7 +71,7 @@ int test0x0() {
 #pragma region Source Parameter Build
 
 
-    struct ae2f_cBmpSrcCpyPrm Parameter = {
+    struct ae2f_cBmpSrcRectCpyPrm Parameter = {
         .AddrDest = {
             .x = 0,
             .y = 0
@@ -85,7 +86,7 @@ int test0x0() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcRectCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -168,7 +169,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region Source Parameter Build
-    struct ae2f_cBmpSrcCpyPrm Parameter = {
+    struct ae2f_cBmpSrcRectCpyPrm Parameter = {
         .AddrDest = {
             .x = 0,
             .y = 0
@@ -183,7 +184,7 @@ int test0x1() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_cBmpSrcCpyPartial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcRectCpyPartial(&b, &a, &Parameter, 3, 4, 6, 5)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -261,7 +262,7 @@ int test0x2() {
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_cBmpSrcCpyPrm Parameter = {
+    struct ae2f_cBmpSrcRectCpyPrm Parameter = {
         .AddrDest = {
             .x = 0,
             .y = 0
@@ -276,7 +277,7 @@ int test0x2() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcRectCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
@@ -353,7 +354,7 @@ int test0x3() {
 #endif
 
 #pragma region Source Parameter Build
-    struct ae2f_cBmpSrcCpyPrm Parameter = {
+    struct ae2f_cBmpSrcRectCpyPrm Parameter = {
         .AddrDest = {
             .x = 0,
             .y = 0
@@ -368,7 +369,7 @@ int test0x3() {
 #pragma endregion
 
 #pragma region copying 'a' to 'b'
-    if((code = ae2f_cBmpSrcCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
+    if((code = ae2f_cBmpSrcRectCpy(&b, &a, &Parameter)) != ae2f_errGlob_OK) {
         goto __KILL_ALL;
     }
 #pragma endregion
