@@ -6,7 +6,8 @@
 #include <ae2f/Float.h>
 #include "./BitCount.h"
 #include <ae2f/Pack/Beg.h>
-
+#include <ae2f/mov2/Scalar.h>
+#include <ae2f/mov2/Vec.h>
 
 /// @brief 
 /// A global parameter for @ref ae2f_cBmpSrcCpy.
@@ -18,28 +19,25 @@ struct ae2f_cBmpSrcCpyPrm {
 		/// @brief
 		/// For reversed copy.
 		ReverseIdx;
-	uint32_t 
-		/// @brief want to resize?
-		WidthAsResized, 
-		/// @brief want to resize?
-		HeightAsResized, 	
-		/// @brief where to copy [X]
-		AddrXForDest, 		
-		/// @brief where to copy [Y]
-		AddrYForDest, 		
+
+
+	ae2f_Mov2Scalar_t 
+		/// @brief Resizers
+		Resz, 
+		/// @brief Address for destination
+		AddrDest;
+
+	uint32_t  
+		/// @brief Data to ignore
 		DataToIgnore;
 
 	
 	/// @brief Rotation in a unit of radian
 	ae2f_float_t RotateXYCounterClockWise;
 
-	int32_t 
-		/// @brief
-		/// The position of rotation Axis [X]
-		AxisX, 
-		/// @brief
-		/// The position of rotation Axis [Y]
-		AxisY;
+	/// @brief
+	/// The position of rotation Axis
+	ae2f_Mov2Vec_t Axis;
 };
 
 /// @brief
@@ -55,13 +53,6 @@ struct ae2f_cBmpSrcCpyPrm {
 /// @param len Length of the colour index.
 /// @see ae2f_cBmpSrcCpyPrm
 #define ae2f_cBmpSrcCpyPrmDef(len) struct ae2f_cBmpSrcCpyPrmDef_i##len { ae2f_struct ae2f_cBmpSrcCpyPrm global; uint32_t ColourIdx[len]; }
-
-#ifndef ae2f_ptrBmpSrcUInt8
-/// @brief
-/// Pointer type of 8-bit integer type suggested. \n
-/// Default will be [uint8_t*].
-#define ae2f_ptrBmpSrcUInt8 uint8_t*
-#endif
 
 /// @brief 
 /// Represents the source of the bitmap. \n 
@@ -79,7 +70,7 @@ struct ae2f_cBmpSrc {
 
 	/// @brief
 	/// Real element[pixel] vector [Global]
-	ae2f_ptrBmpSrcUInt8 Addr;
+	uint8_t* Addr;
 };
 
 /// @brief 
@@ -220,7 +211,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcCpyPartial(
 /// @return 
 ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_struct ae2f_cBmpSrc* dest,
-	ae2f_ptrBmpSrcUInt8 byte,
+	uint8_t* byte,
 	size_t byteLength
 );
 #endif

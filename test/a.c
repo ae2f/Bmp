@@ -68,13 +68,19 @@ int test0x0() {
 #pragma endregion
 
 #pragma region Source Parameter Build
+
+
     struct ae2f_cBmpSrcCpyPrm Parameter = {
-        .AddrXForDest = 0,
-        .AddrYForDest = 0,
+        .AddrDest = {
+            .x = 0,
+            .y = 0
+        },
         .Alpha = 0,
         .DataToIgnore = 0,
-        .HeightAsResized = ay,
-        .WidthAsResized = ax
+        .Resz = {
+            .x = ax,
+            .y = ay
+        }
     };
 #pragma endregion
 
@@ -163,12 +169,16 @@ int test0x1() {
 
 #pragma region Source Parameter Build
     struct ae2f_cBmpSrcCpyPrm Parameter = {
-        .AddrXForDest = 0,
-        .AddrYForDest = 0,
+        .AddrDest = {
+            .x = 0,
+            .y = 0
+        },
         .Alpha = 0,
         .DataToIgnore = 0,
-        .HeightAsResized = ay,
-        .WidthAsResized = ax
+        .Resz = {
+            .x = ax,
+            .y = ay
+        }
     };
 #pragma endregion
 
@@ -252,12 +262,16 @@ int test0x2() {
 
 #pragma region Source Parameter Build
     struct ae2f_cBmpSrcCpyPrm Parameter = {
-        .AddrXForDest = 0,
-        .AddrYForDest = 0,
+        .AddrDest = {
+            .x = 0,
+            .y = 0
+        },
         .Alpha = 255,
         .DataToIgnore = 0,
-        .HeightAsResized = ay,
-        .WidthAsResized = ax
+        .Resz = {
+            .x = ax,
+            .y = ay
+        }
     };
 #pragma endregion
 
@@ -340,12 +354,16 @@ int test0x3() {
 
 #pragma region Source Parameter Build
     struct ae2f_cBmpSrcCpyPrm Parameter = {
-        .AddrXForDest = 0,
-        .AddrYForDest = 0,
+        .AddrDest = {
+            .x = 0,
+            .y = 0
+        },
         .Alpha = 255,
         .DataToIgnore = 0,
-        .HeightAsResized = ay,
-        .WidthAsResized = ax
+        .Resz = {
+            .x = ax,
+            .y = ay 
+        }
     };
 #pragma endregion
 
