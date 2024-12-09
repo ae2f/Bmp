@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.15.11)
+project(Bmp VERSION 6.16.11)
 enable_testing()
 add_subdirectory(mod/ae2f/mov2)
 
@@ -25,6 +25,8 @@ ae2f_CoreLibProjTent(
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC mov2)
+
+ae2f_CoreTestTent(${PROJECT_NAME} test)
 
 if(LINUX)
     find_library(M_LIB m)
