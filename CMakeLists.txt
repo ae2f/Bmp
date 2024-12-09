@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.15.8)
+project(Bmp VERSION 6.15.9)
 enable_testing()
 add_subdirectory(mod/ae2f/mov2)
 
