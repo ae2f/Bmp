@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.16.12)
+project(Bmp VERSION 6.16.13)
 enable_testing()
 add_subdirectory(mod/ae2f/mov2)
 
 if(NOT TARGET ${PROJECT_NAME})
 
 set(ae2f_LIBPREFIX "" CACHE STRING "")
-ae2f_CoreLibProjTent(
+ae2f_CoreLibTent(
     ${PROJECT_NAME}
     ${ae2f_LIBPREFIX}
     include ae2f
