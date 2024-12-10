@@ -1,5 +1,5 @@
 # [ae2f::Bmp](https://github.com/ae2f/Bmp)
-- Rel-v6.16.13
+- Rel-v6.16.14
 
 > Following rendering code here just writes the buffer with single thread.  
 > Using the function directly is not recommended.

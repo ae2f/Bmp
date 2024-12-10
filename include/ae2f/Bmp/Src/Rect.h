@@ -67,7 +67,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRectCpy(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	const ae2f_struct ae2f_cBmpSrc* src,
 	const ae2f_struct ae2f_cBmpSrcRectCpyPrm* srcprm
-);
+) noexcept;
 
 /// @brief 
 /// Copies the data of [src] to [dest]. \n
@@ -91,7 +91,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRectCpyPartial(
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
 	uint32_t partial_max_y
-);
+) noexcept;
 
 
 #endif 

@@ -67,6 +67,6 @@ struct ae2f_rBmpIdx {
 /// @brief
 /// Makes a new structure with original indexer.
 /// @see ae2f_rBmpIdx
-#define ae2f_BmpIdxCut(rIdxer, mX, MX, mY, MY) (((ae2f_BmpIdxDrive(rIdxer, mX, mY) == -1 || ae2f_BmpIdxDrive(rIdxer, MX, MY)) == -1) ? ae2f_record_make(ae2f_struct ae2f_rBmpIdx, 0, 0, 0, 0) : ae2f_record_make(ae2f_struct ae2f_rBmpIdx, (rIdxer).Width, ae2f_BmpIdxDrive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))
+#define ae2f_BmpIdxCut(rIdxer, mX, MX, mY, MY) (((ae2f_BmpIdxDrive(rIdxer, mX, mY) == -1 || ae2f_BmpIdxDrive(rIdxer, MX, MY)) == -1) ? ae2f_RecordMk(ae2f_struct ae2f_rBmpIdx, 0, 0, 0, 0) : ae2f_RecordMk(ae2f_struct ae2f_rBmpIdx, (rIdxer).Width, ae2f_BmpIdxDrive(rIdxer, MX, MY), (rIdxer).CurrX + mX, (rIdxer).CurrX + MX))
 
 #endif

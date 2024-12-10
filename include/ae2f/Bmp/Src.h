@@ -43,7 +43,7 @@ struct ae2f_cBmpSrc {
 ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcFill(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	uint32_t colour
-);
+) noexcept;
 
 /// @brief 
 /// Fills the colour for whole range in [dest].
@@ -71,7 +71,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcFillPartial(
 	uint32_t partial_min_y,
 	uint32_t partial_max_x,
 	uint32_t partial_max_y
-);
+) noexcept;
 
 /// @brief 
 /// Gets the 3-channel or 4-channel value for given rect.
@@ -104,7 +104,7 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRectGDot(
 	ae2f_float_t _max_y,
 
 	uint8_t reverseIdx
-);
+) noexcept;
 
 /// @brief 
 /// `byte` is not long enough to parse.
@@ -124,12 +124,12 @@ ae2f_extern ae2f_SHAREDCALL ae2f_err_t ae2f_cBmpSrcRef(
 	ae2f_struct ae2f_cBmpSrc* dest,
 	uint8_t* byte,
 	size_t byteLength
-);
+) noexcept;
 #endif
 
 /// @warning
 /// Certain Macro is not certified.
-#define ae2f_cBmpSrcCut(cSrc, mX, MX, mY, MY) ae2f_record_make(ae2f_struct ae2f_cBmpSrc, ae2f_BmpIdxCut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_BmpIdxDrive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
+#define ae2f_cBmpSrcCut(cSrc, mX, MX, mY, MY) ae2f_RecordMk(ae2f_struct ae2f_cBmpSrc, ae2f_BmpIdxCut((cSrc).rIdxer, mX, MX, mY, MX), (cSrc).ElSize, (cSrc).Addr + ae2f_BmpIdxDrive((cSrc).rIdxer, mX, mY) * (cSrc).ElSize)
 
 #include <ae2f/Pack/End.h>
 
