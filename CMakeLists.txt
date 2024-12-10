@@ -5,12 +5,11 @@ add_subdirectory(mod/ae2f/mov2)
 
 if(NOT TARGET ${PROJECT_NAME})
 
-
 set(ae2f_LIBPREFIX "" CACHE STRING "")
 ae2f_CoreLibProjTent(
     ${PROJECT_NAME}
     ${ae2f_LIBPREFIX}
-    include
+    include ae2f
 
     "include/ae2f/Bmp/Dot.h"
     "include/ae2f/Bmp/Head.h"
