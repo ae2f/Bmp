@@ -4,10 +4,13 @@
 > Following rendering code here just writes the buffer with single thread.  
 > Using the function directly is not recommended.
 
+# See Also
+- ae2f::Core-Template
+- ae2f::Core
+- ae2f::mov
+- ae2f::mov2
+
 # Dependency
 - gcc
 - cmake
 - make
-- ae2f::Core
-- ae2f::mov
-- ae2f::mov2
