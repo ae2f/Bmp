@@ -2,6 +2,3 @@
 	path = submodules/Core
 	url = https://github.com/yuisanae2f/ae2f_Core
 	
-[submodule "mod/ae2f/mov2"]
-	path = mod/ae2f/mov2
-	url = https://github.com/ae2f/mov2
