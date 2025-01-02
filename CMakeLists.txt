@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.16.15)
+project(Bmp VERSION 6.16.16)
 enable_testing()
-add_subdirectory(mod/ae2f/mov2)
+include(cmake/Core.cmake)
 
 if(NOT TARGET ${PROJECT_NAME})
+ae2f_CoreLibFetch(ae2f mov2 Rel-v1.2.8)
 
 set(ae2f_LIBPREFIX "" CACHE STRING "")
 ae2f_CoreLibTent(
@@ -31,5 +32,4 @@ if(LINUX)
     find_library(M_LIB m)
     target_link_libraries(${PROJECT_NAME} PUBLIC ${M_LIB}) # library 'math'
 endif()
-
 endif()
