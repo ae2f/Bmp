@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
-project(Bmp VERSION 6.17.16)
+project(Bmp VERSION 6.18.16)
 enable_testing()
 include(cmake/Core.cmake)
 
 if(NOT TARGET ${PROJECT_NAME})
-ae2f_CoreLibFetch(ae2f mov2 Rel-v1.3.9)
+ae2f_CoreLibFetch(ae2f mov2 Rel-v1.4.9)
 
 set(ae2f_LIBPREFIX "" CACHE STRING "")
 ae2f_CoreLibTent(
